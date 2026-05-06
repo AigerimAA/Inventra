@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/db/" />
+  <Folder Name="/db/scripts/">
+    <File Path="fulltext.sql" />
+  </Folder>
   <Folder Name="/Элементы решения/">
     <File Path="Dockerfile" />
     <File Path="Procfile" />
