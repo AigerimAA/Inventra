@@ -20,7 +20,10 @@ namespace Inventra.Infrastructure
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
-                    o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
+                    sqlOptions => sqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null)));
 
             services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
