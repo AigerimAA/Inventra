@@ -15,7 +15,7 @@
             <div class="container-fluid">
 
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo.svg" alt="Inventra" height="36" />
+                    <img src="~/images/logo.svg" alt="Inventra" height="44" style="margin-left:20px; margin-top:4px;" />
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -103,8 +103,22 @@
                         </li>
 
                         <li class="nav-item">
-                            <button class="btn btn-outline-secondary btn-sm" id="themeToggle">
-                                🌙
+                            <button class="btn btn-sm" id="themeToggle"
+                                    style="border:1.5px solid #0097a7; color:#0097a7; background:transparent; padding:4px 8px; border-radius:6px;">
+                                <svg id="iconMoon" width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="#0097a7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                                </svg>
+                                <svg id="iconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0097a7" stroke-width="2.5" stroke-linecap="round" style="display:none;">
+                                    <circle cx="12" cy="12" r="4" fill="white" />
+                                    <line x1="12" y1="2" x2="12" y2="5" />
+                                    <line x1="12" y1="19" x2="12" y2="22" />
+                                    <line x1="4.93" y1="4.93" x2="7.05" y2="7.05" />
+                                    <line x1="16.95" y1="16.95" x2="19.07" y2="19.07" />
+                                    <line x1="2" y1="12" x2="5" y2="12" />
+                                    <line x1="19" y1="12" x2="22" y2="12" />
+                                    <line x1="4.93" y1="19.07" x2="7.05" y2="16.95" />
+                                    <line x1="16.95" y1="7.05" x2="19.07" y2="4.93" />
+                                </svg>
                             </button>
                         </li>
 
@@ -132,17 +146,21 @@
 
     <script>
             const themeToggle = document.getElementById('themeToggle');
+            const iconMoon = document.getElementById('iconMoon');
+            const iconSun = document.getElementById('iconSun');
             const html = document.documentElement;
             const savedTheme = localStorage.getItem('theme') || 'light';
             html.setAttribute('data-bs-theme', savedTheme);
-            themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            iconMoon.style.display = savedTheme === 'dark' ? 'none' : 'inline';
+            iconSun.style.display = savedTheme === 'dark' ? 'inline' : 'none';
 
             themeToggle.addEventListener('click', () => {
                 const current = html.getAttribute('data-bs-theme');
                 const next = current === 'dark' ? 'light' : 'dark';
                 html.setAttribute('data-bs-theme', next);
                 localStorage.setItem('theme', next);
-                themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+                iconMoon.style.display = next === 'dark' ? 'none' : 'inline';
+                iconSun.style.display = next === 'dark' ? 'inline' : 'none';
             });
     </script>
 
