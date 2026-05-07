@@ -103,3 +103,7 @@ a:hover {
     background-color: #0097a7 !important;
     border-color: #0097a7 !important;
 }
+
+.btn-oauth:hover {
+    background-color: rgba(0,151,167,0.08) !important;
+}
