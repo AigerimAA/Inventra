@@ -5,32 +5,56 @@
     ViewData["Title"] = "Home";
 }
 
-<div style="background:#0097a7; padding: 60px 48px; margin: -16px -12px 0;">
-    <div style="max-width: 700px;">
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
-            <img src="~/images/logo.svg" alt="Inventra" height="44" />
-        </div>
-        <h1 style="color:white; font-size:2.2rem; font-weight:500; margin:0 0 14px;">
-            @L["Tagline"]
-        </h1>
+<div style="background:#0097a7; padding:70px 48px; margin:-16px -12px 0; text-align:center;">
+    <div style="max-width:700px; margin:0 auto;">
+        <img src="~/images/logo-white.svg" alt="Inventra" height="48" style="margin-bottom:24px;" />
+        <h1 id="heroText" style="color:white; font-size:2rem; font-weight:500; margin:0 0 20px; min-height:3em;"></h1>
         @if (!User.Identity?.IsAuthenticated ?? true)
         {
             <a asp-controller="Account" asp-action="Register"
-                   style="display:inline-block; background:white; color:#0097a7; padding:12px 28px; border-radius:8px; font-weight:500; text-decoration:none; font-size:15px;">
+                   class="hero-btn"
+                   style="display:inline-block; background:white; color:#0097a7; padding:12px 32px; border-radius:8px; font-weight:500; text-decoration:none; font-size:15px; transition:all 0.2s;">
                 @L["GetStarted"]
             </a>
         }
         else
         {
             <a asp-controller="Inventory" asp-action="Create"
-                   style="display:inline-block; background:white; color:#0097a7; padding:12px 28px; border-radius:8px; font-weight:500; text-decoration:none; font-size:15px;">
+                   class="hero-btn"
+                   style="display:inline-block; background:white; color:#0097a7; padding:12px 32px; border-radius:8px; font-weight:500; text-decoration:none; font-size:15px; transition:all 0.2s;">
                 @L["NewInventory"]
             </a>
         }
     </div>
 </div>
 
-<div class="row mt-4">
+<style>
+    .hero-btn {
+        background: white !important;
+    }
+    .hero-btn:hover {
+        background: white !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        opacity: 0.95;
+    }
+</style>
+
+<span id="heroTagline" style="display:none;">@L["Tagline"]</span>
+
+<script>
+    const heroText = document.getElementById('heroTagline').textContent;
+    let i = 0;
+    const el = document.getElementById('heroText');
+    function type() {
+        if (i < heroText.length) {
+            el.textContent += heroText[i];
+            i++;
+            setTimeout(type, 50);
+        }
+    }
+    type();
+</script>
 
 
 <div class="row mt-4">
