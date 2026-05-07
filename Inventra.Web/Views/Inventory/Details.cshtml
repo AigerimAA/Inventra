@@ -55,6 +55,9 @@
 .inv-table tbody td { padding: 12px 16px; font-size: 14px; }
 .inv-badge { display: inline-block; background: rgba(0,151,167,0.12); color: #0097a7; font-size: 12px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
 .inv-count { font-weight: 500; color: #0097a7; }
+.inv-table { table-layout: fixed; width: 100%; }
+.inv-table th, .inv-table td { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
 </style>
 
 <div class="tab-content">
@@ -74,6 +77,20 @@
         </div>
         <div class="table-responsive">
             <table class="inv-table">
+                <colgroup>
+                    <col style="width: 140px;" />
+                    @if (Model.CustomString1Name != null) { <col style="width: 120px;" /> }
+                    @if (Model.CustomString2Name != null) { <col style="width: 120px;" /> }
+                    @if (Model.CustomString3Name != null) { <col style="width: 120px;" /> }
+                    @if (Model.CustomInt1Name != null) { <col style="width: 100px;" /> }
+                    @if (Model.CustomInt2Name != null) { <col style="width: 100px;" /> }
+                    @if (Model.CustomInt3Name != null) { <col style="width: 100px;" /> }
+                    @if (Model.CustomText1Name != null) { <col style="width: 150px;" /> }
+                    @if (Model.CustomBool1Name != null) { <col style="width: 80px;" /> }
+                    @if (Model.CustomLink1Name != null) { <col style="width: 80px;" /> }
+                    <col style="width: 120px;" />
+                    <col style="width: 70px;" />
+                </colgroup>
                 <thead>
                     <tr>
                         <th>Custom ID</th>
@@ -149,7 +166,7 @@
         </div>
     </div>
 </div>
-    </div>
+
 
     <div class="tab-pane fade" id="discussion">
         <div id="chatMessages"
@@ -180,111 +197,115 @@
     </div>
 
     <div class="tab-pane fade" id="settings">
-        <div class="row">
-            <div class="col-md-6">
-                <table class="table table-borderless">
-                    <tr>
-                        <th width="150">@L["Category"]</th>
-                        <td>@Model.CategoryName</td>
-                    </tr>
-                    <tr>
-                        <th>@L["Creator"]</th>
-                        <td>@Model.OwnerName</td>
-                    </tr>
-                    <tr>
-                        <th>@L["Description"]</th>
-                        <td>@Model.Description</td>
-                    </tr>
-                    <tr>
-                        <th>@L["Access"]</th>
-                        <td>@(Model.IsPublic ? "Public" : "Private")</td>
-                    </tr>
-                    <tr>
-                        <th>@L["Tags"]</th>
-                        <td>
-                            @foreach (var tag in Model.Tags)
-                            {
-                                <span class="badge bg-secondary me-1">@tag</span>
-                            }
-                        </td>
-                    </tr>
+    <div class="inv-card" style="max-width:500px; margin-top:8px;">
+        <div class="inv-card-header">
+            <span>@L["Settings"]</span>
+        </div>
+        <table class="inv-table">
+            <tbody>
+                <tr>
+                    <td style="width:140px; color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Category"]</td>
+                    <td style="font-weight:500;">@Model.CategoryName</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Creator"]</td>
+                    <td style="font-weight:500;">@Model.OwnerName</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Description"]</td>
+                    <td>@Model.Description</td>
+                </tr>
+                <tr>
+                    <td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Access"]</td>
+                    <td><span class="inv-badge">@(Model.IsPublic ? "Public" : "Private")</span></td>
+                </tr>
+                <tr>
+                    <td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Tags"]</td>
+                    <td>
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <span class="inv-badge me-1">@tag</span>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="tab-pane fade" id="stats">
+    @{
+        var stats = ViewBag.Stats as Inventra.Application.DTOs.InventoryStatsDto;
+        var inv = Model;
+    }
+    <div class="mt-2 mb-4">
+        <span class="fw-semibold">@L["TotalItems"]:</span>
+        <span class="ms-2 fs-5 text-primary fw-bold">@stats?.TotalItems</span>
+    </div>
+
+    @if (stats?.TotalItems > 0)
+    {
+        @if (inv.CustomInt1Name != null && stats.Int1Avg.HasValue)
+        {
+            <div class="mt-4">
+                <h5>@inv.CustomInt1Name</h5>
+                <table class="table table-sm table-bordered w-auto">
+                    <tr><th>@L["Average"]</th><td>@stats.Int1Avg?.ToString("N2")</td></tr>
+                    <tr><th>@L["Min"]</th><td>@stats.Int1Min?.ToString("N2")</td></tr>
+                    <tr><th>@L["Max"]</th><td>@stats.Int1Max?.ToString("N2")</td></tr>
                 </table>
             </div>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="stats">
-        @{
-            var stats = ViewBag.Stats as Inventra.Application.DTOs.InventoryStatsDto;
-            var inv = Model;
         }
-        <div class="mt-2 mb-4">
-            <span class="fw-semibold">@L["TotalItems"]:</span>
-            <span class="ms-2 fs-5 text-primary fw-bold">@stats?.TotalItems</span>
-        </div>
-
-        @if (stats?.TotalItems > 0)
+        @if (inv.CustomInt2Name != null && stats.Int2Avg.HasValue)
         {
-            @if (inv.CustomInt1Name != null && stats.Int1Avg.HasValue)
-            {
-                <div class="mt-4">
-                    <h5>@inv.CustomInt1Name</h5>
-                    <table class="table table-sm table-bordered w-auto">
-                        <tr><th>@L["Average"]</th><td>@stats.Int1Avg?.ToString("N2")</td></tr>
-                        <tr><th>@L["Min"]</th><td>@stats.Int1Min?.ToString("N2")</td></tr>
-                        <tr><th>@L["Max"]</th><td>@stats.Int1Max?.ToString("N2")</td></tr>
-                    </table>
-                </div>
-            }
-            @if (inv.CustomInt2Name != null && stats.Int2Avg.HasValue)
-            {
-                <div class="mt-4">
-                    <h5>@inv.CustomInt2Name</h5>
-                    <table class="table table-sm table-bordered w-auto">
-                        <tr><th>@L["Average"]</th><td>@stats.Int2Avg?.ToString("N2")</td></tr>
-                        <tr><th>@L["Min"]</th><td>@stats.Int2Min?.ToString("N2")</td></tr>
-                        <tr><th>@L["Max"]</th><td>@stats.Int2Max?.ToString("N2")</td></tr>
-                    </table>
-                </div>
-            }
-            @if (inv.CustomInt3Name != null && stats.Int3Avg.HasValue)
-            {
-                <div class="mt-4">
-                    <h5>@inv.CustomInt3Name</h5>
-                    <table class="table table-sm table-bordered w-auto">
-                        <tr><th>@L["Average"]</th><td>@stats.Int3Avg?.ToString("N2")</td></tr>
-                        <tr><th>@L["Min"]</th><td>@stats.Int3Min?.ToString("N2")</td></tr>
-                        <tr><th>@L["Max"]</th><td>@stats.Int3Max?.ToString("N2")</td></tr>
-                    </table>
-                </div>
-            }
-            @if (inv.CustomString1Name != null && stats.String1TopValue != null)
-            {
-                <div class="mt-4">
-                    <h5>@inv.CustomString1Name — @L["MostFrequent"]</h5>
-                    <p><span class="badge bg-primary">@stats.String1TopValue</span> — @stats.String1TopCount times</p>
-                </div>
-            }
-            @if (inv.CustomString2Name != null && stats.String2TopValue != null)
-            {
-                <div class="mt-4">
-                    <h5>@inv.CustomString2Name — @L["MostFrequent"]</h5>
-                    <p><span class="badge bg-primary">@stats.String2TopValue</span> — @stats.String2TopCount times</p>
-                </div>
-            }
-            @if (inv.CustomString3Name != null && stats.String3TopValue != null)
-            {
-                <div class="mt-4">
-                    <h5>@inv.CustomString3Name — @L["MostFrequent"]</h5> 
-                    <p><span class="badge bg-primary">@stats.String3TopValue</span> — @stats.String3TopCount times</p>
-                </div>
-            }
+            <div class="mt-4">
+                <h5>@inv.CustomInt2Name</h5>
+                <table class="table table-sm table-bordered w-auto">
+                    <tr><th>@L["Average"]</th><td>@stats.Int2Avg?.ToString("N2")</td></tr>
+                    <tr><th>@L["Min"]</th><td>@stats.Int2Min?.ToString("N2")</td></tr>
+                    <tr><th>@L["Max"]</th><td>@stats.Int2Max?.ToString("N2")</td></tr>
+                </table>
+            </div>
         }
-        else
+        @if (inv.CustomInt3Name != null && stats.Int3Avg.HasValue)
         {
-            <div class="alert alert-info mt-3">@L["NoItemsYet"]</div>
+            <div class="mt-4">
+                <h5>@inv.CustomInt3Name</h5>
+                <table class="table table-sm table-bordered w-auto">
+                    <tr><th>@L["Average"]</th><td>@stats.Int3Avg?.ToString("N2")</td></tr>
+                    <tr><th>@L["Min"]</th><td>@stats.Int3Min?.ToString("N2")</td></tr>
+                    <tr><th>@L["Max"]</th><td>@stats.Int3Max?.ToString("N2")</td></tr>
+                </table>
+            </div>
         }
+        @if (inv.CustomString1Name != null && stats.String1TopValue != null)
+        {
+            <div class="mt-4">
+                <h5>@inv.CustomString1Name — @L["MostFrequent"]</h5>
+                <p><span class="badge bg-primary">@stats.String1TopValue</span> — @stats.String1TopCount times</p>
+            </div>
+        }
+        @if (inv.CustomString2Name != null && stats.String2TopValue != null)
+        {
+            <div class="mt-4">
+                <h5>@inv.CustomString2Name — @L["MostFrequent"]</h5>
+                <p><span class="badge bg-primary">@stats.String2TopValue</span> — @stats.String2TopCount times</p>
+            </div>
+        }
+        @if (inv.CustomString3Name != null && stats.String3TopValue != null)
+        {
+            <div class="mt-4">
+                <h5>@inv.CustomString3Name — @L["MostFrequent"]</h5> 
+                <p><span class="badge bg-primary">@stats.String3TopValue</span> — @stats.String3TopCount times</p>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info mt-3">@L["NoItemsYet"]</div>
+    }
     </div>
-
 </div>
 
 @section Scripts {
