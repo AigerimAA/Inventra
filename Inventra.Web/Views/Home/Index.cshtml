@@ -5,21 +5,33 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="px-4 py-5 text-center">
-    <h1 class="display-5 fw-bold">📦 Inventra</h1>
-    <p class="lead mb-4">@L["Tagline"]</p>
-    @if (!User.Identity?.IsAuthenticated ?? true)
-    {
-        <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-lg me-2">@L["GetStarted"]</a>
-        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary btn-lg">@L["Login"]</a>
-    }
-    else
-    {
-        <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary btn-lg">@L["NewInventory"]</a>
-    }
+<div style="background:#0097a7; padding: 60px 48px; margin: -16px -12px 0;">
+    <div style="max-width: 700px;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+            <img src="~/images/logo.svg" alt="Inventra" height="44" />
+        </div>
+        <h1 style="color:white; font-size:2.2rem; font-weight:500; margin:0 0 14px;">
+            @L["Tagline"]
+        </h1>
+        @if (!User.Identity?.IsAuthenticated ?? true)
+        {
+            <a asp-controller="Account" asp-action="Register"
+                   style="display:inline-block; background:white; color:#0097a7; padding:12px 28px; border-radius:8px; font-weight:500; text-decoration:none; font-size:15px;">
+                @L["GetStarted"]
+            </a>
+        }
+        else
+        {
+            <a asp-controller="Inventory" asp-action="Create"
+                   style="display:inline-block; background:white; color:#0097a7; padding:12px 28px; border-radius:8px; font-weight:500; text-decoration:none; font-size:15px;">
+                @L["NewInventory"]
+            </a>
+        }
+    </div>
 </div>
 
-<hr />
+<div class="row mt-4">
+
 
 <div class="row mt-4">
     <div class="col-md-8">
