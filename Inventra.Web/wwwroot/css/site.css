@@ -35,17 +35,71 @@ body {
     border-color: #0097a7 !important;
 }
 
-    .btn-outline-primary:hover {
-        background-color: #0097a7 !important;
-        color: white !important;
-    }
+.btn-outline-primary:hover {
+    background-color: #0097a7 !important;
+    color: white !important;
+}
 
 #themeToggle {
     color: #0097a7 !important;
     border-color: #0097a7 !important;
 }
 
-    #themeToggle:hover {
-        background-color: #0097a7 !important;
-        color: white !important;
-    }
+#themeToggle:hover {
+    background-color: #0097a7 !important;
+    color: white !important;
+}
+
+.btn-primary {
+    background-color: #0097a7 !important;
+    border-color: #0097a7 !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #00838f !important;
+    border-color: #00838f !important;
+}
+
+.btn-outline-primary {
+    color: #0097a7 !important;
+    border-color: #0097a7 !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0097a7 !important;
+    color: white !important;
+}
+
+a {
+    color: #0097a7;
+}
+
+a:hover {
+    color: #00838f;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0097a7 !important;
+    border-bottom-color: #0097a7 !important;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link:hover {
+    color: #0097a7 !important;
+}
+
+.badge.bg-primary {
+    background-color: #0097a7 !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #0097a7 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0,151,167,0.25) !important;
+}
+
+.form-check-input:checked {
+    background-color: #0097a7 !important;
+    border-color: #0097a7 !important;
+}
