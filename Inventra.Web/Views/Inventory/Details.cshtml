@@ -6,7 +6,10 @@
 }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>@Model.Title</h2>
+    <div>
+        <h2 class="mb-1">@Model.Title</h2>
+        <span class="inv-badge">@Model.CategoryName</span>
+    </div>
     @if (User.Identity?.IsAuthenticated == true &&
          (Model.OwnerId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
           || User.IsInRole("Admin")))
@@ -39,60 +42,50 @@
     </li>
 </ul>
 
+<style>
+.inv-card { border-radius: 12px; overflow: hidden; border: 0.5px solid var(--bs-border-color); margin-bottom: 16px; }
+.inv-card-header { background: #0097a7; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
+.inv-card-header span { color: white; font-size: 15px; font-weight: 500; }
+.inv-table { width: 100%; border-collapse: collapse; }
+.inv-table thead tr { border-bottom: 0.5px solid var(--bs-border-color); }
+.inv-table thead th { padding: 10px 16px; font-size: 12px; font-weight: 500; color: var(--bs-secondary-color); text-transform: uppercase; letter-spacing: 0.05em; }
+.inv-table tbody tr { border-bottom: 0.5px solid var(--bs-border-color); transition: background 0.15s; cursor: pointer; }
+.inv-table tbody tr:hover { background: rgba(0,151,167,0.06); }
+.inv-table tbody tr:last-child { border-bottom: none; }
+.inv-table tbody td { padding: 12px 16px; font-size: 14px; }
+.inv-badge { display: inline-block; background: rgba(0,151,167,0.12); color: #0097a7; font-size: 12px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+.inv-count { font-weight: 500; color: #0097a7; }
+</style>
+
 <div class="tab-content">
-
     <div class="tab-pane fade show active" id="items">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5>@L["Items"] (@((ViewBag.Items as IEnumerable<ItemDto>)?.Count() ?? 0))</h5>
-            @if (User.Identity?.IsAuthenticated == true)
-            {
-                <a asp-controller="Item" asp-action="Create"
-                   asp-route-inventoryId="@Model.Id"
-                   class="btn btn-primary btn-sm">+ Add Item</a>
-            }
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="d-flex justify-content-end mb-2">
+            <a asp-controller="Item" asp-action="Create"
+               asp-route-inventoryId="@Model.Id"
+               class="btn btn-primary btn-sm">+ Add Item</a>
         </div>
+    }
 
+    <div class="inv-card">
+        <div class="inv-card-header">
+            <span>@L["Items"] (@((ViewBag.Items as IEnumerable<ItemDto>)?.Count() ?? 0))</span>
+        </div>
         <div class="table-responsive">
-            <table class="table table-hover table-sm">
+            <table class="inv-table">
                 <thead>
                     <tr>
                         <th>Custom ID</th>
-                        @if (Model.CustomString1Name != null)
-                        {
-                            <th>@Model.CustomString1Name</th>
-                        }
-                        @if (Model.CustomString2Name != null)
-                        {
-                            <th>@Model.CustomString2Name</th>
-                        }
-                        @if (Model.CustomString3Name != null)
-                        {
-                            <th>@Model.CustomString3Name</th>
-                        }
-                        @if (Model.CustomInt1Name != null)
-                        {
-                            <th class="text-end">@Model.CustomInt1Name</th>
-                        }
-                        @if (Model.CustomInt2Name != null)
-                        {
-                            <th class="text-end">@Model.CustomInt2Name</th>
-                        }
-                        @if (Model.CustomInt3Name != null)
-                        {
-                            <th class="text-end">@Model.CustomInt3Name</th>
-                        }
-                        @if (Model.CustomText1Name != null)
-                        {
-                            <th>@Model.CustomText1Name</th>
-                        }
-                        @if (Model.CustomBool1Name != null)
-                        {
-                            <th>@Model.CustomBool1Name</th>
-                        }
-                        @if (Model.CustomLink1Name != null)
-                        {
-                            <th>@Model.CustomLink1Name</th>
-                        }
+                        @if (Model.CustomString1Name != null) { <th>@Model.CustomString1Name</th> }
+                        @if (Model.CustomString2Name != null) { <th>@Model.CustomString2Name</th> }
+                        @if (Model.CustomString3Name != null) { <th>@Model.CustomString3Name</th> }
+                        @if (Model.CustomInt1Name != null) { <th class="text-end">@Model.CustomInt1Name</th> }
+                        @if (Model.CustomInt2Name != null) { <th class="text-end">@Model.CustomInt2Name</th> }
+                        @if (Model.CustomInt3Name != null) { <th class="text-end">@Model.CustomInt3Name</th> }
+                        @if (Model.CustomText1Name != null) { <th>@Model.CustomText1Name</th> }
+                        @if (Model.CustomBool1Name != null) { <th>@Model.CustomBool1Name</th> }
+                        @if (Model.CustomLink1Name != null) { <th>@Model.CustomLink1Name</th> }
                         <th>Created By</th>
                         <th class="text-end">Likes</th>
                     </tr>
@@ -104,48 +97,23 @@
                     @if (items == null || !items.Any())
                     {
                         <tr>
-                            <td colspan="20" class="text-center text-muted">@L["NoItemsYet"]</td>
+                            <td colspan="20" class="text-center text-muted" style="padding:24px;">@L["NoItemsYet"]</td>
                         </tr>
                     }
                     else
                     {
                         @foreach (var item in items)
                         {
-                            <tr style="cursor:pointer"
-                                onclick="window.location='/Item/Details/@item.Id'">
-                                <td>@item.CustomId</td>
-                                @if (Model.CustomString1Name != null)
-                                {
-                                    <td>@item.CustomString1Value</td>
-                                }
-                                @if (Model.CustomString2Name != null)
-                                {
-                                    <td>@item.CustomString2Value</td>
-                                }
-                                @if (Model.CustomString3Name != null)
-                                {
-                                    <td>@item.CustomString3Value</td>
-                                }
-                                @if (Model.CustomInt1Name != null)
-                                {
-                                    <td class="text-end">@item.CustomInt1Value?.ToString("N2")</td>
-                                }
-                                @if (Model.CustomInt2Name != null)
-                                {
-                                    <td class="text-end">@item.CustomInt2Value?.ToString("N2")</td>
-                                }
-                                @if (Model.CustomInt3Name != null)
-                                {
-                                    <td class="text-end">@item.CustomInt3Value?.ToString("N2")</td>
-                                }
-                                @if (Model.CustomText1Name != null)
-                                {
-                                    <td>@item.CustomText1Value</td>
-                                }
-                                @if (Model.CustomBool1Name != null)
-                                {
-                                    <td>@(item.CustomBool1Value == true ? "✓" : "✗")</td>
-                                }
+                            <tr onclick="window.location='/Item/Details/@item.Id'">
+                                <td class="inv-count">@item.CustomId</td>
+                                @if (Model.CustomString1Name != null) { <td>@item.CustomString1Value</td> }
+                                @if (Model.CustomString2Name != null) { <td>@item.CustomString2Value</td> }
+                                @if (Model.CustomString3Name != null) { <td>@item.CustomString3Value</td> }
+                                @if (Model.CustomInt1Name != null) { <td class="text-end">@item.CustomInt1Value?.ToString("N2")</td> }
+                                @if (Model.CustomInt2Name != null) { <td class="text-end">@item.CustomInt2Value?.ToString("N2")</td> }
+                                @if (Model.CustomInt3Name != null) { <td class="text-end">@item.CustomInt3Value?.ToString("N2")</td> }
+                                @if (Model.CustomText1Name != null) { <td>@item.CustomText1Value</td> }
+                                @if (Model.CustomBool1Name != null) { <td>@(item.CustomBool1Value == true ? "✓" : "✗")</td> }
                                 @if (Model.CustomLink1Name != null)
                                 {
                                     <td>
@@ -155,7 +123,7 @@
                                         }
                                     </td>
                                 }
-                                <td>@item.CreatedByName</td>
+                                <td style="color:var(--bs-secondary-color);">@item.CreatedByName</td>
                                 <td class="text-end">
                                     @if (User.Identity?.IsAuthenticated == true)
                                     {
@@ -179,6 +147,8 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
     </div>
 
     <div class="tab-pane fade" id="discussion">
@@ -297,14 +267,14 @@
             @if (inv.CustomString2Name != null && stats.String2TopValue != null)
             {
                 <div class="mt-4">
-                    <h5>@inv.CustomString1Name — @L["MostFrequent"]</h5>
+                    <h5>@inv.CustomString2Name — @L["MostFrequent"]</h5>
                     <p><span class="badge bg-primary">@stats.String2TopValue</span> — @stats.String2TopCount times</p>
                 </div>
             }
             @if (inv.CustomString3Name != null && stats.String3TopValue != null)
             {
                 <div class="mt-4">
-                    <h5>@inv.CustomString1Name — @L["MostFrequent"]</h5>
+                    <h5>@inv.CustomString3Name — @L["MostFrequent"]</h5> 
                     <p><span class="badge bg-primary">@stats.String3TopValue</span> — @stats.String3TopCount times</p>
                 </div>
             }
