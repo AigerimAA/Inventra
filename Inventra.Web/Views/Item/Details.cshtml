@@ -69,15 +69,15 @@
             }
             @if (inventory?.CustomInt1Name != null)
             {
-                <tr><td>@inventory.CustomInt1Name</td><td>@Model.CustomInt1Value?.ToString("N2")</td></tr>
+                <tr><td>@inventory.CustomInt1Name</td><td>@(Model.CustomInt1Value.HasValue ? (Model.CustomInt1Value.Value % 1 == 0 ? ((int)Model.CustomInt1Value.Value).ToString() : Model.CustomInt1Value.Value.ToString("N2")) : "")</td></tr>
             }
             @if (inventory?.CustomInt2Name != null)
             {
-                <tr><td>@inventory.CustomInt2Name</td><td>@Model.CustomInt2Value?.ToString("N2")</td></tr>
+                <tr><td>@inventory.CustomInt2Name</td><td>@(Model.CustomInt2Value.HasValue ? (Model.CustomInt2Value.Value % 1 == 0 ? ((int)Model.CustomInt2Value.Value).ToString() : Model.CustomInt2Value.Value.ToString("N2")) : "")</td></tr>
             }
             @if (inventory?.CustomInt3Name != null)
             {
-                <tr><td>@inventory.CustomInt3Name</td><td>@Model.CustomInt3Value?.ToString("N2")</td></tr>
+                <tr><td>@inventory.CustomInt3Name</td><td>@(Model.CustomInt3Value.HasValue ? (Model.CustomInt3Value.Value % 1 == 0 ? ((int)Model.CustomInt3Value.Value).ToString() : Model.CustomInt3Value.Value.ToString("N2")) : "")</td></tr>
             }
             @if (inventory?.CustomText1Name != null)
             {

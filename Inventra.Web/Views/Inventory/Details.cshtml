@@ -126,9 +126,9 @@
                                 @if (Model.CustomString1Name != null) { <td>@item.CustomString1Value</td> }
                                 @if (Model.CustomString2Name != null) { <td>@item.CustomString2Value</td> }
                                 @if (Model.CustomString3Name != null) { <td>@item.CustomString3Value</td> }
-                                @if (Model.CustomInt1Name != null) { <td class="text-end">@item.CustomInt1Value?.ToString("N2")</td> }
-                                @if (Model.CustomInt2Name != null) { <td class="text-end">@item.CustomInt2Value?.ToString("N2")</td> }
-                                @if (Model.CustomInt3Name != null) { <td class="text-end">@item.CustomInt3Value?.ToString("N2")</td> }
+                                @if (Model.CustomInt1Name != null) { <td class="text-end">@(item.CustomInt1Value.HasValue ? (item.CustomInt1Value.Value % 1 == 0 ? ((int)item.CustomInt1Value.Value).ToString() : item.CustomInt1Value.Value.ToString("N2")) : "")</td> }
+                                @if (Model.CustomInt2Name != null) { <td class="text-end">@(item.CustomInt2Value.HasValue ? (item.CustomInt2Value.Value % 1 == 0 ? ((int)item.CustomInt2Value.Value).ToString() : item.CustomInt2Value.Value.ToString("N2")) : "")</td> }
+                                @if (Model.CustomInt3Name != null) { <td class="text-end">@(item.CustomInt3Value.HasValue ? (item.CustomInt3Value.Value % 1 == 0 ? ((int)item.CustomInt3Value.Value).ToString() : item.CustomInt3Value.Value.ToString("N2")) : "")</td> }
                                 @if (Model.CustomText1Name != null) { <td>@item.CustomText1Value</td> }
                                 @if (Model.CustomBool1Name != null) { <td>@(item.CustomBool1Value == true ? "✓" : "✗")</td> }
                                 @if (Model.CustomLink1Name != null)
@@ -310,9 +310,9 @@
                 <div class="inv-card-header"><span>@inv.CustomInt1Name</span></div>
                 <table class="inv-table">
                     <tbody>
-                        <tr><td style="width:180px; color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Average"]</td><td class="inv-count">@stats.Int1Avg?.ToString("N2")</td></tr>
-                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Min"]</td><td class="inv-count">@stats.Int1Min?.ToString("N2")</td></tr>
-                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Max"]</td><td class="inv-count">@stats.Int1Max?.ToString("N2")</td></tr>
+                        <tr><td style="width:180px; color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Average"]</td><td class="inv-count">@(stats.Int1Avg.HasValue ? (stats.Int1Avg.Value % 1 == 0 ? ((int)stats.Int1Avg.Value).ToString() : stats.Int1Avg.Value.ToString("N2")) : "")</td></tr>
+                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Min"]</td><td class="inv-count">@(stats.Int1Min.HasValue ? (stats.Int1Min.Value % 1 == 0 ? ((int)stats.Int1Min.Value).ToString() : stats.Int1Min.Value.ToString("N2")) : "")</td></tr>
+                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Max"]</td><td class="inv-count">@(stats.Int1Max.HasValue ? (stats.Int1Max.Value % 1 == 0 ? ((int)stats.Int1Max.Value).ToString() : stats.Int1Max.Value.ToString("N2")) : "")</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -323,9 +323,9 @@
                 <div class="inv-card-header"><span>@inv.CustomInt2Name</span></div>
                 <table class="inv-table">
                     <tbody>
-                        <tr><td style="width:180px; color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Average"]</td><td class="inv-count">@stats.Int2Avg?.ToString("N2")</td></tr>
-                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Min"]</td><td class="inv-count">@stats.Int2Min?.ToString("N2")</td></tr>
-                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Max"]</td><td class="inv-count">@stats.Int2Max?.ToString("N2")</td></tr>
+                        <tr><td style="width:180px; color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Average"]</td><td class="inv-count">@(stats.Int2Avg.HasValue ? (stats.Int2Avg.Value % 1 == 0 ? ((int)stats.Int2Avg.Value).ToString() : stats.Int2Avg.Value.ToString("N2")) : "")</td></tr>
+                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Min"]</td><td class="inv-count">@(stats.Int2Min.HasValue ? (stats.Int2Min.Value % 1 == 0 ? ((int)stats.Int2Min.Value).ToString() : stats.Int2Min.Value.ToString("N2")) : "")</td></tr>
+                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Max"]</td><td class="inv-count">@(stats.Int2Max.HasValue ? (stats.Int2Max.Value % 1 == 0 ? ((int)stats.Int2Max.Value).ToString() : stats.Int2Max.Value.ToString("N2")) : "")</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -336,9 +336,9 @@
                 <div class="inv-card-header"><span>@inv.CustomInt3Name</span></div>
                 <table class="inv-table">
                     <tbody>
-                        <tr><td style="width:180px; color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Average"]</td><td class="inv-count">@stats.Int3Avg?.ToString("N2")</td></tr>
-                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Min"]</td><td class="inv-count">@stats.Int3Min?.ToString("N2")</td></tr>
-                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Max"]</td><td class="inv-count">@stats.Int3Max?.ToString("N2")</td></tr>
+                        <tr><td style="width:180px; color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Average"]</td><td class="inv-count">@(stats.Int3Avg.HasValue ? (stats.Int3Avg.Value % 1 == 0 ? ((int)stats.Int3Avg.Value).ToString() : stats.Int3Avg.Value.ToString("N2")) : "")</td></tr>
+                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Min"]</td><td class="inv-count">@(stats.Int3Min.HasValue ? (stats.Int3Min.Value % 1 == 0 ? ((int)stats.Int3Min.Value).ToString() : stats.Int3Min.Value.ToString("N2")) : "")</td></tr>
+                        <tr><td style="color:var(--bs-secondary-color); font-size:12px; text-transform:uppercase; letter-spacing:0.05em;">@L["Max"]</td><td class="inv-count">@(stats.Int3Max.HasValue ? (stats.Int3Max.Value % 1 == 0 ? ((int)stats.Int3Max.Value).ToString() : stats.Int3Max.Value.ToString("N2")) : "")</td></tr>
                     </tbody>
                 </table>
             </div>
