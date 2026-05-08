@@ -20,14 +20,11 @@ namespace Inventra.Tests
         [Fact]
         public async Task GenerateAsync_NoFormat_ReturnsGuidFallback()
         {
-            //Arrange
             var context = CreateInMemoryContext();
             var service = new CustomIdGeneratorService(context);
 
-            //Act
             var result = await service.GenerateAsync(999);
 
-            //Assert
             result.Should().NotBeNullOrEmpty();
             result.Should().MatchRegex("^[A-F0-9]{12}$");
         }
@@ -35,7 +32,6 @@ namespace Inventra.Tests
         [Fact]
         public async Task GenerateAsync_FixedElement_ReturnsFixedValue()
         {
-            //Arrange
             var context = CreateInMemoryContext();
             var format = new CustomIdFormat
             {
@@ -50,17 +46,14 @@ namespace Inventra.Tests
 
             var service = new CustomIdGeneratorService(context);
 
-            //Act
             var result = await service.GenerateAsync(1);
 
-            //Assert
             result.Should().StartWith("INV-");
         }
 
         [Fact]
         public async Task GenerateAsync_SequenceElement_ReturnsFormattedSequence()
         {
-            //Arrange
             var context = CreateInMemoryContext();
             var format = new CustomIdFormat
             {
@@ -76,17 +69,14 @@ namespace Inventra.Tests
 
             var service = new CustomIdGeneratorService(context);
 
-            //Act
             var result = await service.GenerateAsync(3);
 
-            //Assert
             result.Should().Be("INV-0001");
         }
 
         [Fact]
         public async Task GenerateAsync_SequenceElement_Increments()
         {
-            //Arrange
             var context = CreateInMemoryContext();
             var format = new CustomIdFormat
             {
@@ -101,11 +91,9 @@ namespace Inventra.Tests
 
             var service = new CustomIdGeneratorService(context);
 
-            //Act
             var first = await service.GenerateAsync(4);
             var second = await service.GenerateAsync(4);
 
-            //Assert
             first.Should().Be("001");
             second.Should().Be("002");
         }
@@ -113,7 +101,6 @@ namespace Inventra.Tests
         [Fact]
         public async Task GenerateAsync_Random6Digits_IsValidRange()
         {
-            //Arrange
             var context = CreateInMemoryContext();
             var format = new CustomIdFormat
             {
@@ -128,10 +115,8 @@ namespace Inventra.Tests
 
             var service = new CustomIdGeneratorService(context);
 
-            //Act
             var result = await service.GenerateAsync(13);
 
-            //Assert
             result.Should().HaveLength(6);
             result.All(char.IsDigit).Should().BeTrue();
             int.Parse(result).Should().BeInRange(100000, 999999);
@@ -140,7 +125,6 @@ namespace Inventra.Tests
         [Fact]
         public async Task GenerateAsync_MultipleElements_ConcatenatesAll()
         {
-            //Arrange
             var context = CreateInMemoryContext();
             var format = new CustomIdFormat
             {
@@ -159,10 +143,8 @@ namespace Inventra.Tests
 
             var service = new CustomIdGeneratorService(context);
 
-            //Act
             var result = await service.GenerateAsync(6);
 
-            //Assert
             result.Should().StartWith($"PRD-{DateTime.UtcNow.Year}-");
             result.Should().EndWith("0001");
         }
@@ -170,7 +152,6 @@ namespace Inventra.Tests
         [Fact]
         public async Task GenerateAsync_WhenIdExists_GeneratesAnotherOne()
         {
-            //Arrange
             var context = CreateInMemoryContext();
             context.InventorySequence.Add(new InventorySequence { InventoryId = 10, CurrentValue = 1 });
             context.Items.Add(new Item
@@ -193,17 +174,14 @@ namespace Inventra.Tests
             await context.SaveChangesAsync();
             var service = new CustomIdGeneratorService(context);
 
-            //Act
             var result = await service.GenerateAsync(10);
 
-            //Assert
             result.Should().Be("INV-0003");
         }
 
         [Fact]
         public async Task GenerateAsync_OrdersElementsBySortOrder()
         {
-            //Arrange
             var context = CreateInMemoryContext();
             var format = new CustomIdFormat
             {
@@ -218,17 +196,14 @@ namespace Inventra.Tests
             await context.SaveChangesAsync();
             var service = new CustomIdGeneratorService(context);
 
-            //Act
             var result = await service.GenerateAsync(11);
 
-            //Assert
             result.Should().Be("INV-01");
         }
 
         [Fact]
         public async Task GenerateAsync_DateTimeElement_ContainsCurrentYear_Regex()
         {
-            //Arranbe
             var context = CreateInMemoryContext();
             var format = new CustomIdFormat
             {
@@ -242,10 +217,8 @@ namespace Inventra.Tests
             await context.SaveChangesAsync();
             var service = new CustomIdGeneratorService(context);
 
-            //Act
             var result = await service.GenerateAsync(12);
 
-            //Assert
             result.Should().MatchRegex(@"^\d{4}$");
             result.Should().Contain(DateTime.UtcNow.Year.ToString());
         }
