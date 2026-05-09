@@ -503,35 +503,38 @@
             });
         });
         const saved = localStorage.getItem('editTab_@Model.Id');
-            if (saved) {
-                const tab = document.querySelector(`[href="${saved}"]`);
-                if (tab) new bootstrap.Tab(tab).show();
-            }
+        if (saved) {
+            const tab = document.querySelector(`[href="${saved}"]`);
+            if (tab) new bootstrap.Tab(tab).show();
+        }
+    </script>
 
-            document.getElementById('imageUpload')?.addEventListener('change', async function() {
-                const file = this.files[0];
-            if (!file) return;
+    <script>
+        document.getElementById('imageUpload')?.addEventListener('change', async function() {
+            const file = this.files[0];
+        if (!file) return;
     
-            showStatus('Uploading image...', 'text-warning');
+        showStatus('Uploading image...', 'text-warning');
     
-            const formData = new FormData();
-            formData.append('file', file);
+        const formData = new FormData();
+        formData.append('file', file);
     
-            const response = await fetch('/Inventory/UploadImage', {
-                method: 'POST',
-                body: formData
-            });
+        const response = await fetch('/Inventory/UploadImage', {
+            method: 'POST',
+            body: formData
+        });
     
-            if (response.ok) {
-                const data = await response.json();
-                document.getElementById('ImageUrl').value = data.url;
-                isDirty = true;
-                clearTimeout(debounceTimer);
-                await autoSave();
-                showStatus('Image saved!', 'text-success');
-            } else {
-                showStatus('Upload failed', 'text-danger');
-            }
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById('ImageUrl').value = data.url;
+            isDirty = true;
+            clearTimeout(debounceTimer);
+            await autoSave();
+            showStatus('Image saved!', 'text-success');
+        } else {
+            showStatus('Upload failed', 'text-danger');
+        }
+        });
     </script>
 
     <script>
