@@ -112,9 +112,7 @@ namespace Inventra.Web.Controllers
         {
             var info = await _identityService.GetExternalLoginInfoAsync();
             if (info == null)
-            {
-                return RedirectToAction("Login", new { error = "external_info_null" });
-            }
+                return Content("DEBUG: info is null - cookie problem");
 
             var result = await _identityService.ExternalLoginSignInAsync(
                 info.LoginProvider, info.ProviderKey, isPersistent: false);
@@ -124,8 +122,7 @@ namespace Inventra.Web.Controllers
 
             var email = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
 
-            if (email == null)
-                return RedirectToAction("Login", new { error = "no_email" });
+            return Content($"DEBUG: provider={info.LoginProvider}, email={email}, result={result}");
 
             var existingUser = await _identityService.FindByEmailAsync(email);
 
