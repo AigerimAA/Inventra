@@ -112,7 +112,9 @@ namespace Inventra.Web.Controllers
         {
             var info = await _identityService.GetExternalLoginInfoAsync();
             if (info == null)
-                return RedirectToAction("Login");
+            {
+                return RedirectToAction("Login", new { error = "external_info_null" });
+            }
 
             var result = await _identityService.ExternalLoginSignInAsync(
                 info.LoginProvider, info.ProviderKey, isPersistent: false);
@@ -120,38 +122,42 @@ namespace Inventra.Web.Controllers
             if (result.Succeeded)
                 return RedirectToAction("Index", "Home");
 
-            var email = info.Principal.FindFirst(ClaimTypes.Email)?.Value
-                    ?? info.Principal.FindFirst(ClaimTypes.NameIdentifier)?.Value + "@facebook.com";
+            var email = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
 
-            if (email != null)
+            if (email == null)
+                return RedirectToAction("Login", new { error = "no_email" });
+
+            var existingUser = await _identityService.FindByEmailAsync(email);
+
+            if (existingUser != null)
             {
-                var existingUser = await _identityService.FindByEmailAsync(email);
+                if (existingUser.IsBlocked)
+                    return RedirectToAction("Login", new { error = "blocked" });
 
-                if (existingUser != null)
-                {
-                    await _identityService.AddLoginAsync(existingUser, info);
-                    await _identityService.SignInAsync(existingUser, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
-
-                var user = new ApplicationUser
-                {
-                    UserName = email,
-                    Email = email,
-                    EmailConfirmed = true
-                };
-
-                var createResult = await _identityService.CreateUserAsync(user, Guid.NewGuid().ToString());
-
-                if (createResult.Succeeded)
-                {
-                    await _identityService.AddLoginAsync(user, info);
-                    await _identityService.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
+                await _identityService.AddLoginAsync(existingUser, info);
+                await _identityService.SignInAsync(existingUser, isPersistent: false);
+                return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("Login");
+            var userName = email.Split('@')[0];
+            var user = new ApplicationUser
+            {
+                UserName = userName,
+                Email = email,
+                EmailConfirmed = true
+            };
+
+            var createResult = await _identityService.CreateUserAsync(user, Guid.NewGuid().ToString());
+
+            if (createResult.Succeeded)
+            {
+                await _identityService.AddLoginAsync(user, info);
+                await _identityService.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Index", "Home");
+            }
+
+            var errors = string.Join(", ", createResult.Errors.Select(e => e.Description));
+            return RedirectToAction("Login", new { error = errors });
         }
 
         [HttpGet]
