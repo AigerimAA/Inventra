@@ -125,6 +125,15 @@ namespace Inventra.Web.Controllers
 
             if (email != null)
             {
+                var existingUser = await _identityService.FindByEmailAsync(email);
+
+                if (existingUser != null)
+                {
+                    await _identityService.AddLoginAsync(existingUser, info);
+                    await _identityService.SignInAsync(existingUser, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+
                 var user = new ApplicationUser
                 {
                     UserName = email,
