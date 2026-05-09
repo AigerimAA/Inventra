@@ -503,14 +503,16 @@
             });
         });
         const saved = localStorage.getItem('editTab_@Model.Id');
-        if (saved) {
-            const tab = document.querySelector(`[href="${saved}"]`);
-            if (tab) new bootstrap.Tab(tab).show();
-        }
+            if (saved) {
+                const tab = document.querySelector(`[href="${saved}"]`);
+                if (tab) new bootstrap.Tab(tab).show();
+            }
 
-        document.getElementById('imageUpload')?.addEventListener('change', async function() {
-            const file = this.files[0];
+            document.getElementById('imageUpload')?.addEventListener('change', async function() {
+                const file = this.files[0];
             if (!file) return;
+    
+            showStatus('Uploading image...', 'text-warning');
     
             const formData = new FormData();
             formData.append('file', file);
@@ -523,9 +525,13 @@
             if (response.ok) {
                 const data = await response.json();
                 document.getElementById('ImageUrl').value = data.url;
-                showStatus('Image uploaded!', 'text-success');
+                isDirty = true;
+                clearTimeout(debounceTimer);
+                await autoSave();
+                showStatus('Image saved!', 'text-success');
+            } else {
+                showStatus('Upload failed', 'text-danger');
             }
-        });
     </script>
 
     <script>

@@ -9,6 +9,12 @@
     <div>
         <h2 class="mb-1">@Model.Title</h2>
         <span class="inv-badge">@Model.CategoryName</span>
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <div class="mt-2">
+                <img src="@Model.ImageUrl" style="max-height:200px; border-radius:8px;" />
+            </div>
+        }
     </div>
     @if (User.Identity?.IsAuthenticated == true &&
          (Model.OwnerId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
