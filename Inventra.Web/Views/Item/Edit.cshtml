@@ -49,21 +49,22 @@
             {
                 <div class="mb-3">
                     <label class="form-label">@inventory.CustomInt1Name</label>
-                    <input asp-for="Command.CustomInt1Value" class="form-control" type="number" step="0.01" />
+                    <input asp-for="Command.CustomInt1Value" class="form-control" type="number" step="any" />
                 </div>
             }
             @if (inventory.CustomInt2Name != null)
             {
                 <div class="mb-3">
                     <label class="form-label">@inventory.CustomInt2Name</label>
-                    <input asp-for="Command.CustomInt2Value" class="form-control" type="number" step="0.01" />
+                    <input asp-for="Command.CustomInt2Value" class="form-control" type="number" step="any" />
                 </div>
             }
             @if (inventory.CustomInt3Name != null)
             {
                 <div class="mb-3">
                     <label class="form-label">@inventory.CustomInt3Name</label>
-                    <input asp-for="Command.CustomInt3Value" class="form-control" type="number" step="0.01" />
+                    <input asp-for="Command.CustomInt3Value" class="form-control" type="number" step="any"
+                    />
                 </div>
             }
             @if (inventory.CustomText1Name != null)
