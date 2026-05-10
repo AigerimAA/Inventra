@@ -171,8 +171,6 @@ namespace Inventra.Web.Controllers
             if (string.IsNullOrEmpty(imageUrl))
                 imageUrl = Request.Form["Command.ImageUrl"].ToString();
 
-            return Content($"ImageUrl from model: '{model.Command.ImageUrl}' | from form: '{Request.Form["Command.ImageUrl"]}' | final: '{imageUrl}'");
-
             var command = new UpdateItemCommand
             {
                 Id = model.Command.Id,
