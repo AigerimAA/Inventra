@@ -15,29 +15,44 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<InventoryStats> GetStatsAsync(int inventoryId, CancellationToken cancellationToken = default)
         {
             var q = _context.Items.AsNoTracking().Where(i => i.InventoryId == inventoryId);
-            var stats = new InventoryStats { TotalItems = await q.CountAsync(cancellationToken) };
-            if (stats.TotalItems == 0) return stats;
+            var totalItems = await q.CountAsync(cancellationToken);
+
+            if (totalItems == 0)
+                return new InventoryStats(0, null, null, null, null, null, null, null, null, null,
+                    null, 0, null, 0, null, 0);
 
             var int1Stats = await q
                 .Where(i => i.CustomInt1Value.HasValue)
                 .GroupBy(i => 1)
-                .Select(g => new { Avg = g.Average(x => x.CustomInt1Value), Min = g.Min(x => x.CustomInt1Value), Max = g.Max(x => x.CustomInt1Value) })
+                .Select(g => new
+                {
+                    Avg = g.Average(x => x.CustomInt1Value),
+                    Min = g.Min(x => x.CustomInt1Value),
+                    Max = g.Max(x => x.CustomInt1Value)
+                })
                 .FirstOrDefaultAsync(cancellationToken);
-            if (int1Stats != null) { stats.Int1Avg = int1Stats.Avg.HasValue ? Math.Round(int1Stats.Avg.Value, 2) : null; stats.Int1Min = int1Stats.Min; stats.Int1Max = int1Stats.Max; }
 
             var int2Stats = await q
                 .Where(i => i.CustomInt2Value.HasValue)
                 .GroupBy(i => 1)
-                .Select(g => new { Avg = g.Average(x => x.CustomInt2Value), Min = g.Min(x => x.CustomInt2Value), Max = g.Max(x => x.CustomInt2Value) })
+                .Select(g => new
+                {
+                    Avg = g.Average(x => x.CustomInt2Value),
+                    Min = g.Min(x => x.CustomInt2Value),
+                    Max = g.Max(x => x.CustomInt2Value)
+                })
                 .FirstOrDefaultAsync(cancellationToken);
-            if (int2Stats != null) { stats.Int2Avg = int2Stats.Avg.HasValue ? Math.Round(int2Stats.Avg.Value, 2) : null; stats.Int2Min = int2Stats.Min; stats.Int2Max = int2Stats.Max; }
 
             var int3Stats = await q
                 .Where(i => i.CustomInt3Value.HasValue)
                 .GroupBy(i => 1)
-                .Select(g => new { Avg = g.Average(x => x.CustomInt3Value), Min = g.Min(x => x.CustomInt3Value), Max = g.Max(x => x.CustomInt3Value) })
+                .Select(g => new
+                {
+                    Avg = g.Average(x => x.CustomInt3Value),
+                    Min = g.Min(x => x.CustomInt3Value),
+                    Max = g.Max(x => x.CustomInt3Value)
+                })
                 .FirstOrDefaultAsync(cancellationToken);
-            if (int3Stats != null) { stats.Int3Avg = int3Stats.Avg.HasValue ? Math.Round(int3Stats.Avg.Value, 2) : null; stats.Int3Min = int3Stats.Min; stats.Int3Max = int3Stats.Max; }
 
             var str1Top = await q
                 .Where(i => !string.IsNullOrWhiteSpace(i.CustomString1Value))
@@ -45,7 +60,6 @@ namespace Inventra.Infrastructure.Repositories
                 .Select(g => new { Value = g.Key, Count = g.Count() })
                 .OrderByDescending(g => g.Count)
                 .FirstOrDefaultAsync(cancellationToken);
-            if (str1Top != null) { stats.String1TopValue = str1Top.Value; stats.String1TopCount = str1Top.Count; }
 
             var str2Top = await q
                 .Where(i => !string.IsNullOrWhiteSpace(i.CustomString2Value))
@@ -53,7 +67,6 @@ namespace Inventra.Infrastructure.Repositories
                 .Select(g => new { Value = g.Key, Count = g.Count() })
                 .OrderByDescending(g => g.Count)
                 .FirstOrDefaultAsync(cancellationToken);
-            if (str2Top != null) { stats.String2TopValue = str2Top.Value; stats.String2TopCount = str2Top.Count; }
 
             var str3Top = await q
                 .Where(i => !string.IsNullOrWhiteSpace(i.CustomString3Value))
@@ -61,9 +74,21 @@ namespace Inventra.Infrastructure.Repositories
                 .Select(g => new { Value = g.Key, Count = g.Count() })
                 .OrderByDescending(g => g.Count)
                 .FirstOrDefaultAsync(cancellationToken);
-            if (str3Top != null) { stats.String3TopValue = str3Top.Value; stats.String3TopCount = str3Top.Count; }
 
-            return stats;
+            return new InventoryStats(
+                totalItems,
+                int1Stats?.Avg.HasValue == true ? Math.Round(int1Stats.Avg!.Value, 2) : null,
+                int1Stats?.Min,
+                int1Stats?.Max,
+                int2Stats?.Avg.HasValue == true ? Math.Round(int2Stats.Avg!.Value, 2) : null,
+                int2Stats?.Min,
+                int2Stats?.Max,
+                int3Stats?.Avg.HasValue == true ? Math.Round(int3Stats.Avg!.Value, 2) : null,
+                int3Stats?.Min,
+                int3Stats?.Max,
+                str1Top?.Value, str1Top?.Count ?? 0,
+                str2Top?.Value, str2Top?.Count ?? 0,
+                str3Top?.Value, str3Top?.Count ?? 0);
         }
     }
 }

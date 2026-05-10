@@ -55,13 +55,18 @@ namespace Inventra.Infrastructure.Repositories
                 return await _context.Tags.FirstAsync(t => t.Name == name);
             }
         }
-        public async Task<IEnumerable<TagWithCount>> GetTagsWithCountAsync(int maxTags = 50, CancellationToken cancellationToken = default)
-            => await _context.InventoryTags
+        public async Task<IEnumerable<TagWithCount>> GetTagsWithCountAsync(
+            int maxTags = 50, CancellationToken cancellationToken = default)
+        {
+            var raw = await _context.InventoryTags
                 .AsNoTracking()
                 .GroupBy(it => new { it.TagId, it.Tag.Name })
-                .Select(g => new TagWithCount { Name = g.Key.Name, Count = g.Count() })
+                .Select(g => new { Name = g.Key.Name, Count = g.Count() })
                 .OrderByDescending(t => t.Count)
                 .Take(maxTags)
                 .ToListAsync(cancellationToken);
+
+            return raw.Select(t => new TagWithCount(t.Name, t.Count));
+        }
     }
 }

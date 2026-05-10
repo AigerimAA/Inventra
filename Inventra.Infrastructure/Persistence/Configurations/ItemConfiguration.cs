@@ -41,6 +41,9 @@ namespace Inventra.Infrastructure.Persistence.Configurations
                 .WithMany()
                 .HasForeignKey(i => i.CreatedById)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Navigation(i => i.Likes)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

@@ -44,6 +44,18 @@ namespace Inventra.Infrastructure.Persistence.Configurations
                 .WithMany(c => c.Inventories)
                 .HasForeignKey(i => i.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Navigation(i => i.Items)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+            builder.Navigation(i => i.InventoryTags)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+            builder.Navigation(i => i.AccessList)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+            builder.Navigation(i => i.Comments)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

@@ -44,11 +44,16 @@ namespace Inventra.Infrastructure.Repositories
         }
 
         public async Task<IEnumerable<UserLookup>> SearchUsersAsync(string query, CancellationToken cancellationToken = default)
-            => await _context.Users
+        {
+            var raw = await _context.Users
                 .AsNoTracking()
-                .Where(u => EF.Functions.Like(u.UserName!, $"%{query}%") || EF.Functions.Like(u.Email!, $"%{query}%"))
+                .Where(u => EF.Functions.Like(u.UserName!, $"%{query}%")
+                         || EF.Functions.Like(u.Email!, $"%{query}%"))
                 .Take(10)
-                .Select(u => new UserLookup { Id = u.Id, UserName = u.UserName!, Email = u.Email! })
+                .Select(u => new { u.Id, UserName = u.UserName!, Email = u.Email! })
                 .ToListAsync(cancellationToken);
+
+            return raw.Select(u => new UserLookup(u.Id, u.UserName, u.Email));
+        }
     }
 }
