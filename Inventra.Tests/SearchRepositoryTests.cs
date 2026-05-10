@@ -53,6 +53,7 @@ namespace Inventra.Tests
             var context = CreateInMemoryContext();
 
             var inventory = new Inventory("Books", 1, "user1");
+            inventory.Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 };
             context.Inventories.Add(inventory);
             await context.SaveChangesAsync();
 
@@ -79,10 +80,12 @@ namespace Inventra.Tests
             var context = CreateInMemoryContext();
 
             var inventory = new Inventory("Test", 1, "user1");
+            inventory.Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 };
             context.Inventories.Add(inventory);
             await context.SaveChangesAsync();
 
             var item = new Item(inventory.Id, "user1", "TEST-001");
+            item.Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 };
             item.UpdateValues(
                 "Apple", null, null,
                 null, null, null,

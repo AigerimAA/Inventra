@@ -19,6 +19,7 @@ namespace Inventra.Tests
         private Item CreateItem(int inventoryId, decimal? int1 = null, string? str1 = null)
         {
             var item = new Item(inventoryId, "test-user", $"ID-{Guid.NewGuid():N}");
+            item.Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 };
             item.UpdateValues(
                 str1, null, null,
                 int1, null, null,

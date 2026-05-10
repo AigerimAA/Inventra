@@ -153,6 +153,8 @@ namespace Inventra.Tests
             context.InventorySequence.Add(new InventorySequence { InventoryId = 10, CurrentValue = 1 });
 
             var existingItem = new Item(10, "test-user", "INV-0002");
+            existingItem.Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 };
+
             context.Items.Add(existingItem);
 
             var format = new CustomIdFormat

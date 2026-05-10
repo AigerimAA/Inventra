@@ -20,13 +20,11 @@ namespace Inventra.Tests
             string ownerId, bool isPublic = false)
         {
             var context = CreateInMemoryContext();
-
             var inventory = new Inventory("Test", 1, ownerId);
             if (isPublic) inventory.MakePublic();
-
+            inventory.Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 }; 
             context.Inventories.Add(inventory);
             await context.SaveChangesAsync();
-
             return (context, inventory.Id);
         }
 
