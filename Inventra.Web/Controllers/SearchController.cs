@@ -1,5 +1,4 @@
 ﻿using Inventra.Application.Search.Queries;
-using Inventra.Domain.Interfaces;
 using Inventra.Web.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

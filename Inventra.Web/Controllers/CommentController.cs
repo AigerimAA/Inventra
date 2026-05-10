@@ -1,5 +1,4 @@
 ﻿using Inventra.Application.Comments.Commands;
-using Inventra.Application.Interfaces;
 using Inventra.Domain.Entities;
 using Inventra.Domain.Interfaces;
 using MediatR;

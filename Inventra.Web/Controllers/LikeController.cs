@@ -1,7 +1,5 @@
-﻿using Inventra.Application.Interfaces;
-using Inventra.Application.Likes.Commands;
+﻿using Inventra.Application.Likes.Commands;
 using Inventra.Domain.Entities;
-using Inventra.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

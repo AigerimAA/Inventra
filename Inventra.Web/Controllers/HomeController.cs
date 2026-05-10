@@ -3,7 +3,7 @@ using MediatR;
 using Inventra.Application.Inventories.Queries.GetLatestInventories;
 using Inventra.Application.Inventories.Queries.GetPopularInventories;
 using Inventra.Web.Models;
-using Inventra.Application.Tags.Queries;
+using Inventra.Application.Tags.Queries.GetTagCloud;
 
 namespace Inventra.Web.Controllers
 {
