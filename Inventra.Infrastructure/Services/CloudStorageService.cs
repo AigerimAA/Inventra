@@ -1,7 +1,6 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Inventra.Application.Interfaces;
-using Microsoft.AspNetCore.Http;
 
 namespace Inventra.Infrastructure.Services
 {
@@ -13,22 +12,21 @@ namespace Inventra.Infrastructure.Services
         {
             _cloudinary = cloudinary;
         }
-        public async Task<string?> UploadImageAsync(IFormFile file)
+        public async Task<string?> UploadImageAsync(Stream content, string fileName, string contentType)
         {
-            if (file.Length == 0)
+            if (content.Length == 0)
                 return null;
-
-            await using var stream = file.OpenReadStream();
 
             var uploadParams = new ImageUploadParams
             {
-                File = new FileDescription(file.FileName, stream),
+                File = new FileDescription(fileName, content),
                 Folder = "inventra"
             };
 
             var result = await _cloudinary.UploadAsync(uploadParams);
             return result.SecureUrl?.ToString();
         }
+
         public async Task DeleteImageAsync(string imageUrl)
         {
             var publicId = ExtractPublicId(imageUrl);
@@ -38,6 +36,7 @@ namespace Inventra.Infrastructure.Services
             var deleteParams = new DeletionParams(publicId);
             await _cloudinary.DestroyAsync(deleteParams);
         }
+
         private static string ExtractPublicId(string imageUrl)
         {
             var uri = new Uri(imageUrl);

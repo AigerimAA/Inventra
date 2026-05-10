@@ -321,7 +321,8 @@ namespace Inventra.Web.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest(new { error = "No file" });
 
-            var url = await _cloudStorageService.UploadImageAsync(file);
+            await using var stream = file.OpenReadStream();
+            var url = await _cloudStorageService.UploadImageAsync(stream, file.FileName, file.ContentType);
             return Ok(new { url });
         }
 
