@@ -37,15 +37,14 @@ namespace Inventra.Tests
             {
                 InventoryId = 1,
                 Elements = new List<CustomIdElement>
-                { 
-                    new() {ElementType = CustomIdElementType.Fixed, FixedValue = "INV-", SortOrder = 0}
+                {
+                    new() { ElementType = CustomIdElementType.Fixed, FixedValue = "INV-", SortOrder = 0 }
                 }
             };
             context.CustomIdFormats.Add(format);
             await context.SaveChangesAsync();
 
             var service = new CustomIdGeneratorService(context);
-
             var result = await service.GenerateAsync(1);
 
             result.Should().StartWith("INV-");
@@ -60,7 +59,7 @@ namespace Inventra.Tests
                 InventoryId = 3,
                 Elements = new List<CustomIdElement>
                 {
-                    new() { ElementType = CustomIdElementType.Fixed, FixedValue = "INV-", SortOrder = 0},
+                    new() { ElementType = CustomIdElementType.Fixed, FixedValue = "INV-", SortOrder = 0 },
                     new() { ElementType = CustomIdElementType.Sequence, FormatString = "D4", SortOrder = 1 }
                 }
             };
@@ -68,7 +67,6 @@ namespace Inventra.Tests
             await context.SaveChangesAsync();
 
             var service = new CustomIdGeneratorService(context);
-
             var result = await service.GenerateAsync(3);
 
             result.Should().Be("INV-0001");
@@ -82,8 +80,8 @@ namespace Inventra.Tests
             {
                 InventoryId = 4,
                 Elements = new List<CustomIdElement>
-                { 
-                    new() { ElementType = CustomIdElementType.Sequence, FormatString = "D3", SortOrder = 0}
+                {
+                    new() { ElementType = CustomIdElementType.Sequence, FormatString = "D3", SortOrder = 0 }
                 }
             };
             context.CustomIdFormats.Add(format);
@@ -107,14 +105,13 @@ namespace Inventra.Tests
                 InventoryId = 13,
                 Elements = new List<CustomIdElement>
                 {
-                    new () { ElementType = CustomIdElementType.Random6Digits, SortOrder = 0}
+                    new() { ElementType = CustomIdElementType.Random6Digits, SortOrder = 0 }
                 }
             };
             context.CustomIdFormats.Add(format);
             await context.SaveChangesAsync();
 
             var service = new CustomIdGeneratorService(context);
-
             var result = await service.GenerateAsync(13);
 
             result.Should().HaveLength(6);
@@ -142,7 +139,6 @@ namespace Inventra.Tests
             await context.SaveChangesAsync();
 
             var service = new CustomIdGeneratorService(context);
-
             var result = await service.GenerateAsync(6);
 
             result.Should().StartWith($"PRD-{DateTime.UtcNow.Year}-");
@@ -153,13 +149,11 @@ namespace Inventra.Tests
         public async Task GenerateAsync_WhenIdExists_GeneratesAnotherOne()
         {
             var context = CreateInMemoryContext();
+
             context.InventorySequence.Add(new InventorySequence { InventoryId = 10, CurrentValue = 1 });
-            context.Items.Add(new Item
-            {
-                InventoryId = 10,
-                CustomId = "INV-0002",
-                Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 }
-            });
+
+            var existingItem = new Item(10, "test-user", "INV-0002");
+            context.Items.Add(existingItem);
 
             var format = new CustomIdFormat
             {
@@ -172,8 +166,8 @@ namespace Inventra.Tests
             };
             context.CustomIdFormats.Add(format);
             await context.SaveChangesAsync();
-            var service = new CustomIdGeneratorService(context);
 
+            var service = new CustomIdGeneratorService(context);
             var result = await service.GenerateAsync(10);
 
             result.Should().Be("INV-0003");
@@ -187,15 +181,15 @@ namespace Inventra.Tests
             {
                 InventoryId = 11,
                 Elements = new List<CustomIdElement>
-                { 
-                    new() { ElementType = CustomIdElementType.Sequence, FormatString = "D2", SortOrder = 1},
+                {
+                    new() { ElementType = CustomIdElementType.Sequence, FormatString = "D2", SortOrder = 1 },
                     new() { ElementType = CustomIdElementType.Fixed, FixedValue = "INV-", SortOrder = 0 }
                 }
             };
             context.CustomIdFormats.Add(format);
             await context.SaveChangesAsync();
-            var service = new CustomIdGeneratorService(context);
 
+            var service = new CustomIdGeneratorService(context);
             var result = await service.GenerateAsync(11);
 
             result.Should().Be("INV-01");
@@ -209,14 +203,14 @@ namespace Inventra.Tests
             {
                 InventoryId = 12,
                 Elements = new List<CustomIdElement>
-                { 
+                {
                     new() { ElementType = CustomIdElementType.DateTime, FormatString = "yyyy", SortOrder = 0 }
                 }
             };
             context.CustomIdFormats.Add(format);
             await context.SaveChangesAsync();
-            var service = new CustomIdGeneratorService(context);
 
+            var service = new CustomIdGeneratorService(context);
             var result = await service.GenerateAsync(12);
 
             result.Should().MatchRegex(@"^\d{4}$");

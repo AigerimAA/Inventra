@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 
 namespace Inventra.Tests
 {
-    public class SearchRepositoryTests 
+    public class SearchRepositoryTests
     {
         private AppDbContext CreateInMemoryContext()
         {
@@ -51,15 +51,12 @@ namespace Inventra.Tests
         public async Task SearchInventoriesAsync_NoMatch_ReturnsEmpty()
         {
             var context = CreateInMemoryContext();
-            context.Inventories.Add(new Inventory
-            {
-                Title = "Books",
-                OwnerId = "user1",
-                Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 }
-            });
-            await context.SaveChangesAsync();
-            var repo = CreateRepo(context);
 
+            var inventory = new Inventory("Books", 1, "user1");
+            context.Inventories.Add(inventory);
+            await context.SaveChangesAsync();
+
+            var repo = CreateRepo(context);
             var result = await repo.SearchInventoriesAsync("xyz123");
 
             result.Should().BeEmpty();
@@ -80,22 +77,23 @@ namespace Inventra.Tests
         public async Task SearchItemsAsync_NoMatch_ReturnsEmpty()
         {
             var context = CreateInMemoryContext();
-            context.Inventories.Add(new Inventory
-            {
-                Id = 2,
-                Title = "Test",
-                OwnerId = "user1",
-                Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 }
-            });
-            context.Items.Add(new Item
-            {
-                InventoryId = 2,
-                CustomString1Value = "Apple",
-                Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 }
-            });
-            await context.SaveChangesAsync();
-            var repo = CreateRepo(context);
 
+            var inventory = new Inventory("Test", 1, "user1");
+            context.Inventories.Add(inventory);
+            await context.SaveChangesAsync();
+
+            var item = new Item(inventory.Id, "user1", "TEST-001");
+            item.UpdateValues(
+                "Apple", null, null,
+                null, null, null,
+                null, null, null,
+                null, null, null,
+                null, null, null,
+                null);
+            context.Items.Add(item);
+            await context.SaveChangesAsync();
+
+            var repo = CreateRepo(context);
             var result = await repo.SearchItemsAsync("xyz123");
 
             result.Should().BeEmpty();
