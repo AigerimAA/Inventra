@@ -72,6 +72,24 @@
                         </label>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label">Tags</label>
+                        <div id="tagContainer" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:6px;">
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <span class="tag-item inv-badge" data-value="@tag" style="cursor:pointer;">
+                                    @tag <span onclick="removeTag(this.parentElement)" style="margin-left:4px;">×</span>
+                                </span>
+                            }
+                        </div>
+                        <div class="d-flex gap-2">
+                            <input type="text" id="tagInput" class="form-control form-control-sm" 
+                                   placeholder="Add tag..." autocomplete="off" style="max-width:200px;" />
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addTag()">Add</button>
+                        </div>
+                        <div id="tagSuggestions" class="list-group position-absolute" style="z-index:1000; max-width:200px; display:none;"></div>
+                    </div>
+
                     <button type="submit" class="btn btn-primary">@L["Save"] Settings</button>
                 </form>
             </div>
@@ -493,6 +511,51 @@
             const tab = document.querySelector(`[href="${saved}"]`);
             if (tab) new bootstrap.Tab(tab).show();
         }
+
+        function removeTag(el) {
+    el.remove();
+    onFormChange();
+}
+
+function addTag() {
+    const input = document.getElementById('tagInput');
+    const value = input.value.trim();
+    if (!value) return;
+    
+    const container = document.getElementById('tagContainer');
+    const span = document.createElement('span');
+    span.className = 'tag-item inv-badge';
+    span.dataset.value = value;
+    span.style.cursor = 'pointer';
+    span.innerHTML = `${value} <span onclick="removeTag(this.parentElement)" style="margin-left:4px;">×</span>`;
+    container.appendChild(span);
+    input.value = '';
+    document.getElementById('tagSuggestions').style.display = 'none';
+    onFormChange();
+}
+
+    document.getElementById('tagInput')?.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); addTag(); }
+    });
+
+    document.getElementById('tagInput')?.addEventListener('input', async function() {
+        const query = this.value.trim();
+        const suggestions = document.getElementById('tagSuggestions');
+        if (query.length < 1) { suggestions.style.display = 'none'; return; }
+    
+        const response = await fetch(`/Tag/Search?query=${encodeURIComponent(query)}`);
+        const tags = await response.json();
+        suggestions.innerHTML = tags.map(t => 
+            `<button type="button" class="list-group-item list-group-item-action py-1" 
+             onclick="selectTag('${t}')">${t}</button>`
+        ).join('');
+        suggestions.style.display = tags.length > 0 ? 'block' : 'none';
+    });
+
+    function selectTag(value) {
+        document.getElementById('tagInput').value = value;
+        addTag();
+    }
     </script>
 
     <script>
