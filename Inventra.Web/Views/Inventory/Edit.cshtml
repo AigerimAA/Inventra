@@ -58,20 +58,6 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Image</label>
-                        <input type="file" id="imageUpload" class="form-control" accept="image/*" />
-                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                        {
-                            <div class="mt-2">
-                                <img src="@Model.ImageUrl" style="max-height:100px; border-radius:8px;" />
-                                <small class="text-muted ms-2">Current image</small>
-                            </div>
-                        }
-                        <input asp-for="ImageUrl" type="hidden" id="ImageUrl" />
-                    </div>
-
-
-                    <div class="mb-3">
                         <label asp-for="CategoryId" class="form-label">Category</label>
                         <select asp-for="CategoryId" class="form-select"
                                 asp-items="ViewBag.Categories">
@@ -595,52 +581,6 @@
             if (!e.target.closest('#userSearchInput') && !e.target.closest('#userSearchDropdown'))
                 document.getElementById('userSearchDropdown').style.display = 'none';
         });
-    </script>
-
-    <script>
-        document.getElementById('imageUpload')?.addEventListener('change', async function() {
-                const file = this.files[0];
-                if (!file) return;
-
-                showStatus('Uploading image...', 'text-warning');
-
-                const formData = new FormData();
-                formData.append('file', file);
-                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
-                const uploadResponse = await fetch('/Inventory/UploadImage', {
-                    method: 'POST',
-                    headers: { 'RequestVerificationToken': token },
-                    body: formData
-                });
-
-                if (!uploadResponse.ok) {
-                    showStatus('Upload failed', 'text-danger');
-                    return;
-                }
-
-                const uploadData = await uploadResponse.json();
-                showStatus('Saving...', 'text-warning');
-
-                const saveResponse = await fetch('/Inventory/SaveImageUrl', {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'RequestVerificationToken': token 
-                    },
-                    body: JSON.stringify({ 
-                        inventoryId: inventoryId, 
-                        imageUrl: uploadData.url 
-                    })
-                });
-
-                if (saveResponse.ok) {
-                    showStatus('Image saved!', 'text-success');
-                    setTimeout(() => window.location.reload(), 1500);
-                } else {
-                    showStatus('Save failed', 'text-danger');
-                }
-            });
     </script>
 
     <script>
