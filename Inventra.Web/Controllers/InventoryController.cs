@@ -2,6 +2,8 @@
 using Inventra.Application.Common.Exceptions;
 using Inventra.Application.CustomId.Commands;
 using Inventra.Application.CustomId.Queries;
+using Inventra.Application.CustomId.Queries.GetCustomIdFormat;
+using Inventra.Application.CustomId.Queries.PreviewCustomId;
 using Inventra.Application.DTOs;
 using Inventra.Application.Interfaces;
 using Inventra.Application.Inventories.Commands.CreateInventory;
@@ -24,15 +26,13 @@ namespace Inventra.Web.Controllers
         private readonly IMediator _mediator;
         private readonly IInventoryPermissionService _permissionService;
         private readonly ICurrentUserService _currentUserService;
-        private readonly ICustomIdGenerator _customIdGenerator;
 
         public InventoryController(IMediator mediator, IInventoryPermissionService permissionService, 
-            ICurrentUserService currentService, ICustomIdGenerator customIdGenerator)
+            ICurrentUserService currentService)
         {
             _mediator = mediator;
             _permissionService = permissionService;
             _currentUserService = currentService;
-            _customIdGenerator = customIdGenerator;
         }
 
         public async Task<IActionResult> Index()
@@ -302,7 +302,7 @@ namespace Inventra.Web.Controllers
             if (userId == null) return Unauthorized();
             if (!await _permissionService.CanManageAsync(userId, _currentUserService.IsAdmin, inventoryId))
                 return Forbid();
-            var preview = await _customIdGenerator.GenerateAsync(inventoryId, cancellationToken);
+            var preview = await _mediator.Send(new PreviewCustomIdQuery(inventoryId), cancellationToken);
             return Ok(new { preview });
         }
 

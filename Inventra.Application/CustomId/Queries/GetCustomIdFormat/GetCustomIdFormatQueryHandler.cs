@@ -2,7 +2,7 @@
 using Inventra.Domain.Interfaces;
 using MediatR;
 
-namespace Inventra.Application.CustomId.Queries
+namespace Inventra.Application.CustomId.Queries.GetCustomIdFormat
 {
     public class GetCustomIdFormatQueryHandler : IRequestHandler<GetCustomIdFormatQuery, CustomIdFormatDto?>
     {
