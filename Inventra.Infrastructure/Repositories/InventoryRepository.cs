@@ -78,9 +78,10 @@ namespace Inventra.Infrastructure.Repositories
         {
             await _context.Inventories.AddAsync(inventory);
         }
-        public async Task UpdateAsync(Inventory inventory)
+        public Task UpdateAsync(Inventory inventory)
         {
             _context.Inventories.Update(inventory);
+            return Task.CompletedTask;
         }
         public async Task DeleteAsync(int id)
         {
