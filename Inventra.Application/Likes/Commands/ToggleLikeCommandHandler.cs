@@ -21,7 +21,7 @@ namespace Inventra.Application.Likes.Commands
             if (existing != null)
                 await _likeRepository.RemoveAsync(existing);
             else
-                await _likeRepository.AddAsync(new Like { ItemId = request.ItemId, UserId = request.UserId });
+                await _likeRepository.AddAsync(new Like(request.ItemId, request.UserId));
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
