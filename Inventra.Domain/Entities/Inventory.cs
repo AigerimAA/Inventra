@@ -6,14 +6,9 @@ namespace Inventra.Domain.Entities
     public class Inventory
     {
         public int Id { get; private set; }
-
-        [Required]
-        [MaxLength(200)]
         public string Title { get; private set; } = string.Empty;
 
         public string? Description { get; private set; }
-
-        [MaxLength(2000)]
         public string? ImageUrl { get; private set; }
 
         public bool IsPublic { get; private set; } = false;
@@ -21,49 +16,50 @@ namespace Inventra.Domain.Entities
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
-        [Timestamp]
         public byte[] Version { get; set; } = null!; 
 
         public string OwnerId { get; private set; } = string.Empty;
         public int CategoryId { get; private set; }
 
-        [MaxLength(200)] public string? CustomString1Name { get; private set; }
+        public string? CustomString1Name { get; private set; }
         public bool CustomString1Shown { get; private set; }
-        [MaxLength(200)] public string? CustomString2Name { get; private set; }
+        public string? CustomString2Name { get; private set; }
         public bool CustomString2Shown { get; private set; }
-        [MaxLength(200)] public string? CustomString3Name { get; private set; }
+        public string? CustomString3Name { get; private set; }
         public bool CustomString3Shown { get; private set; }
 
-        [MaxLength(200)] public string? CustomInt1Name { get; private set; }
+        public string? CustomInt1Name { get; private set; }
         public bool CustomInt1Shown { get; private set; }
-        [MaxLength(200)] public string? CustomInt2Name { get; private set; }
+        public string? CustomInt2Name { get; private set; }
         public bool CustomInt2Shown { get; private set; }
-        [MaxLength(200)] public string? CustomInt3Name { get; private set; }
+        public string? CustomInt3Name { get; private set; }
         public bool CustomInt3Shown { get; private set; }
 
-        [MaxLength(200)] public string? CustomText1Name { get; private set; }
+        public string? CustomText1Name { get; private set; }
         public bool CustomText1Shown { get; private set; }
-        [MaxLength(200)] public string? CustomText2Name { get; private set; }
+        public string? CustomText2Name { get; private set; }
         public bool CustomText2Shown { get; private set; }
-        [MaxLength(200)] public string? CustomText3Name { get; private set; }
+        public string? CustomText3Name { get; private set; }
         public bool CustomText3Shown { get; private set; }
 
-        [MaxLength(200)] public string? CustomBool1Name { get; private set; }
+        public string? CustomBool1Name { get; private set; }
         public bool CustomBool1Shown { get; private set; }
-        [MaxLength(200)] public string? CustomBool2Name { get; private set; }
+        public string? CustomBool2Name { get; private set; }
         public bool CustomBool2Shown { get; private set; }
-        [MaxLength(200)] public string? CustomBool3Name { get; private set; }
+        public string? CustomBool3Name { get; private set; }
         public bool CustomBool3Shown { get; private set; }
 
-        [MaxLength(200)] public string? CustomLink1Name { get; private set; }
+        public string? CustomLink1Name { get; private set; }
         public bool CustomLink1Shown { get; private set; }
-        [MaxLength(200)] public string? CustomLink2Name { get; private set; }
+        public string? CustomLink2Name { get; private set; }
         public bool CustomLink2Shown { get; private set; }
-        [MaxLength(200)] public string? CustomLink3Name { get; private set; }
+        public string? CustomLink3Name { get; private set; }
         public bool CustomLink3Shown { get; private set; }
 
         public ApplicationUser Owner { get; set; } = null!;
         public Category Category { get; set; } = null!;
+        public CustomIdFormat? CustomIdFormat { get; set; }
+        public InventorySequence? Sequence { get; set; }
 
         private readonly List<Item> _items = new();
         private readonly List<InventoryTag> _inventoryTags = new();
@@ -74,9 +70,6 @@ namespace Inventra.Domain.Entities
         public IReadOnlyCollection<InventoryTag> InventoryTags => _inventoryTags;
         public IReadOnlyCollection<InventoryAccess> AccessList => _accessList;
         public IReadOnlyCollection<Comment> Comments => _comments;
-
-        public CustomIdFormat? CustomIdFormat { get; set; }
-        public InventorySequence? Sequence { get; set; }
 
         public Inventory(string title, int categoryId, string ownerId,
             string? description = null, string? imageUrl = null)
@@ -135,21 +128,11 @@ namespace Inventra.Domain.Entities
         }
 
         public void UpdateFields(
-            string? str1Name, bool str1Shown,
-            string? str2Name, bool str2Shown,
-            string? str3Name, bool str3Shown,
-            string? int1Name, bool int1Shown,
-            string? int2Name, bool int2Shown,
-            string? int3Name, bool int3Shown,
-            string? text1Name, bool text1Shown,
-            string? text2Name, bool text2Shown,
-            string? text3Name, bool text3Shown,
-            string? bool1Name, bool bool1Shown,
-            string? bool2Name, bool bool2Shown,
-            string? bool3Name, bool bool3Shown,
-            string? link1Name, bool link1Shown,
-            string? link2Name, bool link2Shown,
-            string? link3Name, bool link3Shown)
+            string? str1Name, bool str1Shown, string? str2Name, bool str2Shown, string? str3Name, bool str3Shown,
+            string? int1Name, bool int1Shown, string? int2Name, bool int2Shown, string? int3Name, bool int3Shown,
+            string? text1Name, bool text1Shown, string? text2Name, bool text2Shown, string? text3Name, bool text3Shown,
+            string? bool1Name, bool bool1Shown, string? bool2Name, bool bool2Shown, string? bool3Name, bool bool3Shown,
+            string? link1Name, bool link1Shown, string? link2Name, bool link2Shown, string? link3Name, bool link3Shown)
         {
             CustomString1Name = str1Name; CustomString1Shown = str1Shown;
             CustomString2Name = str2Name; CustomString2Shown = str2Shown;
