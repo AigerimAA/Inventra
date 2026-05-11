@@ -1,9 +1,7 @@
 ﻿using Inventra.Application.Comments.Commands;
-using Inventra.Domain.Entities;
-using Inventra.Domain.Interfaces;
+using Inventra.Application.Comments.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inventra.Web.Controllers
@@ -11,12 +9,10 @@ namespace Inventra.Web.Controllers
     public class CommentController : Controller
     {
         private readonly IMediator _mediator;
-        private readonly ICommentRepository _commentRepository;
 
-        public CommentController(IMediator mediator, ICommentRepository commentRepository)
+        public CommentController(IMediator mediator)
         {
             _mediator = mediator;
-            _commentRepository = commentRepository;
         }
 
         [Authorize]
@@ -34,14 +30,8 @@ namespace Inventra.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetComments(int inventoryId)
         {
-            var comments = await _commentRepository.GetByInventoryIdAsync(inventoryId);
-            var result = comments.Select(c => new
-            {
-                authorName = c.Author?.UserName,
-                content = c.Content,
-                createdAt = c.CreatedAt.ToString("dd.MM.yyyy HH:mm")
-            });
-            return Json(result);
+            var comments = await _mediator.Send(new GetCommentsByInventoryIdQuery(inventoryId));
+            return Json(comments);
         }
     }
 }
