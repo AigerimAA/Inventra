@@ -76,10 +76,16 @@
 .tag-row-1 { animation: scrollRight 20s linear infinite; }
 .tag-row-2 { animation: scrollLeft 25s linear infinite; }
 .tag-row-3 { animation: scrollRight 22s linear infinite; }
+.tag-row-3 { animation: scrollRight 22s linear infinite; }
 
+@@media (max-width: 768px) {
+    .home-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
 </style>
 
-<div style="display:grid; grid-template-columns: 2fr 1fr; gap: 20px; padding: 8px 0 24px;">
+<div style="display:grid; grid-template-columns: 2fr 1fr; gap: 20px; padding: 8px 0 24px;" class="home-grid">
 
     <div class="inv-card">
         <div class="inv-card-header">
@@ -184,6 +190,7 @@
         <div class="tag-track" style="margin-top:6px;">
             <div class="tag-row tag-row-2">@Html.Raw(RenderTags(row2))</div>
         </div>
+
         @if (row3.Any())
         {
             <div class="tag-track" style="margin-top:6px;">
