@@ -62,15 +62,30 @@
             }
             @if (!string.IsNullOrEmpty(inventory.CustomBool1Name))
             {
-                <div class="mb-3 form-check"><input type="checkbox" class="form-check-input" name="Command.CustomBool1Value" value="true" @(Model.Command.CustomBool1Value == true ? "checked" : "") /><label class="form-check-label">@inventory.CustomBool1Name</label></div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" name="Command.CustomBool1Value"
+                           value="true" @(Model.Command.CustomBool1Value == true ? "checked" : "") />
+                    <input type="hidden" name="Command.CustomBool1Value" value="false" />
+                    <label class="form-check-label">@inventory.CustomBool1Name</label>
+                </div>
             }
             @if (!string.IsNullOrEmpty(inventory.CustomBool2Name))
             {
-                <div class="mb-3 form-check"><input type="checkbox" class="form-check-input" name="Command.CustomBool2Value" value="true" @(Model.Command.CustomBool2Value == true ? "checked" : "") /><label class="form-check-label">@inventory.CustomBool2Name</label></div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" name="Command.CustomBool2Value"
+                           value="true" @(Model.Command.CustomBool2Value == true ? "checked" : "") />
+                    <input type="hidden" name="Command.CustomBool2Value" value="false" />
+                    <label class="form-check-label">@inventory.CustomBool2Name</label>
+                </div>
             }
             @if (!string.IsNullOrEmpty(inventory.CustomBool3Name))
             {
-                <div class="mb-3 form-check"><input type="checkbox" class="form-check-input" name="Command.CustomBool3Value" value="true" @(Model.Command.CustomBool3Value == true ? "checked" : "") /><label class="form-check-label">@inventory.CustomBool3Name</label></div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" name="Command.CustomBool3Value"
+                           value="true" @(Model.Command.CustomBool3Value == true ? "checked" : "") />
+                    <input type="hidden" name="Command.CustomBool3Value" value="false" />
+                    <label class="form-check-label">@inventory.CustomBool3Name</label>
+                </div>
             }
             @if (!string.IsNullOrEmpty(inventory.CustomLink1Name))
             {
