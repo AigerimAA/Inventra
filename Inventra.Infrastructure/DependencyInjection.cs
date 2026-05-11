@@ -60,12 +60,11 @@ namespace Inventra.Infrastructure
             var brevoLogin = configuration["Brevo:Login"];
             if (!string.IsNullOrEmpty(brevoLogin))
             {
-                Console.WriteLine("DEBUG: Registering BrevoEmailService");
                 services.AddScoped<IEmailService, BrevoEmailService>();
             }
             else
             {
-                Console.WriteLine("DEBUG: Brevo:Login is empty, IEmailService NOT registered");
+                services.AddScoped<IEmailService, NullEmailService>();
             }
 
             return services;
