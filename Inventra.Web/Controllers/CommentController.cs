@@ -12,14 +12,11 @@ namespace Inventra.Web.Controllers
     {
         private readonly IMediator _mediator;
         private readonly ICommentRepository _commentRepository;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CommentController(IMediator mediator, ICommentRepository commentRepository,
-            UserManager<ApplicationUser> userManager)
+        public CommentController(IMediator mediator, ICommentRepository commentRepository)
         {
             _mediator = mediator;
             _commentRepository = commentRepository;
-            _userManager = userManager;
         }
 
         [Authorize]
@@ -30,8 +27,7 @@ namespace Inventra.Web.Controllers
             if (string.IsNullOrWhiteSpace(content))
                 return RedirectToAction("Details", "Inventory", new { id = inventoryId });
 
-            var userId = _userManager.GetUserId(User)!;
-            await _mediator.Send(new AddCommentCommand(inventoryId, userId, content));
+            await _mediator.Send(new AddCommentCommand(inventoryId, content));
             return RedirectToAction("Details", "Inventory", new { id = inventoryId });
         }
 

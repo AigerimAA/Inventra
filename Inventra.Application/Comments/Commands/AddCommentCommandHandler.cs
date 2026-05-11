@@ -9,18 +9,23 @@ namespace Inventra.Application.Comments.Commands
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public AddCommentCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork)
+        private readonly ICurrentUserService _currentUserService;
+        public AddCommentCommandHandler(ICommentRepository commentRepository, IUnitOfWork unitOfWork, ICurrentUserService currentUserService)
         {
             _commentRepository = commentRepository;
             _unitOfWork = unitOfWork;
+            _currentUserService = currentUserService;
         }
 
         public async Task Handle(AddCommentCommand request, CancellationToken cancellationToken)
         {
+            var userId = _currentUserService.UserId
+            ?? throw new UnauthorizedAccessException("User is not authenticated");
+
             var comment = new Comment
             {
                 InventoryId = request.InventoryId,
-                AuthorId = request.AuthorId,
+                AuthorId = userId,
                 Content = request.Content,
                 CreatedAt = DateTime.UtcNow
             };
