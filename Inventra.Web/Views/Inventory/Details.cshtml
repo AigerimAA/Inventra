@@ -48,7 +48,7 @@
         <a class="nav-link" data-bs-toggle="tab" href="#stats">@L["Stats"]</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" href="#export">Export</a>
+        <a class="nav-link" data-bs-toggle="tab" href="#export">@L["Export"]</a>
     </li>
 </ul>
 
@@ -417,15 +417,16 @@
     <div class="tab-pane fade" id="export">
         <div class="inv-card" style="max-width:400px; margin-top:8px;">
             <div class="inv-card-header">
-                <span>Export</span>
+                <span>@L["Export"]</span>
+
             </div>
             <div style="padding:20px;">
                 <p style="color:var(--bs-body-color); margin-bottom:16px;">
-                    Download all items from this inventory as a CSV file.
+                    @L["ExportDescription"]
                 </p>
                 <a asp-controller="Inventory" asp-action="ExportToCsv" asp-route-id="@Model.Id"
                    class="btn btn-primary">
-                    <i class="bi bi-download"></i> Download CSV
+                    <i class="bi bi-download"></i> @L["DownloadCsv"]
                 </a>
             </div>
         </div>

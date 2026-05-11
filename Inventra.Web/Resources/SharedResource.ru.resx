@@ -165,6 +165,9 @@
   <data name="DontHaveAccount" xml:space="preserve">
     <value>Нет аккаунта? Зарегистрироваться</value>
   </data>
+  <data name="DownloadCsv" xml:space="preserve">
+    <value>Скачать CSV</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>
@@ -173,6 +176,12 @@
   </data>
   <data name="Example" xml:space="preserve">
     <value>Пример</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="ExportDescription" xml:space="preserve">
+    <value>Скачайте все элементы этого инвентаря в формате CSV.</value>
   </data>
   <data name="Fields" xml:space="preserve">
     <value>Поля</value>

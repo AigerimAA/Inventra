@@ -165,6 +165,9 @@
   <data name="DontHaveAccount" xml:space="preserve">
     <value>Аккаунт жоқ па? Тіркелу</value>
   </data>
+  <data name="DownloadCsv" xml:space="preserve">
+    <value>CSV жүктеу</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Өңдеу</value>
   </data>
@@ -173,6 +176,12 @@
   </data>
   <data name="Example" xml:space="preserve">
     <value>Мысал</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="ExportDescription" xml:space="preserve">
+    <value>Инвентардың барлық элементтерін CSV файл ретінде жүктеп алыңыз.</value>
   </data>
   <data name="Fields" xml:space="preserve">
     <value>Өрістер</value>
