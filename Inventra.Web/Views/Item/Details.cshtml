@@ -61,26 +61,25 @@
 }
     <table class="inv-table">
         <tbody>
-            <tbody>
-                @if (!string.IsNullOrEmpty(inventory?.CustomString1Name)) { <tr><td>@inventory!.CustomString1Name</td><td>@Model.CustomString1Value</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomString2Name)) { <tr><td>@inventory!.CustomString2Name</td><td>@Model.CustomString2Value</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomString3Name)) { <tr><td>@inventory!.CustomString3Name</td><td>@Model.CustomString3Value</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomInt1Name)) { <tr><td>@inventory!.CustomInt1Name</td><td>@(Model.CustomInt1Value.HasValue ? (Model.CustomInt1Value.Value % 1 == 0 ? ((int)Model.CustomInt1Value.Value).ToString() : Model.CustomInt1Value.Value.ToString("N2")) : "")</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomInt2Name)) { <tr><td>@inventory!.CustomInt2Name</td><td>@(Model.CustomInt2Value.HasValue ? (Model.CustomInt2Value.Value % 1 == 0 ? ((int)Model.CustomInt2Value.Value).ToString() : Model.CustomInt2Value.Value.ToString("N2")) : "")</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomInt3Name)) { <tr><td>@inventory!.CustomInt3Name</td><td>@(Model.CustomInt3Value.HasValue ? (Model.CustomInt3Value.Value % 1 == 0 ? ((int)Model.CustomInt3Value.Value).ToString() : Model.CustomInt3Value.Value.ToString("N2")) : "")</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomText1Name)) { <tr><td>@inventory!.CustomText1Name</td><td><pre class="mb-0 text-wrap" style="font-family:inherit;">@Model.CustomText1Value</pre></td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomText2Name)) { <tr><td>@inventory!.CustomText2Name</td><td><pre class="mb-0 text-wrap" style="font-family:inherit;">@Model.CustomText2Value</pre></td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomText3Name)) { <tr><td>@inventory!.CustomText3Name</td><td><pre class="mb-0 text-wrap" style="font-family:inherit;">@Model.CustomText3Value</pre></td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomBool1Name)) { <tr><td>@inventory!.CustomBool1Name</td><td>@(Model.CustomBool1Value == true ? "✓ Yes" : "✗ No")</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomBool2Name)) { <tr><td>@inventory!.CustomBool2Name</td><td>@(Model.CustomBool2Value == true ? "✓ Yes" : "✗ No")</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomBool3Name)) { <tr><td>@inventory!.CustomBool3Name</td><td>@(Model.CustomBool3Value == true ? "✓ Yes" : "✗ No")</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomLink1Name) && !string.IsNullOrEmpty(Model.CustomLink1Value)) { <tr><td>@inventory!.CustomLink1Name</td><td>@if (Uri.TryCreate(Model.CustomLink1Value, UriKind.Absolute, out var uri1) && (uri1.Scheme == Uri.UriSchemeHttp || uri1.Scheme == Uri.UriSchemeHttps)) { <a href="@uri1" target="_blank" style="color:#0097a7;">@uri1</a> } else { <span class="text-muted">@Model.CustomLink1Value</span> }</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomLink2Name) && !string.IsNullOrEmpty(Model.CustomLink2Value)) { <tr><td>@inventory!.CustomLink2Name</td><td>@if (Uri.TryCreate(Model.CustomLink2Value, UriKind.Absolute, out var uri2) && (uri2.Scheme == Uri.UriSchemeHttp || uri2.Scheme == Uri.UriSchemeHttps)) { <a href="@uri2" target="_blank" style="color:#0097a7;">@uri2</a> } else { <span class="text-muted">@Model.CustomLink2Value</span> }</td></tr> }
-                @if (!string.IsNullOrEmpty(inventory?.CustomLink3Name) && !string.IsNullOrEmpty(Model.CustomLink3Value)) { <tr><td>@inventory!.CustomLink3Name</td><td>@if (Uri.TryCreate(Model.CustomLink3Value, UriKind.Absolute, out var uri3) && (uri3.Scheme == Uri.UriSchemeHttp || uri3.Scheme == Uri.UriSchemeHttps)) { <a href="@uri3" target="_blank" style="color:#0097a7;">@uri3</a> } else { <span class="text-muted">@Model.CustomLink3Value</span> }</td></tr> }
-                <tr><td>Likes</td><td>❤️ @Model.LikesCount</td></tr>
-                <tr><td>Last updated</td><td style="color:var(--bs-secondary-color);">@Model.UpdatedAt.ToString("dd.MM.yyyy HH:mm")</td></tr>
+            @if (!string.IsNullOrEmpty(inventory?.CustomString1Name)) { <tr><td>@inventory!.CustomString1Name</td><td>@Model.CustomString1Value</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomString2Name)) { <tr><td>@inventory!.CustomString2Name</td><td>@Model.CustomString2Value</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomString3Name)) { <tr><td>@inventory!.CustomString3Name</td><td>@Model.CustomString3Value</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomInt1Name)) { <tr><td>@inventory!.CustomInt1Name</td><td>@(Model.CustomInt1Value.HasValue ? (Model.CustomInt1Value.Value % 1 == 0 ? ((int)Model.CustomInt1Value.Value).ToString() : Model.CustomInt1Value.Value.ToString("N2")) : "")</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomInt2Name)) { <tr><td>@inventory!.CustomInt2Name</td><td>@(Model.CustomInt2Value.HasValue ? (Model.CustomInt2Value.Value % 1 == 0 ? ((int)Model.CustomInt2Value.Value).ToString() : Model.CustomInt2Value.Value.ToString("N2")) : "")</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomInt3Name)) { <tr><td>@inventory!.CustomInt3Name</td><td>@(Model.CustomInt3Value.HasValue ? (Model.CustomInt3Value.Value % 1 == 0 ? ((int)Model.CustomInt3Value.Value).ToString() : Model.CustomInt3Value.Value.ToString("N2")) : "")</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomText1Name)) { <tr><td>@inventory!.CustomText1Name</td><td><pre class="mb-0 text-wrap" style="font-family:inherit;">@Model.CustomText1Value</pre></td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomText2Name)) { <tr><td>@inventory!.CustomText2Name</td><td><pre class="mb-0 text-wrap" style="font-family:inherit;">@Model.CustomText2Value</pre></td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomText3Name)) { <tr><td>@inventory!.CustomText3Name</td><td><pre class="mb-0 text-wrap" style="font-family:inherit;">@Model.CustomText3Value</pre></td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomBool1Name)) { <tr><td>@inventory!.CustomBool1Name</td><td>@(Model.CustomBool1Value == true ? "✓ Yes" : "✗ No")</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomBool2Name)) { <tr><td>@inventory!.CustomBool2Name</td><td>@(Model.CustomBool2Value == true ? "✓ Yes" : "✗ No")</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomBool3Name)) { <tr><td>@inventory!.CustomBool3Name</td><td>@(Model.CustomBool3Value == true ? "✓ Yes" : "✗ No")</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomLink1Name) && !string.IsNullOrEmpty(Model.CustomLink1Value)) { <tr><td>@inventory!.CustomLink1Name</td><td>@if (Uri.TryCreate(Model.CustomLink1Value, UriKind.Absolute, out var uri1) && (uri1.Scheme == Uri.UriSchemeHttp || uri1.Scheme == Uri.UriSchemeHttps)) { <a href="@uri1" target="_blank" style="color:#0097a7;">@uri1</a> } else { <span class="text-muted">@Model.CustomLink1Value</span> }</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomLink2Name) && !string.IsNullOrEmpty(Model.CustomLink2Value)) { <tr><td>@inventory!.CustomLink2Name</td><td>@if (Uri.TryCreate(Model.CustomLink2Value, UriKind.Absolute, out var uri2) && (uri2.Scheme == Uri.UriSchemeHttp || uri2.Scheme == Uri.UriSchemeHttps)) { <a href="@uri2" target="_blank" style="color:#0097a7;">@uri2</a> } else { <span class="text-muted">@Model.CustomLink2Value</span> }</td></tr> }
+            @if (!string.IsNullOrEmpty(inventory?.CustomLink3Name) && !string.IsNullOrEmpty(Model.CustomLink3Value)) { <tr><td>@inventory!.CustomLink3Name</td><td>@if (Uri.TryCreate(Model.CustomLink3Value, UriKind.Absolute, out var uri3) && (uri3.Scheme == Uri.UriSchemeHttp || uri3.Scheme == Uri.UriSchemeHttps)) { <a href="@uri3" target="_blank" style="color:#0097a7;">@uri3</a> } else { <span class="text-muted">@Model.CustomLink3Value</span> }</td></tr> }
+            <tr><td>Likes</td><td>❤️ @Model.LikesCount</td></tr>
+            <tr><td>Last updated</td><td style="color:var(--bs-secondary-color);">@Model.UpdatedAt.ToString("dd.MM.yyyy HH:mm")</td></tr>
             </tbody>
-    </table>
+        </table>
     </div>
 </div>
 </div>
