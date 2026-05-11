@@ -183,15 +183,19 @@ namespace Inventra.Domain.Entities
             if (OwnerId == targetUserId)
                 throw new DomainException("Owner already has access as the inventory creator");
             if (_accessList.Any(a => a.UserId == targetUserId))
-                return; 
+                return;
             _accessList.Add(new InventoryAccess { InventoryId = Id, UserId = targetUserId });
+            UpdatedAt = DateTime.UtcNow;
         }
 
         public void RevokeAccess(string targetUserId)
         {
             var access = _accessList.FirstOrDefault(a => a.UserId == targetUserId);
             if (access is not null)
+            {
                 _accessList.Remove(access);
+                UpdatedAt = DateTime.UtcNow;
+            }
         }
     }
 }
