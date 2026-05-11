@@ -3,7 +3,6 @@ using Inventra.Application.Access.Commands.RemoveAccess;
 using Inventra.Application.Access.Queries.GetInventoryUsers;
 using Inventra.Application.Access.Queries.SearchUsers;
 using Inventra.Application.Interfaces;
-using Inventra.Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +16,7 @@ namespace Inventra.Web.Controllers
         private readonly ICurrentUserService _currentUserService;
         private readonly IInventoryPermissionService _permissionService;
 
-        public AccessController(IMediator mediator, IAccessRepository accessRepository, ICurrentUserService currentUserService, IInventoryPermissionService permissionService)
+        public AccessController(IMediator mediator, ICurrentUserService currentUserService, IInventoryPermissionService permissionService)
         { 
             _mediator = mediator; 
             _currentUserService = currentUserService; 
