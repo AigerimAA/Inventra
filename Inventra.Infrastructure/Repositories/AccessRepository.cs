@@ -20,27 +20,28 @@ namespace Inventra.Infrastructure.Repositories
 
         public async Task<InventoryAccess> AddAccessAsync(int inventoryId, string userId, CancellationToken cancellationToken = default)
         {
+            var exists = await _context.InventoryAccesses
+                .AnyAsync(a => a.InventoryId == inventoryId && a.UserId == userId, cancellationToken);
+            if (exists)
+                throw new InvalidOperationException("User already has access");
+
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken)
+                ?? throw new InvalidOperationException("User not found");
+
             var access = new InventoryAccess { InventoryId = inventoryId, UserId = userId };
             _context.InventoryAccesses.Add(access);
-            try
-            {
-                await _context.SaveChangesAsync(cancellationToken);
-            }
-            catch (DbUpdateException)
-            {
-                throw new InvalidOperationException("User already has access");
-            }
-            return await _context.InventoryAccesses
-                .AsNoTracking()
-                .Include(a => a.User)
-                .FirstAsync(a => a.InventoryId == inventoryId && a.UserId == userId, cancellationToken);
+            access.User = user;
+
+            return access;
         }
 
         public async Task RemoveAccessAsync(int inventoryId, string userId, CancellationToken cancellationToken = default)
         {
             var access = await _context.InventoryAccesses
                 .FirstOrDefaultAsync(a => a.InventoryId == inventoryId && a.UserId == userId, cancellationToken);
-            if (access != null) { _context.InventoryAccesses.Remove(access); await _context.SaveChangesAsync(cancellationToken); }
+            if (access != null)
+                _context.InventoryAccesses.Remove(access);
         }
 
         public async Task<IEnumerable<UserLookup>> SearchUsersAsync(string query, CancellationToken cancellationToken = default)
