@@ -97,7 +97,7 @@ namespace Inventra.Domain.Entities
 
         public bool CanWrite(string userId, bool isAdmin)
             => CanEdit(userId, isAdmin)
-               || IsPublic
+               || (IsPublic && !string.IsNullOrWhiteSpace(userId))
                || _accessList.Any(a => a.UserId == userId);
 
         public void MakePublic()

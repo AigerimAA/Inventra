@@ -1,6 +1,5 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
-using Inventra.Application.Interfaces;
 using Inventra.Domain.Interfaces;
 using MediatR;
 using System.Globalization;
