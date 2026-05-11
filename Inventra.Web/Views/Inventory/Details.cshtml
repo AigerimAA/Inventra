@@ -72,14 +72,18 @@
 
 <div class="tab-content">
     <div class="tab-pane fade show active" id="items">
+    <div class="d-flex justify-content-end mb-2 gap-2">
+    <a asp-controller="Inventory" asp-action="ExportToCsv" asp-route-id="@Model.Id"
+       class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-download"></i> Export CSV
+    </a>
     @if (User.Identity?.IsAuthenticated == true)
     {
-        <div class="d-flex justify-content-end mb-2">
-            <a asp-controller="Item" asp-action="Create"
-               asp-route-inventoryId="@Model.Id"
-               class="btn btn-primary btn-sm">+ Add Item</a>
-        </div>
+        <a asp-controller="Item" asp-action="Create"
+           asp-route-inventoryId="@Model.Id"
+           class="btn btn-primary btn-sm">+ Add Item</a>
     }
+</div>
 
     <div class="inv-card">
         <div class="inv-card-header">
