@@ -222,6 +222,9 @@
   <data name="NewInventory" xml:space="preserve">
     <value>+ Жаңа инвентарь</value>
   </data>
+  <data name="NoAccessInventories" xml:space="preserve">
+    <value>Өңдеу құқығы бар инвентарлар жоқ</value>
+  </data>
   <data name="NoElementsYet" xml:space="preserve">
     <value>Әлі элементтер жоқ. "Элемент қосу" батырмасын басыңыз</value>
   </data>

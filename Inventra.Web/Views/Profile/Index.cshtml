@@ -86,7 +86,7 @@
         <tbody>
             @if (!Model.AccessibleInventories.Any())
             {
-                <tr><td colspan="4" class="text-center" style="padding:24px; color:var(--bs-secondary-color);">No inventories with write access.</td></tr>
+                <tr><td colspan="4" class="text-center" style="padding:24px; color:var(--bs-secondary-color);">@L["NoAccessInventories"]</td></tr>
             }
             else
             {

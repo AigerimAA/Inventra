@@ -222,6 +222,9 @@
   <data name="NewInventory" xml:space="preserve">
     <value>+ New Inventory</value>
   </data>
+  <data name="NoAccessInventories" xml:space="preserve">
+    <value>No inventories with write access</value>
+  </data>
   <data name="NoElementsYet" xml:space="preserve">
     <value>No elements yet. Click "Add element" to start</value>
   </data>
