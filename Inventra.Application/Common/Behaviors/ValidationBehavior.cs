@@ -25,7 +25,6 @@ namespace Inventra.Application.Common.Behaviors
 
             var failures = validationResults
                 .SelectMany(r => r.Errors)
-                .Where(f => f != null)
                 .ToList();
 
             if (failures.Any())

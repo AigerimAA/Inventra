@@ -1,9 +1,11 @@
-﻿using CsvHelper;
+﻿using System.Globalization;
+using System.Text;
+using CsvHelper;
 using CsvHelper.Configuration;
+using Inventra.Application.Common.Exceptions;
+using Inventra.Domain.Entities;
 using Inventra.Domain.Interfaces;
 using MediatR;
-using System.Globalization;
-using System.Text;
 
 namespace Inventra.Application.Inventories.Queries.ExportInventoryToCsv
 {
@@ -26,7 +28,7 @@ namespace Inventra.Application.Inventories.Queries.ExportInventoryToCsv
         {
             var inventory = await _inventoryRepository.GetByIdAsync(request.InventoryId);
             if (inventory == null)
-                throw new Exception("Inventory not found");
+                throw new NotFoundException(nameof(Inventory), request.InventoryId);
 
             var items = await _itemRepository.GetByInventoryIdAsync(request.InventoryId);
 
