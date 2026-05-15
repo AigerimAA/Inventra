@@ -19,8 +19,7 @@ namespace Inventra.Application.Comments.Commands
 
         public async Task Handle(AddCommentCommand request, CancellationToken cancellationToken)
         {
-            var userId = _currentUserService.UserId
-            ?? throw new UnauthorizedAccessException("User is not authenticated");
+            var userId = _currentUserService.UserId ?? throw new UnauthorizedAccessException("User is not authenticated");
 
             var comment = new Comment(request.InventoryId, userId, request.Content);
             await _commentRepository.AddAsync(comment, cancellationToken);

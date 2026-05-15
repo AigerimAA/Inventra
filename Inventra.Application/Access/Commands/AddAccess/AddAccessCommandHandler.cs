@@ -11,7 +11,11 @@ namespace Inventra.Application.Access.Commands.AddAccess
         private readonly ICurrentUserService _currentUserService;
         private readonly IInventoryPermissionService _permissionService;
         public AddAccessCommandHandler(IAccessRepository accessRepository, ICurrentUserService currentUserService, IInventoryPermissionService permissionService)
-        { _accessRepository = accessRepository; _currentUserService = currentUserService; _permissionService = permissionService; }
+        { 
+            _accessRepository = accessRepository; 
+            _currentUserService = currentUserService; 
+            _permissionService = permissionService; 
+        }
 
         public async Task<AccessUserDto> Handle(AddAccessCommand request, CancellationToken cancellationToken)
         {

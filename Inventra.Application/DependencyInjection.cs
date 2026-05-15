@@ -18,6 +18,9 @@ namespace Inventra.Application
                 cfg.RegisterServicesFromAssembly(typeof(CreateInventoryCommand).Assembly);
 
                 cfg.AddBehavior(typeof(IPipelineBehavior<,>),
+                    typeof(LoggingBehavior<,>));
+
+                cfg.AddBehavior(typeof(IPipelineBehavior<,>),
                     typeof(ValidationBehavior<,>));
             });
 
