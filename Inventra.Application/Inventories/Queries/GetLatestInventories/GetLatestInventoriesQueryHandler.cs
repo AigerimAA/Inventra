@@ -17,7 +17,7 @@ namespace Inventra.Application.Inventories.Queries.GetLatestInventories
         }
         public async Task<IEnumerable<InventoryDto>> Handle(GetLatestInventoriesQuery request, CancellationToken cancellationToken)
         {
-            var inventories = await _inventoryRepository.GetLatestAsync(request.Count);
+            var inventories = await _inventoryRepository.GetLatestAsync(request.Count, cancellationToken);
             return _mapper.Map<IEnumerable<InventoryDto>>(inventories);
         }
     }

@@ -23,9 +23,7 @@ namespace Inventra.Application.CustomId.Commands
         }
         public async Task Handle(SaveCustomIdFormatCommand request, CancellationToken cancellationToken)
         {
-            var userId = _currentUserService.UserId
-        ?? throw new UnauthorizedAccessException("User is not authenticated");
-
+            var userId = _currentUserService.UserId ?? throw new UnauthorizedAccessException("User is not authenticated");
             if (!await _permissionService.CanManageAsync(userId, _currentUserService.IsAdmin, request.Format.InventoryId))
                 throw new UnauthorizedAccessException("Only the inventory owner or an admin can edit custom ID format");
 
@@ -42,13 +40,7 @@ namespace Inventra.Application.CustomId.Commands
                         SortOrder = i
                     };
                 }).ToList();
-
-            var format = new CustomIdFormat
-            {
-                InventoryId = request.Format.InventoryId,
-                UpdatedAt = DateTime.UtcNow,
-                Elements = elements
-            };
+            var format = new CustomIdFormat { InventoryId = request.Format.InventoryId, UpdatedAt = DateTime.UtcNow, Elements = elements };
 
             await _repository.SaveAsync(format, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -19,8 +19,7 @@
         public string? String3TopValue { get; }
         public int String3TopCount { get; }
 
-        public InventoryStats(
-            int totalItems,
+        public InventoryStats(int totalItems,
             decimal? int1Avg, decimal? int1Min, decimal? int1Max,
             decimal? int2Avg, decimal? int2Min, decimal? int2Max,
             decimal? int3Avg, decimal? int3Min, decimal? int3Max,

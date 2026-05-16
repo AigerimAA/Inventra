@@ -19,7 +19,7 @@ namespace Inventra.Application.Inventories.Queries.GetInventoryById
         }
         public async Task<InventoryDto> Handle(GetInventoryByIdQuery request, CancellationToken cancellationToken)
         {
-            var inventory = await _inventoryRepository.GetByIdAsync(request.Id)
+            var inventory = await _inventoryRepository.GetByIdAsync(request.Id, cancellationToken)
                     ?? throw new NotFoundException(nameof(Inventory), request.Id);
 
             return _mapper.Map<InventoryDto>(inventory);

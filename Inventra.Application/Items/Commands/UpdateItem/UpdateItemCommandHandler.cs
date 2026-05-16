@@ -29,11 +29,9 @@ namespace Inventra.Application.Items.Commands.UpdateItem
             if (!await _permissionService.CanWriteAsync(userId, _currentUserService.IsAdmin, request.InventoryId))
                 throw new UnauthorizedAccessException("You do not have write access to this inventory");
 
-            var item = await _itemRepository.GetByIdAsync(request.Id)
-                ?? throw new NotFoundException(nameof(Item), request.Id);
+            var item = await _itemRepository.GetByIdAsync(request.Id, cancellationToken) ?? throw new NotFoundException(nameof(Item), request.Id);
 
-            await _itemRepository.SetOriginalVersionAsync(item, request.Version);
-
+            await _itemRepository.SetOriginalVersionAsync(item, request.Version, cancellationToken);
             item.UpdateValues(
                 request.CustomString1Value, request.CustomString2Value, request.CustomString3Value,
                 request.CustomInt1Value, request.CustomInt2Value, request.CustomInt3Value,
@@ -42,7 +40,7 @@ namespace Inventra.Application.Items.Commands.UpdateItem
                 request.CustomLink1Value, request.CustomLink2Value, request.CustomLink3Value,
                 request.ImageUrl);
 
-            await _itemRepository.UpdateAsync(item);
+            await _itemRepository.UpdateAsync(item, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
     }

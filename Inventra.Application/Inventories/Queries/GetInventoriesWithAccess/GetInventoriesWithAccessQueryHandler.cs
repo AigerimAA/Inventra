@@ -5,8 +5,7 @@ using MediatR;
 
 namespace Inventra.Application.Inventories.Queries.GetInventoriesWithAccess
 {
-    public class GetInventoriesWithAccessQueryHandler 
-        : IRequestHandler<GetInventoriesWithAccessQuery, IEnumerable<InventoryDto>>
+    public class GetInventoriesWithAccessQueryHandler : IRequestHandler<GetInventoriesWithAccessQuery, IEnumerable<InventoryDto>>
     {
         private readonly IInventoryRepository _inventoryRepository;
         private readonly IMapper _mapper;
@@ -19,7 +18,7 @@ namespace Inventra.Application.Inventories.Queries.GetInventoriesWithAccess
 
         public async Task<IEnumerable<InventoryDto>> Handle(GetInventoriesWithAccessQuery request, CancellationToken cancellationToken)
         {
-            var inventories = await _inventoryRepository.GetWithAccessByUserIdAsync(request.UserId);
+            var inventories = await _inventoryRepository.GetWithAccessByUserIdAsync(request.UserId, cancellationToken);
             return _mapper.Map<IEnumerable<InventoryDto>>(inventories);
         }
     }

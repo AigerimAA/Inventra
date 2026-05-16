@@ -17,11 +17,11 @@ namespace Inventra.Application.Likes.Commands
 
         public async Task Handle(ToggleLikeCommand request, CancellationToken cancellationToken)
         {
-            var existing = await _likeRepository.GetByUserAndItemAsync(request.ItemId, request.UserId);
+            var existing = await _likeRepository.GetByUserAndItemAsync(request.ItemId, request.UserId, cancellationToken);
             if (existing != null)
-                await _likeRepository.RemoveAsync(existing);
+                await _likeRepository.RemoveAsync(existing, cancellationToken);
             else
-                await _likeRepository.AddAsync(new Like(request.ItemId, request.UserId));
+                await _likeRepository.AddAsync(new Like(request.ItemId, request.UserId), cancellationToken);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }

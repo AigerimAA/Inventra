@@ -17,7 +17,7 @@ namespace Inventra.Application.Inventories.Queries.GetAllInventories
         }
         public async Task<IEnumerable<InventoryDto>> Handle(GetAllInventoriesQuery request, CancellationToken cancellationToken)
         {
-            var inventories = await _inventoryRepository.GetAllAsync();
+            var inventories = await _inventoryRepository.GetAllAsync(cancellationToken);
             return _mapper.Map<IEnumerable<InventoryDto>>(inventories);
         }
     }

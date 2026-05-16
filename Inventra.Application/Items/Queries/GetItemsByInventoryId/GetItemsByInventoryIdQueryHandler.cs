@@ -17,7 +17,7 @@ namespace Inventra.Application.Items.Queries.GetItemsByInventoryId
         }
         public async Task<IEnumerable<ItemDto>> Handle(GetItemsByInventoryIdQuery request, CancellationToken cancellationToken)
         {
-            var items = await _itemRepository.GetByInventoryIdAsync(request.InventoryId);
+            var items = await _itemRepository.GetByInventoryIdAsync(request.InventoryId, cancellationToken);
             return _mapper.Map<IEnumerable<ItemDto>>(items);
         }
     }

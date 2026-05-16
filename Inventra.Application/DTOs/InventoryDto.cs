@@ -29,7 +29,6 @@
         public string? CustomInt3Name { get; set; }
         public bool CustomInt3Shown { get; set; }
 
-        
         public string? CustomText1Name { get; set; }
         public bool CustomText1Shown { get; set; }
         public string? CustomText2Name { get; set; }

@@ -18,7 +18,7 @@ namespace Inventra.Application.Inventories.Queries.GetInventoriesByUserId
 
         public async Task<IEnumerable<InventoryDto>> Handle(GetInventoriesByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var inventories = await _inventoryRepository.GetByOwnerIdAsync(request.UserId);
+            var inventories = await _inventoryRepository.GetByOwnerIdAsync(request.UserId, cancellationToken);
             return _mapper.Map<IEnumerable<InventoryDto>>(inventories);
         }
     }

@@ -14,8 +14,7 @@ namespace Inventra.Application.Inventories.Commands.UpdateInventory
         private readonly ICurrentUserService _currentUserService;
         private readonly IInventoryPermissionService _permissionService;
 
-        public UpdateInventoryCommandHandler(
-            IInventoryRepository inventoryRepository, ITagRepository tagRepository,
+        public UpdateInventoryCommandHandler(IInventoryRepository inventoryRepository, ITagRepository tagRepository,
             IUnitOfWork unitOfWork, ICurrentUserService currentUserService, IInventoryPermissionService permissionService)
         {
             _inventoryRepository = inventoryRepository;
@@ -27,7 +26,7 @@ namespace Inventra.Application.Inventories.Commands.UpdateInventory
         public async Task<byte[]> Handle(UpdateInventoryCommand request, CancellationToken cancellationToken)
         {
             var userId = _currentUserService.UserId
-        ?? throw new UnauthorizedAccessException("User is not authenticated");
+                ?? throw new UnauthorizedAccessException("User is not authenticated");
 
             var inventory = await _inventoryRepository.GetByIdAsync(request.Id)
                 ?? throw new NotFoundException(nameof(Inventory), request.Id);
@@ -37,9 +36,7 @@ namespace Inventra.Application.Inventories.Commands.UpdateInventory
 
             _inventoryRepository.SetOriginalVersion(inventory, request.Version);
 
-            inventory.UpdateDetails(
-                request.Title, request.Description, request.ImageUrl,
-                request.IsPublic, request.CategoryId);
+            inventory.UpdateDetails(request.Title, request.Description, request.ImageUrl,request.IsPublic, request.CategoryId);
 
             inventory.UpdateFields(
                 request.CustomString1Name, request.CustomString1Shown,

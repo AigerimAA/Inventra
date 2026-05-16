@@ -14,22 +14,16 @@ namespace Inventra.Application.Inventories.Queries.ExportInventoryToCsv
         private readonly IInventoryRepository _inventoryRepository;
         private readonly IItemRepository _itemRepository;
 
-        public ExportInventoryToCsvQueryHandler(
-            IInventoryRepository inventoryRepository,
-            IItemRepository itemRepository)
+        public ExportInventoryToCsvQueryHandler(IInventoryRepository inventoryRepository, IItemRepository itemRepository)
         {
             _inventoryRepository = inventoryRepository;
             _itemRepository = itemRepository;
         }
 
-        public async Task<ExportResult> Handle(
-            ExportInventoryToCsvQuery request,
-            CancellationToken cancellationToken)
+        public async Task<ExportResult> Handle(ExportInventoryToCsvQuery request, CancellationToken cancellationToken)
         {
             var inventory = await _inventoryRepository.GetByIdAsync(request.InventoryId);
-            if (inventory == null)
-                throw new NotFoundException(nameof(Inventory), request.InventoryId);
-
+            if (inventory == null) throw new NotFoundException(nameof(Inventory), request.InventoryId);
             var items = await _itemRepository.GetByInventoryIdAsync(request.InventoryId);
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
@@ -88,7 +82,6 @@ namespace Inventra.Application.Inventories.Queries.ExportInventoryToCsv
 
                 await csv.NextRecordAsync();
             }
-
             await writer.FlushAsync();
             var fileName = $"{inventory.Title.Replace(" ", "_")}_{DateTime.UtcNow:yyyyMMdd}.csv";
             return new ExportResult(ms.ToArray(), fileName, "text/csv");

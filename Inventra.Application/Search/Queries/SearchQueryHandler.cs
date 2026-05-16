@@ -16,13 +16,10 @@ namespace Inventra.Application.Search.Queries
             _mapper = mapper;
         }
 
-        public async Task<SearchResultDto> Handle(
-            SearchQuery request, CancellationToken cancellationToken)
+        public async Task<SearchResultDto> Handle(SearchQuery request, CancellationToken cancellationToken)
         {
-            var inventories = await _searchRepository
-                .SearchInventoriesAsync(request.Q, cancellationToken);
-            var items = await _searchRepository
-                .SearchItemsAsync(request.Q, cancellationToken);
+            var inventories = await _searchRepository.SearchInventoriesAsync(request.Q, cancellationToken);
+            var items = await _searchRepository.SearchItemsAsync(request.Q, cancellationToken);
 
             return new SearchResultDto
             {

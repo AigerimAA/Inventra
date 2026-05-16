@@ -42,7 +42,7 @@
                     request.CustomLink1Value, request.CustomLink2Value, request.CustomLink3Value,
                     request.ImageUrl);
 
-                await _itemRepository.AddAsync(item);
+                await _itemRepository.AddAsync(item, cancellationToken);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
                 return _mapper.Map<ItemDto>(item);
             }

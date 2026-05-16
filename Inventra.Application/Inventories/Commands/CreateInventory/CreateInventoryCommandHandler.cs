@@ -14,8 +14,7 @@ namespace Inventra.Application.Inventories.Commands.CreateInventory
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
 
-        public CreateInventoryCommandHandler(IInventoryRepository inventoryRepository, IUnitOfWork unitOfWork, 
-            IMapper mapper, ICurrentUserService currentUserService)
+        public CreateInventoryCommandHandler(IInventoryRepository inventoryRepository, IUnitOfWork unitOfWork, IMapper mapper, ICurrentUserService currentUserService)
         {
             _inventoryRepository = inventoryRepository;
             _unitOfWork = unitOfWork;
@@ -25,9 +24,7 @@ namespace Inventra.Application.Inventories.Commands.CreateInventory
 
         public async Task<InventoryDto> Handle(CreateInventoryCommand request, CancellationToken cancellationToken)
         {
-            var userId = _currentUserService.UserId
-                ?? throw new UnauthorizedAccessException("User is not authenticated");
-
+            var userId = _currentUserService.UserId ?? throw new UnauthorizedAccessException("User is not authenticated");
             var inventory = new Inventory(
                 request.Title,
                 request.CategoryId,

@@ -17,7 +17,7 @@ namespace Inventra.Application.Inventories.Queries.GetPopularInventories
         }
         public async Task<IEnumerable<InventoryDto>> Handle(GetPopularInventoriesQuery request, CancellationToken cancellationToken)
         {
-            var inventories = await _inventoryRepository.GetMostPopularAsync(request.Count);
+            var inventories = await _inventoryRepository.GetMostPopularAsync(request.Count, cancellationToken);
             return _mapper.Map<IEnumerable<InventoryDto>>(inventories);
         }
     }

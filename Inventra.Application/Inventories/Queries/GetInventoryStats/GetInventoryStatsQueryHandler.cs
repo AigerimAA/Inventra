@@ -7,8 +7,10 @@ namespace Inventra.Application.Inventories.Queries.GetInventoryStats
     public class GetInventoryStatsQueryHandler : IRequestHandler<GetInventoryStatsQuery, InventoryStatsDto>
     {
         private readonly IInventoryStatsRepository _statsRepository;
-        public GetInventoryStatsQueryHandler(IInventoryStatsRepository statsRepository) => _statsRepository = statsRepository;
-
+        public GetInventoryStatsQueryHandler(IInventoryStatsRepository statsRepository)
+        {
+            _statsRepository = statsRepository;
+        }
         public async Task<InventoryStatsDto> Handle(GetInventoryStatsQuery request, CancellationToken cancellationToken)
         {
             var stats = await _statsRepository.GetStatsAsync(request.InventoryId, cancellationToken);
