@@ -4,6 +4,7 @@ using Inventra.Domain.Entities;
 using Inventra.Infrastructure;
 using Inventra.Infrastructure.Persistence;
 using Inventra.Web.Hubs;
+using Inventra.Web.Middleware;
 using Inventra.Web.Services;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
@@ -129,6 +130,7 @@ namespace Inventra.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
