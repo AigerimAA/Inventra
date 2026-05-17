@@ -9,6 +9,7 @@ using Inventra.Web.Services;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 
 namespace Inventra.Web
 {
@@ -21,6 +22,17 @@ namespace Inventra.Web
             builder.Services.AddControllersWithViews()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Inventra API",
+                    Version = "v1",
+                    Description = "API for Inventra inventory management system"
+                });
+            });
 
             builder.Services.AddAntiforgery(options =>
             {
@@ -131,6 +143,16 @@ namespace Inventra.Web
                 app.UseDeveloperExceptionPage();
             }
             app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Inventra API v1");
+                    c.RoutePrefix = "swagger";
+                });
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
