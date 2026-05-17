@@ -25,6 +25,7 @@ namespace Inventra.Infrastructure
                         maxRetryDelay: TimeSpan.FromSeconds(30),
                         errorNumbersToAdd: null)));
 
+            services.AddMemoryCache();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
