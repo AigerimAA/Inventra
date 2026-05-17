@@ -214,14 +214,6 @@ CI/CD via **GitHub Actions** — every push to `main` deploys automatically.
 - Azure SQL Database (General Purpose, Serverless)
 - Cloudinary (image storage)
 
-## 🔮 Roadmap
-
-- Pagination for search results and inventory items
-- Remove old images from Cloudinary on delete
-- Document preview for PDF/Image links
-- BaseEntity and AggregateRoot base classes for cleaner Domain layer
-- Separate ApiController layer with full Swagger documentation
-
 ## 📄 License
 
 Educational project — Itransition Internship 2026
