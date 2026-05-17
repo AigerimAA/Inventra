@@ -97,7 +97,7 @@ namespace Inventra.Infrastructure.Services
                         element.FormatString,
                         defaultPadding: 9),
 
-                _ => string.Empty
+                _ => throw new ArgumentException($"Unsupported element type: {element.ElementType}")
             };
         }
 

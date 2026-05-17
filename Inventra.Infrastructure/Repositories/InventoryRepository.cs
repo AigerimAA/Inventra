@@ -71,6 +71,8 @@ namespace Inventra.Infrastructure.Repositories
                 .Include(i => i.Owner)
                 .Include(i => i.Category)
                 .Include(i => i.Items)
+                .Include(i => i.InventoryTags)
+                    .ThenInclude(it => it.Tag)
                 .Where(i => i.AccessList.Any(a => a.UserId == userId))
                 .ToListAsync(cancellationToken);
         }

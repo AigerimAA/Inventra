@@ -131,8 +131,14 @@ namespace Inventra.Infrastructure.Services
                 return (AuthResult.Success(), existingUser);
             }
 
-            var userEmail = info.Principal.FindFirst(ClaimTypes.Email)?.Value
-                ?? info.Principal.FindFirst(ClaimTypes.NameIdentifier)?.Value + "@oauth.com";
+            var emailClaim = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
+            var nameIdClaim = info.Principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var userEmail = !string.IsNullOrEmpty(emailClaim)
+                ? emailClaim
+                : (!string.IsNullOrEmpty(nameIdClaim)
+                    ? $"{nameIdClaim}@oauth.com"
+                    : $"user_{Guid.NewGuid():N}@oauth.com");
 
             if (userEmail == null)
                 return (AuthResult.Failure(["Cannot retrieve email from external provider"]), null);
