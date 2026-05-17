@@ -14,7 +14,7 @@ namespace Inventra.Infrastructure.Repositories
         }
         public async Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Categories.ToListAsync(cancellationToken);
+            return await _context.Categories.AsNoTracking().ToListAsync(cancellationToken);
         }
     }
 }

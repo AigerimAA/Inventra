@@ -16,6 +16,7 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<IEnumerable<Tag>> GetByPrefixAsync(string prefix, int maxResults = 10, CancellationToken cancellationToken = default)
         {
             return await _context.Tags
+                .AsNoTracking()
                 .Where(t => EF.Functions.Like(t.Name, prefix + "%"))
                 .OrderBy(t => t.Name)
                 .Take(maxResults)

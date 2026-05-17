@@ -16,6 +16,7 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<IEnumerable<Comment>> GetByInventoryIdAsync(int inventoryId, CancellationToken cancellationToken = default)
         {
             return await _context.Comments
+                .AsNoTracking()
                 .Include(c => c.Author)
                 .Where(c => c.InventoryId == inventoryId)
                 .OrderBy(c => c.CreatedAt)

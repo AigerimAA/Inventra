@@ -24,6 +24,7 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<IEnumerable<Item>> GetByInventoryIdAsync(int inventoryId, CancellationToken cancellationToken = default)
         {
             return await _context.Items
+                .AsNoTracking()
                 .Include(i => i.CreatedBy)
                 .Include(i => i.Likes)
                 .Where(i => i.InventoryId == inventoryId)

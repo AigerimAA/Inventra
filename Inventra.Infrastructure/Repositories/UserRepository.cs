@@ -25,6 +25,7 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<IEnumerable<ApplicationUser>> SearchByNameOrEmailAsync(string query, CancellationToken cancellationToken = default)
         {
             return await _context.Users
+                .AsNoTracking()
                 .Where(u =>
                     EF.Functions.Like(u.UserName!, query + "%") ||
                     EF.Functions.Like(u.Email!, query + "%"))

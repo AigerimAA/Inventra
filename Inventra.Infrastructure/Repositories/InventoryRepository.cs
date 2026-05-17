@@ -26,6 +26,7 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<IEnumerable<Inventory>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await _context.Inventories
+                .AsNoTracking()
                 .Include(i => i.Owner)
                 .Include(i => i.Category)
                 .Include(i => i.InventoryTags)
@@ -36,6 +37,7 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<IEnumerable<Inventory>> GetByOwnerIdAsync(string ownerId, CancellationToken cancellationToken = default)
         {
             return await _context.Inventories
+                .AsNoTracking()
                 .Include(i => i.Owner)
                 .Include(i => i.Category)
                 .Include(i => i.InventoryTags)
@@ -47,6 +49,7 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<IEnumerable<Inventory>> GetLatestAsync(int count, CancellationToken cancellationToken = default)
         {
             return await _context.Inventories
+                .AsNoTracking()
                 .Include(i => i.Owner)
                 .Include(i => i.Category)
                 .Include(i => i.Items)
@@ -59,6 +62,7 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<IEnumerable<Inventory>> GetMostPopularAsync(int count, CancellationToken cancellationToken = default)
         {
             return await _context.Inventories
+                .AsNoTracking()
                 .Include(i => i.Owner)
                 .Include(i => i.Items)
                 .OrderByDescending(i => i.Items.Count)
@@ -68,6 +72,7 @@ namespace Inventra.Infrastructure.Repositories
         public async Task<IEnumerable<Inventory>> GetWithAccessByUserIdAsync(string userId, CancellationToken cancellationToken = default)
         {
             return await _context.Inventories
+                .AsNoTracking()
                 .Include(i => i.Owner)
                 .Include(i => i.Category)
                 .Include(i => i.Items)
