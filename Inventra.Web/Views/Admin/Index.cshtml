@@ -90,13 +90,10 @@
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <form asp-action="Delete" method="post">
-                                        <input type="hidden" name="userId" value="@user.Id" />
-                                        <button class="dropdown-item text-danger"
-                                                onclick="return confirm('Delete user @user.UserName?')">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    <button class="dropdown-item text-danger"
+                                        onclick="showDeleteUserModal('@user.Id', '@user.UserName')">
+                                    Delete
+                                </button>
                                 </li>
                             </ul>
                         </div>
@@ -106,3 +103,34 @@
         </tbody>
     </table>
 </div>
+<div class="modal fade" id="deleteUserModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete user <strong id="deleteUserName"></strong>? 
+                This cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" 
+                        data-bs-dismiss="modal">Cancel</button>
+                <form asp-action="Delete" method="post" id="deleteUserForm">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="userId" id="deleteUserId" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showDeleteUserModal(userId, userName) {
+        document.getElementById('deleteUserId').value = userId;
+        document.getElementById('deleteUserName').textContent = userName;
+        new bootstrap.Modal(document.getElementById('deleteUserModal')).show();
+    }
+</script>

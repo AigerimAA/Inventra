@@ -63,76 +63,60 @@ namespace Inventra.Infrastructure.Services
                     element.FixedValue ?? string.Empty,
 
                 CustomIdElementType.DateTime =>
-                    DateTime.UtcNow.ToString(
-                        string.IsNullOrEmpty(element.FormatString)
-                            ? "yyyy"
-                            : element.FormatString),
+                    DateTime.UtcNow.ToString(string.IsNullOrEmpty(element.FormatString) ? "yyyy" : element.FormatString),
 
                 CustomIdElementType.Guid =>
                     Guid.NewGuid().ToString("N").ToUpper(),
 
                 CustomIdElementType.Random20 =>
-                    FormatHex(
-                        Random.Shared.Next(0, 0x100000),
-                        element.FormatString,
-                        defaultWidth: 5),
+                    FormatHex(Random.Shared.Next(0, 0x100000), element.FormatString, defaultWidth: 5),
 
                 CustomIdElementType.Random32 =>
-                    FormatHexLong(
-                        Random.Shared.NextInt64(0, 0x100000000L),
-                        element.FormatString,
-                        defaultWidth: 8),
+                    FormatHexLong(Random.Shared.NextInt64(0, 0x100000000L), element.FormatString, defaultWidth: 8),
 
                 CustomIdElementType.Random6Digits =>
-                    FormatNumber(
-                        Random.Shared.Next(100000, 1000000),
-                        element.FormatString,
-                        defaultPadding: 6),
+                    FormatNumber(Random.Shared.Next(100000, 1000000), element.FormatString, defaultPadding: 6),
 
                 CustomIdElementType.Random9Digits =>
-                    FormatNumber(
-                        Random.Shared.Next(100000000, 1000000000),
-                        element.FormatString,
-                        defaultPadding: 9),
+                    FormatNumber(Random.Shared.Next(100000000, 1000000000), element.FormatString, defaultPadding: 9),
 
                 _ => throw new ArgumentException($"Unsupported element type: {element.ElementType}")
             };
         }
 
-        private static string FormatNumber(int value, string? fmt, int defaultPadding)
+        private static string FormatNumber(int value, string? format, int defaultPadding)
         {
-            if (string.IsNullOrEmpty(fmt))
+            if (string.IsNullOrEmpty(format))
                 return value.ToString().PadLeft(defaultPadding, '0');
 
-            if (fmt.StartsWith('D') && int.TryParse(fmt[1..], out var width))
+            if (format.StartsWith('D') && int.TryParse(format[1..], out var width))
                 return value.ToString().PadLeft(width, '0');
 
             return value.ToString();
         }
 
-        private static string FormatHex(int value, string? fmt, int defaultWidth)
+        private static string FormatHex(int value, string? format, int defaultWidth)
         {
-            if (string.IsNullOrEmpty(fmt))
+            if (string.IsNullOrEmpty(format))
                 return value.ToString("X").PadLeft(defaultWidth, '0');
 
-            if (fmt.StartsWith('X') && int.TryParse(fmt[1..], out var width))
+            if (format.StartsWith('X') && int.TryParse(format[1..], out var width))
                 return value.ToString("X").PadLeft(width, '0');
 
             return value.ToString("X");
         }
-        private static string FormatHexLong(long value, string? fmt, int defaultWidth)
+        private static string FormatHexLong(long value, string? format, int defaultWidth)
         {
-            if (string.IsNullOrEmpty(fmt))
+            if (string.IsNullOrEmpty(format))
                 return value.ToString("X").PadLeft(defaultWidth, '0');
 
-            if (fmt.StartsWith('X') && int.TryParse(fmt[1..], out var width))
+            if (format.StartsWith('X') && int.TryParse(format[1..], out var width))
                 return value.ToString("X").PadLeft(width, '0');
 
             return value.ToString("X");
         }
 
-        private async Task<string> BuildSequenceAsync(
-            int inventoryId, string? fmt, CancellationToken cancellationToken)
+        private async Task<string> BuildSequenceAsync(int inventoryId, string? format, CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -151,7 +135,7 @@ namespace Inventra.Infrastructure.Services
                     try
                     {
                         await _context.SaveChangesAsync(cancellationToken);
-                        return FormatSequenceValue(1, fmt);
+                        return FormatSequenceValue(1, format);
                     }
                     catch (DbUpdateException)
                     {
@@ -165,7 +149,7 @@ namespace Inventra.Infrastructure.Services
                 try
                 {
                     await _context.SaveChangesAsync(cancellationToken);
-                    return FormatSequenceValue(seq.CurrentValue, fmt);
+                    return FormatSequenceValue(seq.CurrentValue, format);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -174,12 +158,12 @@ namespace Inventra.Infrastructure.Services
             }
         }
 
-        private static string FormatSequenceValue(int value, string? fmt)
+        private static string FormatSequenceValue(int value, string? format)
         {
-            if (string.IsNullOrEmpty(fmt))
+            if (string.IsNullOrEmpty(format))
                 return value.ToString();
 
-            if (fmt.StartsWith('D') && int.TryParse(fmt[1..], out var width))
+            if (format.StartsWith('D') && int.TryParse(format[1..], out var width))
                 return value.ToString().PadLeft(width, '0');
 
             return value.ToString();
