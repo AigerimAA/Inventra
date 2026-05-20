@@ -2,7 +2,7 @@
 
 Web application for inventory management built with ASP.NET Core MVC and Clean Architecture.
 
-## 🚀 Live Demo
+##  Live Demo
 
 [https://inventra-web-enbueyfhe3hydxf8.eastasia-01.azurewebsites.net](https://inventra-web-enbueyfhe3hydxf8.eastasia-01.azurewebsites.net)
 
@@ -45,7 +45,7 @@ Inventra/
 ### MediatR Pipeline Behaviors
 Request → LoggingBehavior → ValidationBehavior → Handler
 
-## ✨ Key Features
+## Key Features
 
 ### Custom Inventories
 - Create inventories with up to 15 custom fields (string, number, text, boolean, link)
@@ -134,7 +134,7 @@ If Full-Text Search fails, the application automatically falls back to `LIKE` se
 - [.NET 10 SDK](https://dotnet.microsoft.com/)
 - [MS SQL Server](https://www.microsoft.com/sql-server/) (LocalDB or Azure SQL)
 
-## 🏃 Local Development
+##  Local Development
 
 1. Clone the repository
 2. Update connection string in `appsettings.Development.json`
@@ -181,7 +181,7 @@ Key tables:
 - `Comments` — real-time discussions via SignalR
 - `Likes` — one like per user per item
 
-## 🧪 Tests
+##  Tests
 
 ```bash
 dotnet test
@@ -199,7 +199,7 @@ dotnet test
 
 Swagger UI available locally at `/swagger`.
 
-## 🚀 Deployment
+##  Deployment
 
 Deployed on **Azure App Service** with **Azure SQL Database**.
 
