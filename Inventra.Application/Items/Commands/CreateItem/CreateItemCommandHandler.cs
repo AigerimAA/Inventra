@@ -14,23 +14,29 @@
             private readonly IMapper _mapper;
             private readonly ICustomIdGenerator _customIdGenerator;
             private readonly ICurrentUserService _currentUserService;
+            private readonly IInventoryPermissionService _permissionService;
 
-            public CreateItemCommandHandler(IItemRepository itemRepository,IUnitOfWork unitOfWork, IMapper mapper, 
-                ICustomIdGenerator customIdGenerator, ICurrentUserService currentUserService)
+
+        public CreateItemCommandHandler(IItemRepository itemRepository,IUnitOfWork unitOfWork, IMapper mapper, 
+                ICustomIdGenerator customIdGenerator, ICurrentUserService currentUserService, IInventoryPermissionService permissionService)
             {
                 _itemRepository = itemRepository;
                 _unitOfWork = unitOfWork;
                 _mapper = mapper;
                 _customIdGenerator = customIdGenerator;
                 _currentUserService = currentUserService;
-            }
+                _permissionService = permissionService;
+        }
 
             public async Task<ItemDto> Handle(CreateItemCommand request, CancellationToken cancellationToken)
             {
                 var userId = _currentUserService.UserId
                     ?? throw new UnauthorizedAccessException("User is not authenticated");
 
-                var customId = await _customIdGenerator.GenerateAsync(request.InventoryId, cancellationToken);
+            if (!await _permissionService.CanWriteAsync(userId, _currentUserService.IsAdmin, request.InventoryId))
+                throw new UnauthorizedAccessException("You don't have write access to this inventory");
+
+            var customId = await _customIdGenerator.GenerateAsync(request.InventoryId, cancellationToken);
 
                 var item = new Item(request.InventoryId, userId, customId);
 

@@ -73,6 +73,7 @@ namespace Inventra.Infrastructure.Repositories
         {
             return await _context.Inventories
                 .AsNoTracking()
+                .Include(i => i.AccessList)
                 .Include(i => i.Owner)
                 .Include(i => i.Category)
                 .Include(i => i.Items)

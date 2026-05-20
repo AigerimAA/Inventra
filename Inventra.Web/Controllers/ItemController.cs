@@ -32,8 +32,7 @@ namespace Inventra.Web.Controllers
             var userId = _currentUserService.UserId;
             if (userId == null) return Forbid();
 
-            if (!await _permissionService.CanWriteAsync(
-                    userId, _currentUserService.IsAdmin, inventoryId))
+            if (!await _permissionService.CanWriteAsync(userId, _currentUserService.IsAdmin, inventoryId))
                 return Forbid();
 
             var inventory = await _mediator.Send(new GetInventoryByIdQuery(inventoryId));
@@ -49,8 +48,7 @@ namespace Inventra.Web.Controllers
             var userId = _currentUserService.UserId;
             if (userId == null) return Forbid();
 
-            if (!await _permissionService.CanWriteAsync(
-                    userId, _currentUserService.IsAdmin, command.InventoryId))
+            if (!await _permissionService.CanWriteAsync(userId, _currentUserService.IsAdmin, command.InventoryId))
                 return Forbid();
 
             if (!ModelState.IsValid)
@@ -76,8 +74,7 @@ namespace Inventra.Web.Controllers
             var userId = _currentUserService.UserId;
             if (userId != null)
             {
-                ViewBag.HasWriteAccess = await _permissionService.CanWriteAsync(
-                    userId, _currentUserService.IsAdmin, item.InventoryId);
+                ViewBag.HasWriteAccess = await _permissionService.CanWriteAsync(userId, _currentUserService.IsAdmin, item.InventoryId);
             }
             else
             {
@@ -127,7 +124,6 @@ namespace Inventra.Web.Controllers
                 Inventory = inventory,
                 VersionString = Convert.ToBase64String(item.Version)
             };
-
             return View(model);
         }
 
@@ -202,8 +198,7 @@ namespace Inventra.Web.Controllers
                 return BadRequest(new { error = "No file" });
 
             await using var stream = file.OpenReadStream();
-            var url = await _cloudStorageService.UploadImageAsync(
-                stream, file.FileName, file.ContentType);
+            var url = await _cloudStorageService.UploadImageAsync(stream, file.FileName, file.ContentType);
             return Ok(new { url });
         }
 

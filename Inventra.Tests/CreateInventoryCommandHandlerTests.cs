@@ -48,7 +48,7 @@ namespace Inventra.Tests
                 CategoryId = 1
             };
             _inventoryRepoMock
-                .Setup(r => r.AddAsync(It.IsAny<Inventory>()))
+                .Setup(r => r.AddAsync(It.IsAny<Inventory>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
             _unitOfWorkMock
                 .Setup(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()))
@@ -66,7 +66,7 @@ namespace Inventra.Tests
         {
             var command = new CreateInventoryCommand { Title = "Test", CategoryId = 1 };
             _inventoryRepoMock
-                .Setup(r => r.AddAsync(It.IsAny<Inventory>()))
+                .Setup(r => r.AddAsync(It.IsAny<Inventory>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
             _unitOfWorkMock
                 .Setup(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()))
@@ -75,7 +75,7 @@ namespace Inventra.Tests
             await CreateHandler().Handle(command, CancellationToken.None);
 
             _inventoryRepoMock.Verify(
-                r => r.AddAsync(It.IsAny<Inventory>()),
+                r => r.AddAsync(It.IsAny<Inventory>(), It.IsAny<CancellationToken>()),
                 Times.Once);
         }
 
@@ -84,7 +84,7 @@ namespace Inventra.Tests
         {
             var command = new CreateInventoryCommand { Title = "Test", CategoryId = 1 };
             _inventoryRepoMock
-                .Setup(r => r.AddAsync(It.IsAny<Inventory>()))
+                .Setup(r => r.AddAsync(It.IsAny<Inventory>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
             _unitOfWorkMock
                 .Setup(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()))
@@ -105,8 +105,8 @@ namespace Inventra.Tests
 
             Inventory? capturedInventory = null;
             _inventoryRepoMock
-                .Setup(r => r.AddAsync(It.IsAny<Inventory>()))
-                .Callback<Inventory>(inv => capturedInventory = inv)
+                .Setup(r => r.AddAsync(It.IsAny<Inventory>(), It.IsAny<CancellationToken>()))
+                .Callback<Inventory, CancellationToken>((inv, _) => capturedInventory = inv)
                 .Returns(Task.CompletedTask);
             _unitOfWorkMock
                 .Setup(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()))

@@ -143,16 +143,16 @@ namespace Inventra.Web
                     }
                 }
 
-                if (!app.Environment.IsDevelopment())
-                {
-                    app.UseExceptionHandler("/Home/Error");
-                    app.UseHsts();
-                }
-                else
+                if (app.Environment.IsDevelopment())
                 {
                     app.UseDeveloperExceptionPage();
                 }
-                app.UseMiddleware<ExceptionHandlingMiddleware>();
+                else
+                {
+                    app.UseExceptionHandler("/Home/Error");
+                    app.UseHsts();
+                    app.UseMiddleware<ExceptionHandlingMiddleware>();
+                }
 
                 if (app.Environment.IsDevelopment())
                 {

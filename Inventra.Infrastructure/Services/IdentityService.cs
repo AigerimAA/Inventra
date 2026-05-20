@@ -40,8 +40,7 @@ namespace Inventra.Infrastructure.Services
             var roleDict = roles.ToDictionary(r => r.Id, r => r.Name);
             var rolesByUserId = userRoleIds
                 .GroupBy(ur => ur.UserId)
-                .ToDictionary(g => g.Key,
-                    g => g.Select(ur => roleDict[ur.RoleId]).ToList());
+                .ToDictionary(g => g.Key, g => g.Select(ur => roleDict[ur.RoleId]).ToList());
 
             return users.Select(u => new UserDto
             {
@@ -96,11 +95,9 @@ namespace Inventra.Infrastructure.Services
         public async Task SignInAsync(ApplicationUser user, bool isPersistent)
             => await _signInManager.SignInAsync(user, isPersistent);
 
-        public async Task<AuthResult> PasswordSignInAsync(string userName, string password,
-            bool rememberMe, bool lockoutOnFailure)
+        public async Task<AuthResult> PasswordSignInAsync(string userName, string password,bool rememberMe, bool lockoutOnFailure)
         {
-            var result = await _signInManager.PasswordSignInAsync(
-                userName, password, rememberMe, lockoutOnFailure);
+            var result = await _signInManager.PasswordSignInAsync(userName, password, rememberMe, lockoutOnFailure);
             return ToAuthResult(result);
         }
 
@@ -158,11 +155,9 @@ namespace Inventra.Infrastructure.Services
                 EmailConfirmed = true
             };
 
-            var createResult = await _userManager.CreateAsync(newUser,
-                "OAuth1_" + Guid.NewGuid().ToString());
+            var createResult = await _userManager.CreateAsync(newUser, "OAuth1_" + Guid.NewGuid().ToString());
 
-            if (!createResult.Succeeded)
-                return (ToAuthResult(createResult), null);
+            if (!createResult.Succeeded) return (ToAuthResult(createResult), null);
 
             await _userManager.AddLoginAsync(newUser, info);
             await _signInManager.SignInAsync(newUser, isPersistent: false);

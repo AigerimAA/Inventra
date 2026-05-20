@@ -46,7 +46,7 @@ namespace Inventra.Web.Controllers
 
                 await _emailService.SendEmailConfirmationAsync(user.Email!, user.UserName!, confirmationLink);
 
-                TempData["Info"] = "Registration successful! Please check your email to confirm your account.";
+                TempData["Info"] = "Registration successful! Please check your email to confirm your account";
                 return RedirectToAction("Login");
             }
 
@@ -73,7 +73,7 @@ namespace Inventra.Web.Controllers
             var user = await _identityService.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError(string.Empty, "Invalid login attempt");
                 return View(model);
             }
 
@@ -116,8 +116,7 @@ namespace Inventra.Web.Controllers
         public IActionResult ExternalLogin(string provider, string? returnUrl = null)
         {
             var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { returnUrl });
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(
-                provider, redirectUrl);
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
 
@@ -131,7 +130,6 @@ namespace Inventra.Web.Controllers
                     return Redirect(returnUrl);
                 return RedirectToAction("Index", "Home");
             }
-
             var errors = string.Join(", ", result.Errors);
             return Content($"External login failed: {errors}");
         }

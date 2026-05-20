@@ -22,9 +22,9 @@ namespace Inventra.Application.Inventories.Queries.ExportInventoryToCsv
 
         public async Task<ExportResult> Handle(ExportInventoryToCsvQuery request, CancellationToken cancellationToken)
         {
-            var inventory = await _inventoryRepository.GetByIdAsync(request.InventoryId);
+            var inventory = await _inventoryRepository.GetByIdAsync(request.InventoryId, cancellationToken);
             if (inventory == null) throw new NotFoundException(nameof(Inventory), request.InventoryId);
-            var items = await _itemRepository.GetByInventoryIdAsync(request.InventoryId);
+            var items = await _itemRepository.GetByInventoryIdAsync(request.InventoryId, cancellationToken);
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {

@@ -16,8 +16,7 @@ namespace Inventra.Tests
             return new AppDbContext(options);
         }
 
-        private async Task<(AppDbContext Context, int InventoryId)> CreateContextWithInventory(
-            string ownerId, bool isPublic = false)
+        private async Task<(AppDbContext Context, int InventoryId)> CreateContextWithInventory(string ownerId, bool isPublic = false)
         {
             var context = CreateInMemoryContext();
             var inventory = new Inventory("Test", 1, ownerId);

@@ -31,9 +31,7 @@ namespace Inventra.Infrastructure.Services
             {
                 var generated = await BuildIdAsync(orderedElements, inventoryId, cancellationToken);
 
-                var exists = await _context.Items
-                    .AnyAsync(i => i.InventoryId == inventoryId
-                                && i.CustomId == generated, cancellationToken);
+                var exists = await _context.Items.AnyAsync(i => i.InventoryId == inventoryId && i.CustomId == generated, cancellationToken);
 
                 if (!exists) return generated;
             }

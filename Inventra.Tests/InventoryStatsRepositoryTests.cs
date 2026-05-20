@@ -21,12 +21,9 @@ namespace Inventra.Tests
             var item = new Item(inventoryId, "test-user", $"ID-{Guid.NewGuid():N}");
             item.Version = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 };
             item.UpdateValues(
-                str1, null, null,
-                int1, null, null,
-                null, null, null,
-                null, null, null,
-                null, null, null,
-                null);
+                str1, null, null, int1, null, null,
+                null, null, null, null, null, null,
+                null, null, null, null);
             return item;
         }
 
