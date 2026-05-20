@@ -6,10 +6,6 @@ Web application for inventory management built with ASP.NET Core MVC and Clean A
 
 [https://inventra-web-enbueyfhe3hydxf8.eastasia-01.azurewebsites.net](https://inventra-web-enbueyfhe3hydxf8.eastasia-01.azurewebsites.net)
 
-**Demo credentials:**
-- Email: `admin@inventra.com`
-- Password: `Admin1234!`
-
 ## 📸 Screenshots
 
 | Home Page | Inventory Details |
