@@ -101,9 +101,10 @@ namespace Inventra.Web.Controllers
             var userId = _currentUserService.UserId;
             if (userId == null) return Forbid();
 
-            if (!await _permissionService.CanManageAsync(
-                    userId, _currentUserService.IsAdmin, dto.Id))
+            if (!await _permissionService.CanManageAsync(userId, _currentUserService.IsAdmin, dto.Id))
                 return Forbid();
+            var existing = await _mediator.Send(new GetInventoryByIdQuery(dto.Id));
+            if (existing == null) return NotFound();
 
             var command = new UpdateInventoryCommand
             {
@@ -114,7 +115,16 @@ namespace Inventra.Web.Controllers
                 IsPublic = dto.IsPublic,
                 CategoryId = dto.CategoryId,
                 Tags = dto.Tags,
-                Version = dto.Version
+                Version = dto.Version,
+
+                CustomString1Name = existing.CustomString1Name, CustomString1Shown = existing.CustomString1Shown, CustomString2Name = existing.CustomString2Name, CustomString2Shown = existing.CustomString2Shown,
+                CustomString3Name = existing.CustomString3Name, CustomString3Shown = existing.CustomString3Shown, CustomInt1Name = existing.CustomInt1Name, CustomInt1Shown = existing.CustomInt1Shown,
+                CustomInt2Name = existing.CustomInt2Name, CustomInt2Shown = existing.CustomInt2Shown, CustomInt3Name = existing.CustomInt3Name, CustomInt3Shown = existing.CustomInt3Shown,
+                CustomText1Name = existing.CustomText1Name, CustomText1Shown = existing.CustomText1Shown, CustomText2Name = existing.CustomText2Name, CustomText2Shown = existing.CustomText2Shown,
+                CustomText3Name = existing.CustomText3Name, CustomText3Shown = existing.CustomText3Shown, CustomBool1Name = existing.CustomBool1Name, CustomBool1Shown = existing.CustomBool1Shown,
+                CustomBool2Name = existing.CustomBool2Name, CustomBool2Shown = existing.CustomBool2Shown, CustomBool3Name = existing.CustomBool3Name, CustomBool3Shown = existing.CustomBool3Shown,
+                CustomLink1Name = existing.CustomLink1Name, CustomLink1Shown = existing.CustomLink1Shown, CustomLink2Name = existing.CustomLink2Name, CustomLink2Shown = existing.CustomLink2Shown,
+                CustomLink3Name = existing.CustomLink3Name, CustomLink3Shown = existing.CustomLink3Shown,
             };
 
             try
@@ -152,40 +162,20 @@ namespace Inventra.Web.Controllers
                 Tags = existing.Tags,
                 Version = existing.Version,
 
-                CustomString1Name = dto.CustomString1Name,
-                CustomString1Shown = dto.CustomString1Shown,
-                CustomString2Name = dto.CustomString2Name,
-                CustomString2Shown = dto.CustomString2Shown,
-                CustomString3Name = dto.CustomString3Name,
-                CustomString3Shown = dto.CustomString3Shown,
+                CustomString1Name = dto.CustomString1Name, CustomString1Shown = dto.CustomString1Shown, CustomString2Name = dto.CustomString2Name, 
+                CustomString2Shown = dto.CustomString2Shown,CustomString3Name = dto.CustomString3Name, CustomString3Shown = dto.CustomString3Shown,
 
-                CustomInt1Name = dto.CustomInt1Name,
-                CustomInt1Shown = dto.CustomInt1Shown,
-                CustomInt2Name = dto.CustomInt2Name,
-                CustomInt2Shown = dto.CustomInt2Shown,
-                CustomInt3Name = dto.CustomInt3Name,
-                CustomInt3Shown = dto.CustomInt3Shown,
+                CustomInt1Name = dto.CustomInt1Name, CustomInt1Shown = dto.CustomInt1Shown, CustomInt2Name = dto.CustomInt2Name,
+                CustomInt2Shown = dto.CustomInt2Shown, CustomInt3Name = dto.CustomInt3Name, CustomInt3Shown = dto.CustomInt3Shown,
 
-                CustomText1Name = dto.CustomText1Name,
-                CustomText1Shown = dto.CustomText1Shown,
-                CustomText2Name = dto.CustomText2Name,
-                CustomText2Shown = dto.CustomText2Shown,
-                CustomText3Name = dto.CustomText3Name,
-                CustomText3Shown = dto.CustomText3Shown,
+                CustomText1Name = dto.CustomText1Name, CustomText1Shown = dto.CustomText1Shown, CustomText2Name = dto.CustomText2Name,
+                CustomText2Shown = dto.CustomText2Shown, CustomText3Name = dto.CustomText3Name, CustomText3Shown = dto.CustomText3Shown,
 
-                CustomBool1Name = dto.CustomBool1Name,
-                CustomBool1Shown = dto.CustomBool1Shown,
-                CustomBool2Name = dto.CustomBool2Name,
-                CustomBool2Shown = dto.CustomBool2Shown,
-                CustomBool3Name = dto.CustomBool3Name,
-                CustomBool3Shown = dto.CustomBool3Shown,
+                CustomBool1Name = dto.CustomBool1Name, CustomBool1Shown = dto.CustomBool1Shown, CustomBool2Name = dto.CustomBool2Name,
+                CustomBool2Shown = dto.CustomBool2Shown, CustomBool3Name = dto.CustomBool3Name, CustomBool3Shown = dto.CustomBool3Shown,
 
-                CustomLink1Name = dto.CustomLink1Name,
-                CustomLink1Shown = dto.CustomLink1Shown,
-                CustomLink2Name = dto.CustomLink2Name,
-                CustomLink2Shown = dto.CustomLink2Shown,
-                CustomLink3Name = dto.CustomLink3Name,
-                CustomLink3Shown = dto.CustomLink3Shown
+                CustomLink1Name = dto.CustomLink1Name, CustomLink1Shown = dto.CustomLink1Shown, CustomLink2Name = dto.CustomLink2Name,
+                CustomLink2Shown = dto.CustomLink2Shown, CustomLink3Name = dto.CustomLink3Name, CustomLink3Shown = dto.CustomLink3Shown
             };
             try
             {
@@ -229,36 +219,16 @@ namespace Inventra.Web.Controllers
                 CategoryId = request.CategoryId,
                 Version = versionBytes,
                 Tags = request.Tags ?? new List<string>(),
-                CustomString1Name = request.CustomString1Name,
-                CustomString1Shown = request.CustomString1Shown,
-                CustomString2Name = request.CustomString2Name,
-                CustomString2Shown = request.CustomString2Shown,
-                CustomString3Name = request.CustomString3Name,
-                CustomString3Shown = request.CustomString3Shown,
-                CustomInt1Name = request.CustomInt1Name,
-                CustomInt1Shown = request.CustomInt1Shown,
-                CustomInt2Name = request.CustomInt2Name,
-                CustomInt2Shown = request.CustomInt2Shown,
-                CustomInt3Name = request.CustomInt3Name,
-                CustomInt3Shown = request.CustomInt3Shown,
-                CustomText1Name = request.CustomText1Name,
-                CustomText1Shown = request.CustomText1Shown,
-                CustomText2Name = request.CustomText2Name,
-                CustomText2Shown = request.CustomText2Shown,
-                CustomText3Name = request.CustomText3Name,
-                CustomText3Shown = request.CustomText3Shown,
-                CustomBool1Name = request.CustomBool1Name,
-                CustomBool1Shown = request.CustomBool1Shown,
-                CustomBool2Name = request.CustomBool2Name,
-                CustomBool2Shown = request.CustomBool2Shown,
-                CustomBool3Name = request.CustomBool3Name,
-                CustomBool3Shown = request.CustomBool3Shown,
-                CustomLink1Name = request.CustomLink1Name,
-                CustomLink1Shown = request.CustomLink1Shown,
-                CustomLink2Name = request.CustomLink2Name,
-                CustomLink2Shown = request.CustomLink2Shown,
-                CustomLink3Name = request.CustomLink3Name,
-                CustomLink3Shown = request.CustomLink3Shown,
+                CustomString1Name = request.CustomString1Name, CustomString1Shown = request.CustomString1Shown, CustomString2Name = request.CustomString2Name,
+                CustomString2Shown = request.CustomString2Shown, CustomString3Name = request.CustomString3Name, CustomString3Shown = request.CustomString3Shown,
+                CustomInt1Name = request.CustomInt1Name, CustomInt1Shown = request.CustomInt1Shown, CustomInt2Name = request.CustomInt2Name,
+                CustomInt2Shown = request.CustomInt2Shown, CustomInt3Name = request.CustomInt3Name, CustomInt3Shown = request.CustomInt3Shown,
+                CustomText1Name = request.CustomText1Name, CustomText1Shown = request.CustomText1Shown, CustomText2Name = request.CustomText2Name,
+                CustomText2Shown = request.CustomText2Shown, CustomText3Name = request.CustomText3Name, CustomText3Shown = request.CustomText3Shown,
+                CustomBool1Name = request.CustomBool1Name, CustomBool1Shown = request.CustomBool1Shown, CustomBool2Name = request.CustomBool2Name,
+                CustomBool2Shown = request.CustomBool2Shown, CustomBool3Name = request.CustomBool3Name, CustomBool3Shown = request.CustomBool3Shown,
+                CustomLink1Name = request.CustomLink1Name, CustomLink1Shown = request.CustomLink1Shown, CustomLink2Name = request.CustomLink2Name,
+                CustomLink2Shown = request.CustomLink2Shown, CustomLink3Name = request.CustomLink3Name, CustomLink3Shown = request.CustomLink3Shown,
             };
 
             try
