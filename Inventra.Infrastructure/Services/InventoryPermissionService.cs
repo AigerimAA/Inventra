@@ -19,8 +19,7 @@ namespace Inventra.Infrastructure.Services
             return await _context.Inventories
                 .AsNoTracking()
                 .Where(i => i.Id == inventoryId)
-                .AnyAsync(i =>
-                    i.OwnerId == userId || i.IsPublic || _context.InventoryAccesses
+                .AnyAsync(i => i.OwnerId == userId || i.IsPublic || _context.InventoryAccesses
                         .Any(a => a.InventoryId == i.Id && a.UserId == userId));
         }
 

@@ -89,6 +89,8 @@
                         <div id="tagSuggestions" class="list-group position-absolute" style="z-index:1000; max-width:200px; display:none;"></div>
                     </div>
 
+                    <div id="tagsHiddenInputs"></div>
+
                     <button type="submit" class="btn btn-primary">@L["Save"] Settings</button>
                 </form>
             </div>
@@ -511,8 +513,17 @@
             if (tab) new bootstrap.Tab(tab).show();
         }
 
-        function removeTag(el) {
+        function syncTagInputs() {
+    const container = document.getElementById('tagsHiddenInputs');
+    const tags = [...document.querySelectorAll('.tag-item')].map(t => t.dataset.value);
+    container.innerHTML = tags
+        .map(t => `<input type="hidden" name="Tags" value="${t}" />`)
+        .join('');
+}
+
+function removeTag(el) {
     el.remove();
+    syncTagInputs();
     onFormChange();
 }
 
@@ -530,9 +541,11 @@ function addTag() {
     container.appendChild(span);
     input.value = '';
     document.getElementById('tagSuggestions').style.display = 'none';
+    syncTagInputs();
     onFormChange();
 }
 
+document.addEventListener('DOMContentLoaded', syncTagInputs);
     document.getElementById('tagInput')?.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') { e.preventDefault(); addTag(); }
     });
