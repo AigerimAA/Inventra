@@ -177,7 +177,8 @@
             {
                 foreach (var tag in items)
                 {
-                    sb.Append($"<a href='/Search/Index?q={Uri.EscapeDataString(tag.Name)}' class='inv-badge text-decoration-none' title='{tag.Count} inventories'>{tag.Name}</a>");
+                    var encodedName = System.Web.HttpUtility.HtmlEncode(tag.Name);
+                    sb.Append($"<a href='/Search/Index?q={Uri.EscapeDataString(tag.Name)}' class='inv-badge text-decoration-none' title='{tag.Count} inventories'>{encodedName}</a>");
                 }
             }
             return sb.ToString();

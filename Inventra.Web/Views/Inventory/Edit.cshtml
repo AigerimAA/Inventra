@@ -627,7 +627,7 @@ function addTag() {
             isDirty = true;
             showStatus('Unsaved changes...', 'text-muted');
             clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(autoSave, 1000);
+            debounceTimer = setTimeout(autoSave, 8000);
         }
 
         document.querySelectorAll('#settings input, #settings textarea, #settings select, #fields input')

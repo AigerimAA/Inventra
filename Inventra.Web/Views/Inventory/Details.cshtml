@@ -475,13 +475,16 @@
         }
 
         function appendMessage(author, content, time) {
-            const container = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.className = 'mb-2';
-            div.innerHTML = `<strong>${author}</strong> <small class="text-muted">${time}</small><br>${content}`;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
+        const container = document.getElementById('chatMessages');
+        const div = document.createElement('div');
+        div.className = 'mb-2';
+        div.innerHTML = `<strong>${author}</strong> <small class="text-muted">${time}</small>`;
+        const text = document.createElement('div');
+        text.textContent = content;
+        div.appendChild(text);
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+    }
         function showDeleteModal() {
             new bootstrap.Modal(document.getElementById('deleteModal')).show();
         }
