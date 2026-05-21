@@ -1,5 +1,6 @@
 ﻿@using Inventra.Application.DTOs
 @model InventoryDto
+@Html.AntiForgeryToken()
 
 @{
     ViewData["Title"] = Model.Title;
@@ -177,14 +178,11 @@
                                 <td class="text-end">
                                     @if (User.Identity?.IsAuthenticated == true)
                                     {
-                                        <form asp-controller="Like" asp-action="Toggle" method="post" class="d-inline">
-                                            <input type="hidden" name="itemId" value="@item.Id" />
-                                            <input type="hidden" name="inventoryId" value="@Model.Id" />
-                                            <button type="submit" class="btn btn-sm btn-link p-0 text-decoration-none"
-                                                    title="@item.LikesCount likes">
-                                                ❤️ @item.LikesCount
-                                            </button>
-                                        </form>
+                                        <button class="btn btn-sm btn-link p-0 text-decoration-none"
+                                            onclick="toggleLike(event, @item.Id, this)"
+                                                data-count="@item.LikesCount">
+                                            ❤️ @item.LikesCount
+                                        </button>
                                     }
                                     else
                                     {
@@ -512,6 +510,33 @@
         if (savedTab) {
             const tab = document.querySelector(`[href="${savedTab}"]`);
             if (tab) new bootstrap.Tab(tab).show();
+        }
+
+
+        async function toggleLike(event, itemId, btn) {
+            event.stopPropagation();
+            btn.disabled = true;
+            try {
+                const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+                const response = await fetch('/Like/Toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'RequestVerificationToken': token
+                    },
+                    body: `itemId=${itemId}&inventoryId=@Model.Id`
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.count !== undefined) {
+                        btn.dataset.count = data.count;
+                        btn.textContent = `❤️ ${data.count}`;
+                    }
+                }
+            } finally {
+                btn.disabled = false;
+            }
         }
     </script>
 }

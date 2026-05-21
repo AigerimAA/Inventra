@@ -1,4 +1,5 @@
-﻿using Inventra.Application.Likes.Commands;
+﻿using Inventra.Application.Items.Queries.GetItemById;
+using Inventra.Application.Likes.Commands;
 using Inventra.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +26,18 @@ namespace Inventra.Web.Controllers
         {
             var userId = _userManager.GetUserId(User)!;
             await _mediator.Send(new ToggleLikeCommand(itemId, userId));
-            return RedirectToAction("Details", "Inventory", new { id = inventoryId });
+
+            var item = await _mediator.Send(new GetItemByIdQuery(itemId));
+            return Ok(new { success = true, count = item?.LikesCount ?? 0 });
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Count(int itemId)
+        {
+            var item = await _mediator.Send(new GetItemByIdQuery(itemId));
+            if (item == null) return NotFound();
+            return Ok(new { count = item.LikesCount });
         }
     }
 }

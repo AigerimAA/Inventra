@@ -521,31 +521,31 @@
         .join('');
 }
 
-function removeTag(el) {
-    el.remove();
-    syncTagInputs();
-    onFormChange();
-}
+    function removeTag(el) {
+        el.remove();
+        syncTagInputs();
+        onFormChange();
+    }
 
-function addTag() {
-    const input = document.getElementById('tagInput');
-    const value = input.value.trim();
-    if (!value) return;
+    function addTag() {
+        const input = document.getElementById('tagInput');
+        const value = input.value.trim();
+        if (!value) return;
     
-    const container = document.getElementById('tagContainer');
-    const span = document.createElement('span');
-    span.className = 'tag-item inv-badge';
-    span.dataset.value = value;
-    span.style.cursor = 'pointer';
-    span.innerHTML = `${value} <span onclick="removeTag(this.parentElement)" style="margin-left:4px;">×</span>`;
-    container.appendChild(span);
-    input.value = '';
-    document.getElementById('tagSuggestions').style.display = 'none';
-    syncTagInputs();
-    onFormChange();
-}
+        const container = document.getElementById('tagContainer');
+        const span = document.createElement('span');
+        span.className = 'tag-item inv-badge';
+        span.dataset.value = value;
+        span.style.cursor = 'pointer';
+        span.innerHTML = `${value} <span onclick="removeTag(this.parentElement)" style="margin-left:4px;">×</span>`;
+        container.appendChild(span);
+        input.value = '';
+        document.getElementById('tagSuggestions').style.display = 'none';
+        syncTagInputs();
+        onFormChange();
+    }
 
-document.addEventListener('DOMContentLoaded', syncTagInputs);
+    document.addEventListener('DOMContentLoaded', syncTagInputs);
     document.getElementById('tagInput')?.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') { e.preventDefault(); addTag(); }
     });
