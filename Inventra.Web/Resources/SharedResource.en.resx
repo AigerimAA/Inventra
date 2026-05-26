@@ -189,6 +189,9 @@
   <data name="GetStarted" xml:space="preserve">
     <value>Get Started</value>
   </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="InventoriesWithAccess" xml:space="preserve">
     <value>Inventories with Write Access</value>
   </data>

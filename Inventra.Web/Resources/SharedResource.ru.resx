@@ -189,6 +189,9 @@
   <data name="GetStarted" xml:space="preserve">
     <value>Начать</value>
   </data>
+  <data name="Help" xml:space="preserve">
+    <value>Помощь</value>
+  </data>
   <data name="InventoriesWithAccess" xml:space="preserve">
     <value>Инвентари с правом редактирования</value>
   </data>

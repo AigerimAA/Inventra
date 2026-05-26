@@ -189,6 +189,9 @@
   <data name="GetStarted" xml:space="preserve">
     <value>Бастау</value>
   </data>
+  <data name="Help" xml:space="preserve">
+    <value>Көмек</value>
+  </data>
   <data name="InventoriesWithAccess" xml:space="preserve">
     <value>Өңдеу құқығы бар инвентарлар</value>
   </data>
