@@ -106,3 +106,63 @@
         </tbody>
     </table>
 </div>
+<div class="inv-card">
+    <div class="inv-card-header">
+        <span>Salesforce CRM</span>
+    </div>
+    <div style="padding:20px;">
+        @if (TempData["SalesforceSuccess"] != null)
+        {
+            <div class="alert alert-success">@TempData["SalesforceSuccess"]</div>
+        }
+        @if (TempData["SalesforceError"] != null)
+        {
+            <div class="alert alert-danger">@TempData["SalesforceError"]</div>
+        }
+        <p style="color:var(--bs-body-color); margin-bottom:16px;">
+            Create your account and contact in Salesforce CRM.
+        </p>
+        <button type="button" class="btn btn-primary"
+                data-bs-toggle="modal" data-bs-target="#salesforceModal">
+            Connect to Salesforce
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" id="salesforceModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background:#0097a7;">
+                <h5 class="modal-title" style="color:white;">Create Salesforce Contact</h5>
+                <button type="button" class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+            </div>
+            <form asp-controller="Salesforce" asp-action="CreateContact" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">First Name</label>
+                        <input type="text" name="firstName" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Last Name</label>
+                        <input type="text" name="lastName" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Phone</label>
+                        <input type="tel" name="phone" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Company</label>
+                        <input type="text" name="company" class="form-control" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create in Salesforce</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
