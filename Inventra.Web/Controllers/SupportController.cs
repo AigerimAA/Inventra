@@ -10,12 +10,14 @@ namespace Inventra.Web.Controllers
         private readonly ICurrentUserService _currentUserService;
         private readonly IConfiguration _configuration;
         private readonly IIdentityService _identityService;
+        private readonly ILogger<SupportController> _logger;
 
-        public SupportController(ICurrentUserService currentUserService, IConfiguration configuration,IIdentityService identityService)
+        public SupportController(ICurrentUserService currentUserService, IConfiguration configuration,IIdentityService identityService, ILogger<SupportController> logger)
         {
             _currentUserService = currentUserService;
             _configuration = configuration;
             _identityService = identityService;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -49,7 +51,8 @@ namespace Inventra.Web.Controllers
 
             var json = JsonSerializer.Serialize(ticket, new JsonSerializerOptions
             {
-                WriteIndented = true
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             });
 
             var fileName = $"ticket_{DateTime.UtcNow:yyyyMMdd_HHmmss}.json";
@@ -66,20 +69,37 @@ namespace Inventra.Web.Controllers
         private async Task<bool> UploadToDropbox(string content, string fileName)
         {
             var token = _configuration["Dropbox:AccessToken"];
-            var filePath = $"/tickets/{fileName}";
 
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            if (string.IsNullOrEmpty(token))
+            {
+                _logger.LogError("Dropbox AccessToken is not configured!");
+                return false;
+            }
 
-            var args = new { path = filePath, mode = "add", autorename = true };
-            client.DefaultRequestHeaders.Add("Dropbox-API-Arg", JsonSerializer.Serialize(args));
+            try
+            {
+                var filePath = $"/tickets/{fileName}";
+                using var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
-            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                var args = new { path = filePath, mode = "add", autorename = true };
+                client.DefaultRequestHeaders.Add("Dropbox-API-Arg", JsonSerializer.Serialize(args));
 
-            var response = await client.PostAsync("https://content.dropboxapi.com/2/files/upload", byteContent);
+                var byteContent = new ByteArrayContent(Encoding.UTF8.GetBytes(content));
+                byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
 
-            return response.IsSuccessStatusCode;
+                var response = await client.PostAsync("https://content.dropboxapi.com/2/files/upload", byteContent);
+
+                if (!response.IsSuccessStatusCode)
+                    _logger.LogError("Dropbox upload failed: {status}", response.StatusCode);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Dropbox upload exception");
+                return false;
+            }
         }
     }
 }
