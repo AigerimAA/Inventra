@@ -184,7 +184,7 @@ namespace Inventra.Web
 
                 app.MapHub<ChatHub>("/chatHub");
 
-                    app.Run();
+                app.Run();
             }
             catch (Exception ex)
             {

@@ -141,9 +141,54 @@
         </main>
     </div>
 
+    <div class="modal fade" id="supportModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background:#0097a7;">
+                    <h5 class="modal-title" style="color:white;">Create Support Ticket</h5>
+                    <button type="button" class="btn-close btn-close-white"
+                            data-bs-dismiss="modal"></button>
+                </div>
+                <form asp-controller="Support" asp-action="CreateTicket" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="pageLink" id="currentPageLink" />
+                    <input type="hidden" name="inventoryTitle" id="currentInventoryTitle" />
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Summary</label>
+                            <textarea name="summary" class="form-control" rows="3"
+                                      placeholder="Describe your issue..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Priority</label>
+                            <select name="priority" class="form-select" required>
+                                <option value="">-- Select priority --</option>
+                                <option value="High">🔴 High</option>
+                                <option value="Average">🟡 Average</option>
+                                <option value="Low">🟢 Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">Send Ticket</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <footer class="border-top footer text-muted mt-auto py-3">
         <div class="container text-center">
             <span>&copy; 2026 Inventra</span>
+            <span class="mx-2">·</span>
+            <a href="#" onclick="openSupportModal(); return false;"
+                   style="color:#0097a7; text-decoration:none; font-size:14px;">
+                🎫 Create support ticket
+            </a>
         </div>
     </footer>
 
@@ -192,6 +237,14 @@
                 toastEl.classList.toggle('text-bg-success', !isError);
                 const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
                 toast.show();
+            }
+    </script>
+    <script>
+            function openSupportModal() {
+                document.getElementById('currentPageLink').value = window.location.href;
+                const inventoryTitle = document.getElementById('inventoryTitleForTicket')?.value ?? '';
+                document.getElementById('currentInventoryTitle').value = inventoryTitle;
+                new bootstrap.Modal(document.getElementById('supportModal')).show();
             }
     </script>
 </body>

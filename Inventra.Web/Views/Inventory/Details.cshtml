@@ -1,6 +1,6 @@
 ﻿@using Inventra.Application.DTOs
 @model InventoryDto
-@Html.AntiForgeryToken()
+<input type="hidden" id="inventoryTitleForTicket" value="@Model.Title" />
 
 @{
     ViewData["Title"] = Model.Title;
