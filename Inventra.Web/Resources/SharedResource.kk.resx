@@ -156,6 +156,9 @@
   <data name="Delete" xml:space="preserve">
     <value>Жою</value>
   </data>
+  <data name="DescribeIssue" xml:space="preserve">
+    <value>Мәселеңізді сипаттаңыз...</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Сипаттама</value>
   </data>
@@ -246,6 +249,9 @@
   <data name="OrRegisterWith" xml:space="preserve">
     <value>Немесе арқылы тіркеліңіз</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Басымдық</value>
+  </data>
   <data name="Private" xml:space="preserve">
     <value>Жеке</value>
   </data>
@@ -270,11 +276,20 @@
   <data name="SelectCategory" xml:space="preserve">
     <value>-- Санатты таңдаңыз --</value>
   </data>
+  <data name="SelectPriority" xml:space="preserve">
+    <value>-- Басымдықты таңдаңыз --</value>
+  </data>
+  <data name="SendTicket" xml:space="preserve">
+    <value>Жіберу</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Баптаулар</value>
   </data>
   <data name="Stats" xml:space="preserve">
     <value>Статистика</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Мәселенің сипаттамасы</value>
   </data>
   <data name="Tagline" xml:space="preserve">
     <value>Кез келген нәрсе үшін инвентарларды жасаңыз және басқарыңыз — жабдықтар, кітаптар, құжаттар және т.б.</value>

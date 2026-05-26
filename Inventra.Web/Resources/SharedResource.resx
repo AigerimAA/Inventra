@@ -156,6 +156,9 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DescribeIssue" xml:space="preserve">
+    <value>Describe your issue...</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -246,6 +249,9 @@
   <data name="OrRegisterWith" xml:space="preserve">
     <value>Or register with</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
   <data name="Private" xml:space="preserve">
     <value>Private</value>
   </data>
@@ -270,11 +276,20 @@
   <data name="SelectCategory" xml:space="preserve">
     <value>-- Select category --</value>
   </data>
+  <data name="SelectPriority" xml:space="preserve">
+    <value>SelectPriority</value>
+  </data>
+  <data name="SendTicket" xml:space="preserve">
+    <value>SendTicket</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="Stats" xml:space="preserve">
     <value>Stats</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Summary</value>
   </data>
   <data name="Tagline" xml:space="preserve">
     <value>Create and manage custom inventories for anything — office equipment, books, documents and more</value>

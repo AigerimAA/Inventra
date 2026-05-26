@@ -155,14 +155,14 @@
                     <input type="hidden" name="inventoryTitle" id="currentInventoryTitle" />
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Summary</label>
+                            <label class="form-label fw-semibold">@L["Summary"]</label>
                             <textarea name="summary" class="form-control" rows="3"
-                                      placeholder="Describe your issue..." required></textarea>
+                                      placeholder="@L["DescribeIssue"]" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Priority</label>
+                            <label class="form-label fw-semibold">@L["Priority"]</label>
                             <select name="priority" class="form-select" required>
-                                <option value="">-- Select priority --</option>
+                                <option value="">@L["SelectPriority"]</option>
                                 <option value="High">🔴 High</option>
                                 <option value="Average">🟡 Average</option>
                                 <option value="Low">🟢 Low</option>
@@ -172,9 +172,9 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary"
                                 data-bs-dismiss="modal">
-                            Cancel
+                            @L["Cancel"]
                         </button>
-                        <button type="submit" class="btn btn-primary">Send Ticket</button>
+                        <button type="submit" class="btn btn-primary">@L["SendTicket"]</button>
                     </div>
                 </form>
             </div>

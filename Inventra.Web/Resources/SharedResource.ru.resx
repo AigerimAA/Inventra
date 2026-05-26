@@ -156,6 +156,9 @@
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="DescribeIssue" xml:space="preserve">
+    <value>Опишите вашу проблему...</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Описание</value>
   </data>
@@ -246,6 +249,9 @@
   <data name="OrRegisterWith" xml:space="preserve">
     <value>Или зарегистрируйтесь через</value>
   </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
   <data name="Private" xml:space="preserve">
     <value>Приватный</value>
   </data>
@@ -270,11 +276,20 @@
   <data name="SelectCategory" xml:space="preserve">
     <value>-- Выберите категорию --</value>
   </data>
+  <data name="SelectPriority" xml:space="preserve">
+    <value>-- Выберите приоритет --</value>
+  </data>
+  <data name="SendTicket" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
   </data>
   <data name="Stats" xml:space="preserve">
     <value>Статистика</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Описание проблемы</value>
   </data>
   <data name="Tagline" xml:space="preserve">
     <value>Создавайте и управляйте инвентарями для чего угодно — оборудование, книги, документы и многое другое</value>
