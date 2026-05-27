@@ -258,6 +258,9 @@
   <data name="NoTagsYet" xml:space="preserve">
     <value>Пока нет тегов</value>
   </data>
+  <data name="OdooInventory" xml:space="preserve">
+    <value>Склад Odoo</value>
+  </data>
   <data name="OrLoginWith" xml:space="preserve">
     <value>Или войдите через</value>
   </data>
@@ -267,17 +270,26 @@
   <data name="Phone" xml:space="preserve">
     <value>Телефон</value>
   </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
   <data name="Priority" xml:space="preserve">
     <value>Приоритет</value>
   </data>
   <data name="Private" xml:space="preserve">
     <value>Приватный</value>
   </data>
+  <data name="Products" xml:space="preserve">
+    <value>Товары</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Профиль</value>
   </data>
   <data name="Public" xml:space="preserve">
     <value>Публичный (любой авторизованный пользователь может добавлять элементы)</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Количество</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Регистрация</value>

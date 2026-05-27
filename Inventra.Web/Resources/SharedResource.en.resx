@@ -258,6 +258,9 @@
   <data name="NoTagsYet" xml:space="preserve">
     <value>No tags yet</value>
   </data>
+  <data name="OdooInventory" xml:space="preserve">
+    <value>Odoo Inventory</value>
+  </data>
   <data name="OrLoginWith" xml:space="preserve">
     <value>Or login with</value>
   </data>
@@ -267,17 +270,26 @@
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
   </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
   <data name="Priority" xml:space="preserve">
     <value>Priority</value>
   </data>
   <data name="Private" xml:space="preserve">
     <value>Private</value>
   </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
   <data name="Public" xml:space="preserve">
     <value>Public (any authenticated user can add items)</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>

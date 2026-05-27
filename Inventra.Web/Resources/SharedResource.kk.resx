@@ -258,6 +258,9 @@
   <data name="NoTagsYet" xml:space="preserve">
     <value>Әлі тегтер жоқ</value>
   </data>
+  <data name="OdooInventory" xml:space="preserve">
+    <value>Odoo қоймасы</value>
+  </data>
   <data name="OrLoginWith" xml:space="preserve">
     <value>Немесе арқылы кіріңіз</value>
   </data>
@@ -267,17 +270,26 @@
   <data name="Phone" xml:space="preserve">
     <value>Телефон</value>
   </data>
+  <data name="Price" xml:space="preserve">
+    <value>Бағасы</value>
+  </data>
   <data name="Priority" xml:space="preserve">
     <value>Басымдық</value>
   </data>
   <data name="Private" xml:space="preserve">
     <value>Жеке</value>
   </data>
+  <data name="Products" xml:space="preserve">
+    <value>Өнімдер</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Профиль</value>
   </data>
   <data name="Public" xml:space="preserve">
     <value>Жалпыға ортақ (кез келген авторизацияланған пайдаланушы элементтер қоса алады)</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Саны</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Тіркелу</value>

@@ -41,6 +41,7 @@ namespace Inventra.Infrastructure
             services.AddScoped<ICustomIdRepository, CustomIdRepository>();
             services.Configure<SearchOptions>(configuration.GetSection("Search"));
             services.AddHttpClient<SalesforceService>();
+            services.AddHttpClient<OdooService>();
 
             var cloudName = configuration["Cloudinary:CloudName"];
             if (!string.IsNullOrEmpty(cloudName))

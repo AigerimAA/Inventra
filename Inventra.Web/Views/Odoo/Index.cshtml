@@ -1,0 +1,60 @@
+﻿@model List<Inventra.Infrastructure.Services.OdooProduct>
+@{
+    ViewData["Title"] = "Odoo Inventory";
+}
+
+<style>
+.inv-card { border-radius: 12px; overflow: hidden; border: 0.5px solid var(--bs-border-color); margin-bottom: 20px; }
+.inv-card-header { background: #0097a7; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
+.inv-card-header span { color: white; font-size: 15px; font-weight: 500; }
+.inv-table { width: 100%; border-collapse: collapse; }
+.inv-table thead tr { border-bottom: 0.5px solid var(--bs-border-color); }
+.inv-table thead th { padding: 10px 16px; font-size: 12px; font-weight: 500; color: var(--bs-secondary-color); text-transform: uppercase; letter-spacing: 0.05em; }
+.inv-table tbody tr { border-bottom: 0.5px solid var(--bs-border-color); transition: background 0.15s; }
+.inv-table tbody tr:last-child { border-bottom: none; }
+.inv-table tbody td { padding: 12px 16px; font-size: 14px; }
+.inv-badge { display: inline-block; background: rgba(0,151,167,0.12); color: #0097a7; font-size: 12px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+.inv-count { font-weight: 500; color: #0097a7; }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">@L["OdooInventory"]</h2>
+</div>
+
+<div class="inv-card">
+    <div class="inv-card-header">
+        <span>@L["Products"] (@Model.Count)</span>
+    </div>
+    <table class="inv-table">
+        <thead>
+            <tr>
+                <th>@L["Id"]</th>
+                <th>@L["Title"]</th>
+                <th class="text-end">@L["Quantity"]</th>
+                <th class="text-end">@L["Price"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="4" class="text-center" style="padding:24px; color:var(--bs-secondary-color);">
+                        No products found
+                    </td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td style="color:var(--bs-secondary-color);">@product.Id</td>
+                        <td style="font-weight:500;">@product.Name</td>
+                        <td class="text-end inv-count">@product.QtyAvailable</td>
+                        <td class="text-end"><span class="inv-badge">@product.Price.ToString("F2")</span></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
