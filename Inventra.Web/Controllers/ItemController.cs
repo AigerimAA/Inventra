@@ -19,8 +19,7 @@ namespace Inventra.Web.Controllers
         private readonly ICurrentUserService _currentUserService;
         private readonly ICloudStorageService _cloudStorageService;
 
-        public ItemController(IMediator mediator, IInventoryPermissionService permissionService,
-            ICurrentUserService currentUserService, ICloudStorageService cloudStorageService)
+        public ItemController(IMediator mediator, IInventoryPermissionService permissionService, ICurrentUserService currentUserService, ICloudStorageService cloudStorageService)
         {
             _mediator = mediator;
             _permissionService = permissionService;
@@ -159,20 +158,13 @@ namespace Inventra.Web.Controllers
                 InventoryId = model.Command.InventoryId,
                 Version = model.Command.Version,
                 ImageUrl = imageUrl,
-                CustomString1Value = model.Command.CustomString1Value,
-                CustomString2Value = model.Command.CustomString2Value,
-                CustomString3Value = model.Command.CustomString3Value,
-                CustomInt1Value = model.Command.CustomInt1Value,
-                CustomInt2Value = model.Command.CustomInt2Value,
-                CustomInt3Value = model.Command.CustomInt3Value,
-                CustomText1Value = model.Command.CustomText1Value,
-                CustomText2Value = model.Command.CustomText2Value,
-                CustomText3Value = model.Command.CustomText3Value,
-                CustomBool1Value = model.Command.CustomBool1Value,
-                CustomBool2Value = model.Command.CustomBool2Value,
-                CustomBool3Value = model.Command.CustomBool3Value,
-                CustomLink1Value = model.Command.CustomLink1Value,
-                CustomLink2Value = model.Command.CustomLink2Value,
+                CustomString1Value = model.Command.CustomString1Value, CustomString2Value = model.Command.CustomString2Value,
+                CustomString3Value = model.Command.CustomString3Value, CustomInt1Value = model.Command.CustomInt1Value,
+                CustomInt2Value = model.Command.CustomInt2Value, CustomInt3Value = model.Command.CustomInt3Value,
+                CustomText1Value = model.Command.CustomText1Value, CustomText2Value = model.Command.CustomText2Value,
+                CustomText3Value = model.Command.CustomText3Value, CustomBool1Value = model.Command.CustomBool1Value,
+                CustomBool2Value = model.Command.CustomBool2Value, CustomBool3Value = model.Command.CustomBool3Value,
+                CustomLink1Value = model.Command.CustomLink1Value, CustomLink2Value = model.Command.CustomLink2Value,
                 CustomLink3Value = model.Command.CustomLink3Value,
             };
 

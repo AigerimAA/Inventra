@@ -35,11 +35,7 @@ namespace Inventra.Web.Controllers
                 TempData["Error"] = "Failed to connect to Salesforce.";
                 return RedirectToAction("Index", "Profile");
             }
-
-            var success = await _salesforceService.CreateAccountAndContactAsync(
-                token, firstName,
-                lastName, user.Email!,
-                phone, company);
+            var success = await _salesforceService.CreateAccountAndContactAsync(token, firstName, lastName, user.Email!, phone, company);
 
             TempData[success ? "SalesforceSuccess" : "SalesforceError"] = success
                 ? "Your contact was successfully created in Salesforce!"

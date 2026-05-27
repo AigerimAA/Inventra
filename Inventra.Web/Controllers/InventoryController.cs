@@ -26,8 +26,7 @@ namespace Inventra.Web.Controllers
         private readonly IInventoryPermissionService _permissionService;
         private readonly ICurrentUserService _currentUserService;
 
-        public InventoryController(IMediator mediator, IInventoryPermissionService permissionService, 
-            ICurrentUserService currentService)
+        public InventoryController(IMediator mediator, IInventoryPermissionService permissionService, ICurrentUserService currentService)
         {
             _mediator = mediator;
             _permissionService = permissionService;
@@ -87,8 +86,7 @@ namespace Inventra.Web.Controllers
             if (inventory == null) return NotFound();
 
             var categories = await _mediator.Send(new GetAllCategoriesQuery());
-            ViewBag.Categories = new Microsoft.AspNetCore.Mvc.Rendering
-                .SelectList(categories, "Id", "Name");
+            ViewBag.Categories = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(categories, "Id", "Name");
 
             return View(inventory);
         }
@@ -183,11 +181,9 @@ namespace Inventra.Web.Controllers
             }
             catch (ConcurrencyException)
             {
-                ModelState.AddModelError(string.Empty,
-                    "Someone else modified this inventory. Please reload and try again");
+                ModelState.AddModelError(string.Empty, "Someone else modified this inventory. Please reload and try again");
                 var categories = await _mediator.Send(new GetAllCategoriesQuery());
-                ViewBag.Categories = new Microsoft.AspNetCore.Mvc.Rendering
-                    .SelectList(categories, "Id", "Name");
+                ViewBag.Categories = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(categories, "Id", "Name");
                 return View("Edit", dto);
             }
             return RedirectToAction(nameof(Details), new { id = dto.Id });

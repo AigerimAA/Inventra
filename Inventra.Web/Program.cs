@@ -30,8 +30,8 @@ namespace Inventra.Web
                 builder.Host.UseSerilog();
 
                 builder.Services.AddControllersWithViews()
-                .AddViewLocalization()
-                .AddDataAnnotationsLocalization();
+                    .AddViewLocalization()
+                    .AddDataAnnotationsLocalization();
 
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen(c =>

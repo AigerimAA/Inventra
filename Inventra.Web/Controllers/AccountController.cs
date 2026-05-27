@@ -12,8 +12,7 @@ namespace Inventra.Web.Controllers
         private readonly IIdentityService _identityService;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailService _emailService;
-        public AccountController(IIdentityService identityService,
-            SignInManager<ApplicationUser> signInManager, IEmailService emailService)
+        public AccountController(IIdentityService identityService, SignInManager<ApplicationUser> signInManager, IEmailService emailService)
         {
             _identityService = identityService;
             _signInManager = signInManager;
@@ -41,8 +40,7 @@ namespace Inventra.Web.Controllers
             if (result.Succeeded)
             {
                 var token = await _identityService.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = Url.Action("ConfirmEmail", "Account",
-                    new { userId = user.Id, token }, Request.Scheme)!;
+                var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token }, Request.Scheme)!;
 
                 await _emailService.SendEmailConfirmationAsync(user.Email!, user.UserName!, confirmationLink);
 
@@ -79,13 +77,11 @@ namespace Inventra.Web.Controllers
 
             if (user.IsBlocked)
             {
-                ModelState.AddModelError(string.Empty,
-                    "Your account has been blocked. Please contact the administrator");
+                ModelState.AddModelError(string.Empty, "Your account has been blocked. Please contact the administrator");
                 return View(model);
             }
 
-            var result = await _identityService.PasswordSignInAsync(
-                user.UserName!, model.Password, model.RememberMe, lockoutOnFailure: false);
+            var result = await _identityService.PasswordSignInAsync(user.UserName!, model.Password, model.RememberMe, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
@@ -140,8 +136,7 @@ namespace Inventra.Web.Controllers
             if (!Url.IsLocalUrl(returnUrl))
                 returnUrl = "/";
 
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(lang)),
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
