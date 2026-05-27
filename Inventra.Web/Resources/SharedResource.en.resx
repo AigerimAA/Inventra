@@ -144,8 +144,17 @@
   <data name="CategoryLabel" xml:space="preserve">
     <value>Category</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="ConnectToSalesforce" xml:space="preserve">
+    <value>Connect to Salesforce</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
+  </data>
+  <data name="CreateInSalesforce" xml:space="preserve">
+    <value>Create in Salesforce</value>
   </data>
   <data name="Creator" xml:space="preserve">
     <value>Creator</value>
@@ -189,6 +198,9 @@
   <data name="Fields" xml:space="preserve">
     <value>Fields</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
   <data name="GetStarted" xml:space="preserve">
     <value>Get Started</value>
   </data>
@@ -200,6 +212,9 @@
   </data>
   <data name="Items" xml:space="preserve">
     <value>Items</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
   </data>
   <data name="LatestInventories" xml:space="preserve">
     <value>Latest Inventories</value>
@@ -249,6 +264,9 @@
   <data name="OrRegisterWith" xml:space="preserve">
     <value>Or register with</value>
   </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
   <data name="Priority" xml:space="preserve">
     <value>Priority</value>
   </data>
@@ -263,6 +281,12 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="SalesforceDescription" xml:space="preserve">
+    <value>Create your account and contact in Salesforce CRM</value>
+  </data>
+  <data name="SalesforceTitle" xml:space="preserve">
+    <value>Create Salesforce Contact</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>

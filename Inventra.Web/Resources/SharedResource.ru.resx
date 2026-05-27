@@ -144,8 +144,17 @@
   <data name="CategoryLabel" xml:space="preserve">
     <value>Категория</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Компания</value>
+  </data>
+  <data name="ConnectToSalesforce" xml:space="preserve">
+    <value>Подключиться к Salesforce</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Создать</value>
+  </data>
+  <data name="CreateInSalesforce" xml:space="preserve">
+    <value>Создать в Salesforce</value>
   </data>
   <data name="Creator" xml:space="preserve">
     <value>Создатель</value>
@@ -189,6 +198,9 @@
   <data name="Fields" xml:space="preserve">
     <value>Поля</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
   <data name="GetStarted" xml:space="preserve">
     <value>Начать</value>
   </data>
@@ -200,6 +212,9 @@
   </data>
   <data name="Items" xml:space="preserve">
     <value>Элементы</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
   </data>
   <data name="LatestInventories" xml:space="preserve">
     <value>Последние инвентари</value>
@@ -249,6 +264,9 @@
   <data name="OrRegisterWith" xml:space="preserve">
     <value>Или зарегистрируйтесь через</value>
   </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
   <data name="Priority" xml:space="preserve">
     <value>Приоритет</value>
   </data>
@@ -263,6 +281,12 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Регистрация</value>
+  </data>
+  <data name="SalesforceDescription" xml:space="preserve">
+    <value>Создайте аккаунт и контакт в Salesforce CRM</value>
+  </data>
+  <data name="SalesforceTitle" xml:space="preserve">
+    <value>Создать контакт в Salesforce</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>

@@ -120,11 +120,11 @@
             <div class="alert alert-danger">@TempData["SalesforceError"]</div>
         }
         <p style="color:var(--bs-body-color); margin-bottom:16px;">
-            Create your account and contact in Salesforce CRM.
+            @L["SalesforceDescription"]
         </p>
         <button type="button" class="btn btn-primary"
                 data-bs-toggle="modal" data-bs-target="#salesforceModal">
-            Connect to Salesforce
+            @L["ConnectToSalesforce"]
         </button>
     </div>
 </div>
@@ -133,7 +133,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" style="background:#0097a7;">
-                <h5 class="modal-title" style="color:white;">Create Salesforce Contact</h5>
+                <h5 class="modal-title" style="color:white;">@L["SalesforceTitle"]</h5>
                 <button type="button" class="btn-close btn-close-white"
                         data-bs-dismiss="modal"></button>
             </div>
@@ -141,26 +141,26 @@
                 @Html.AntiForgeryToken()
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">First Name</label>
+                        <label class="form-label fw-semibold">@L["FirstName"]</label>
                         <input type="text" name="firstName" class="form-control" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Last Name</label>
+                        <label class="form-label fw-semibold">@L["LastName"]</label>
                         <input type="text" name="lastName" class="form-control" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Phone</label>
+                        <label class="form-label fw-semibold">@L["Phone"]</label>
                         <input type="tel" name="phone" class="form-control" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Company</label>
+                        <label class="form-label fw-semibold">@L["Company"]</label>
                         <input type="text" name="company" class="form-control" required />
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary"
-                            data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Create in Salesforce</button>
+                            data-bs-dismiss="modal">@L["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@L["CreateInSalesforce"]</button>
                 </div>
             </form>
         </div>

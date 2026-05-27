@@ -144,8 +144,17 @@
   <data name="CategoryLabel" xml:space="preserve">
     <value>Санат</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Компания</value>
+  </data>
+  <data name="ConnectToSalesforce" xml:space="preserve">
+    <value>Salesforce-қа қосылу</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Жасау</value>
+  </data>
+  <data name="CreateInSalesforce" xml:space="preserve">
+    <value>Salesforce-та жасау</value>
   </data>
   <data name="Creator" xml:space="preserve">
     <value>Жасаушы</value>
@@ -189,6 +198,9 @@
   <data name="Fields" xml:space="preserve">
     <value>Өрістер</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Аты</value>
+  </data>
   <data name="GetStarted" xml:space="preserve">
     <value>Бастау</value>
   </data>
@@ -200,6 +212,9 @@
   </data>
   <data name="Items" xml:space="preserve">
     <value>Элементтер</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Тегі</value>
   </data>
   <data name="LatestInventories" xml:space="preserve">
     <value>Соңғы инвентарлар</value>
@@ -249,6 +264,9 @@
   <data name="OrRegisterWith" xml:space="preserve">
     <value>Немесе арқылы тіркеліңіз</value>
   </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
   <data name="Priority" xml:space="preserve">
     <value>Басымдық</value>
   </data>
@@ -263,6 +281,12 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Тіркелу</value>
+  </data>
+  <data name="SalesforceDescription" xml:space="preserve">
+    <value>Salesforce CRM-де аккаунт және контакт жасаңыз</value>
+  </data>
+  <data name="SalesforceTitle" xml:space="preserve">
+    <value>Salesforce контактін жасау</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Сақтау</value>
