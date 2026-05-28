@@ -175,6 +175,12 @@ namespace Inventra.Web
                     .AddSupportedUICultures(supportedCultures);
                 app.UseRequestLocalization(localizationOptions);
 
+                app.UseCookiePolicy(new CookiePolicyOptions
+                {
+                    MinimumSameSitePolicy = SameSiteMode.None,
+                    Secure = CookieSecurePolicy.SameAsRequest
+                });
+
                 app.UseAuthentication();
                 app.UseAuthorization();
 
