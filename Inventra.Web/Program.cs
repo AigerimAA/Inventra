@@ -82,6 +82,8 @@ namespace Inventra.Web
                     {
                         options.ClientId = googleClientId;
                         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+                        options.CorrelationCookie.SameSite = SameSiteMode.None;
+                        options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                     });
                 }
 
@@ -92,6 +94,8 @@ namespace Inventra.Web
                         options.ClientId = builder.Configuration["Authentication:GitHub:ClientId"]!;
                         options.ClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"]!;
                         options.Scope.Add("user:email");
+                        options.CorrelationCookie.SameSite = SameSiteMode.None;
+                        options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                     });
                 }
 
