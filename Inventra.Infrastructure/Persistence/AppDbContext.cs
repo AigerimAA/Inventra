@@ -21,6 +21,7 @@ namespace Inventra.Infrastructure.Persistence
         public DbSet<CustomIdFormat> CustomIdFormats => Set<CustomIdFormat>();
         public DbSet<CustomIdElement> CustomIdElements => Set<CustomIdElement>();
         public DbSet<InventorySequence> InventorySequence => Set<InventorySequence>();
+        public DbSet<InventoryApiToken> InventoryApiTokens => Set<InventoryApiToken>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

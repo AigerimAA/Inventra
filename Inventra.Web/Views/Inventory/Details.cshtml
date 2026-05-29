@@ -330,7 +330,52 @@
             </tbody>
         </table>
     </div>
+
+    @if (User.Identity?.IsAuthenticated == true &&
+     (Model.OwnerId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
+      || User.IsInRole("Admin")))
+{
+    <div class="inv-card" style="max-width:700px; margin-top:16px;">
+        <div class="inv-card-header">
+            <span>Odoo API Token</span>
+        </div>
+        <div style="padding:20px;">
+            <p style="color:var(--bs-body-color); margin-bottom:12px;">
+                Use this token to import inventory data into Odoo.
+            </p>
+            <div class="d-flex gap-2 align-items-center">
+                <input type="text" id="apiTokenInput" class="form-control" 
+                       readonly placeholder="Click Generate to get token" />
+                <button class="btn btn-primary btn-sm" onclick="generateToken()">
+                    Generate
+                </button>
+                <button class="btn btn-outline-secondary btn-sm" onclick="copyToken()">
+                    Copy
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function generateToken() {
+            const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+            const response = await fetch('/api/inventory/@Model.Id/generate-token', {
+                method: 'POST',
+                headers: { 'RequestVerificationToken': token }
+            });
+            const data = await response.json();
+            document.getElementById('apiTokenInput').value = data.token;
+        }
+
+        function copyToken() {
+            const input = document.getElementById('apiTokenInput');
+            if (!input.value) return;
+            navigator.clipboard.writeText(input.value);
+        }
+    </script>
+}
 </div>
+
 
 
 <div class="tab-pane fade" id="stats">
