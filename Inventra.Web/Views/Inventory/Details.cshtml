@@ -495,10 +495,15 @@
             appendMessage(user, message, timestamp);
         });
 
-        connection.start().then(() => {
-            connection.invoke("JoinInventory", inventoryId);
-            loadComments();
-        });
+        loadComments();
+
+        connection.start()
+            .then(() => {
+                connection.invoke("JoinInventory", inventoryId);
+            })
+            .catch(err => {
+                console.warn("SignalR connection failed:", err);
+            });
 
         document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
             tab.addEventListener('shown.bs.tab', e => {
