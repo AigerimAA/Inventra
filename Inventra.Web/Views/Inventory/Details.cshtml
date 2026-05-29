@@ -370,7 +370,9 @@
         function copyToken() {
             const input = document.getElementById('apiTokenInput');
             if (!input.value) return;
-            navigator.clipboard.writeText(input.value);
+            input.select();
+            document.execCommand('copy');
+            alert('Token copied!');
         }
     </script>
 }
