@@ -488,7 +488,9 @@
         }
 
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/chatHub")
+            .withUrl("/chatHub", {
+                transport: signalR.HttpTransportType.LongPolling
+            })
             .build();
 
         connection.on("ReceiveMessage", (user, message, timestamp) => {
