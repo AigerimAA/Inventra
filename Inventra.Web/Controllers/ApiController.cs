@@ -59,10 +59,14 @@ namespace Inventra.Web.Controllers
                 fields.Add(new { title = inv.CustomString1Name, type = "string", topValues = items.Where(i => i.CustomString1Value != null).GroupBy(i => i.CustomString1Value).OrderByDescending(g => g.Count()).Take(3).Select(g => g.Key) });
             if (inv.CustomString2Name != null)
                 fields.Add(new { title = inv.CustomString2Name, type = "string", topValues = items.Where(i => i.CustomString2Value != null).GroupBy(i => i.CustomString2Value).OrderByDescending(g => g.Count()).Take(3).Select(g => g.Key) });
+            if (inv.CustomString3Name != null)
+                fields.Add(new { title = inv.CustomString3Name, type = "string", topValues = items.Where(i => i.CustomString3Value != null).GroupBy(i => i.CustomString3Value).OrderByDescending(g => g.Count()).Take(3).Select(g => g.Key) });
             if (inv.CustomInt1Name != null)
                 fields.Add(new { title = inv.CustomInt1Name, type = "number", avg = items.Where(i => i.CustomInt1Value.HasValue).Average(i => i.CustomInt1Value), min = items.Where(i => i.CustomInt1Value.HasValue).Min(i => i.CustomInt1Value), max = items.Where(i => i.CustomInt1Value.HasValue).Max(i => i.CustomInt1Value) });
             if (inv.CustomInt2Name != null)
                 fields.Add(new { title = inv.CustomInt2Name, type = "number", avg = items.Where(i => i.CustomInt2Value.HasValue).Average(i => i.CustomInt2Value), min = items.Where(i => i.CustomInt2Value.HasValue).Min(i => i.CustomInt2Value), max = items.Where(i => i.CustomInt2Value.HasValue).Max(i => i.CustomInt2Value) });
+            if (inv.CustomInt3Name != null)
+                fields.Add(new { title = inv.CustomInt3Name, type = "number", avg = items.Where(i => i.CustomInt3Value.HasValue).Average(i => i.CustomInt3Value), min = items.Where(i => i.CustomInt3Value.HasValue).Min(i => i.CustomInt3Value), max = items.Where(i => i.CustomInt3Value.HasValue).Max(i => i.CustomInt3Value) });
 
             return Ok(new
             {
